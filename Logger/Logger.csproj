@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	<ApplicationIcon />
+	<OutputType>Library</OutputType>
+	<StartupObject />
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+	<Authors>Simone Benigni</Authors>  
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<Description>Utility class for loggin file to disk</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Logger\Logger.xml</DocumentationFile>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Logger\Logger.xml</DocumentationFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;" />
+  </Target>
+
+  <ItemGroup>
+    <None Remove="Logger.xml" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+	</ItemGroup>
+	
+	<ItemGroup>
+    <EmbeddedResource Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

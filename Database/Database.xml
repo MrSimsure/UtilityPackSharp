@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Database</name>
+    </assembly>
+    <members>
+        <member name="T:UtilityPack.Database">
+            <summary> Abstraction class for easily connecting to an SQL database </summary>
+        </member>
+        <member name="M:UtilityPack.Database.#ctor(System.String,System.String,System.String,System.String)">
+            <summary> Abstraction class for easily connecting to an SQL database </summary>
+        </member>
+        <member name="M:UtilityPack.Database.ChangeDatabase(System.String)">
+            <summary> Change the connected database </summary>
+            <exception cref="T:System.Data.SqlClient.SqlException"></exception>
+            <exception cref="T:System.InvalidCastException"></exception>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:UtilityPack.Database.TestConnection(System.Boolean)">
+            <summary> Test the connection </summary>
+        </member>
+        <member name="M:UtilityPack.Database.ExecuteSqlQuery(System.String)">
+            <summary> Execute a query on the database and return the result in form of a <see cref="T:System.Data.DataTable"/> </summary>
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:System.Data.SqlClient.SqlException"></exception>
+            <exception cref="T:System.InvalidCastException"></exception>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <exception cref="T:System.ObjectDisposedException"></exception>
+        </member>
+        <member name="M:UtilityPack.Database.ExecuteSqlCommand(System.String)">
+            <summary> Execute a command on the database </summary>
+            <exception cref="T:System.IO.IOException"></exception>
+            <exception cref="T:System.Data.SqlClient.SqlException"></exception>
+            <exception cref="T:System.InvalidCastException"></exception>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <exception cref="T:System.ObjectDisposedException"></exception>
+        </member>
+    </members>
+</doc>

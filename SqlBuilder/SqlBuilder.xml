@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SqlBuilder</name>
+    </assembly>
+    <members>
+        <member name="T:UtilityPack.SqlStringType">
+            <summary> Sql strings type </summary>
+        </member>
+        <member name="F:UtilityPack.SqlStringType.MANUAL">
+            <summary> total manual command </summary>
+        </member>
+        <member name="F:UtilityPack.SqlStringType.IMPORT">
+            <summary>template for <br/>- import 'table_name' (DATA) values (:DATA)</summary>
+        </member>
+        <member name="T:UtilityPack.SqlString">
+            <summary> Class to easly build sql strings </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.#ctor">
+            <summary> Class to easly build sql strings </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.SetParam(System.String,System.Object)">
+            <summary> Set a parameter inside the command </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.GetCommand">
+            <summary> Returns the command clean of all temporary constructs and ready to be inserted into a database </summary>
+        </member>
+    </members>
+</doc>

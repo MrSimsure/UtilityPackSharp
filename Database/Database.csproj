@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Authors>Simone Benigni</Authors>
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<Description>Utility class for easily manage databases</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Database\Database.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Database\Database.xml</DocumentationFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;" />
+  </Target>
+
+  <ItemGroup>
+    <None Remove="Database.xml" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="LICENSE.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ArgsParser</name>
+    </assembly>
+    <members>
+        <member name="T:UtilityPack.ArgsCommand">
+            <summary> Argument Command definition </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsCommand.Name">
+            <summary> Command Name </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsCommand.IsFlag">
+            <summary> If true no additional data after the command is required </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsCommand.DefaultValue">
+            <summary> If no value is passed this value is used instead </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsCommand.ValidOptions">
+            <summary> List of valid options for this command </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsCommand.ValidParameters">
+            <summary> List of valid parameters group for this command </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsCommand.#ctor(System.String)">
+            <summary> Argument Command definition </summary>
+        </member>
+        <member name="T:UtilityPack.ArgsOption">
+            <summary> Argument Option definition </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsOption.Name">
+            <summary> Option Name </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsOption.IsFlag">
+            <summary> If true no additional data after the option is required </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsOption.Alias">
+            <summary> Another name to use instead of <see cref="F:UtilityPack.ArgsOption.Name"/> </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsOption.DefaultValue">
+            <summary> If no value is passed this value is used instead </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsOption.#ctor(System.String)">
+            <summary> Argument Option definition </summary>
+        </member>
+        <member name="T:UtilityPack.ArgsParser">
+            <summary> Class to parse arguments from the terminal and consult them during execution </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsParser.allowNoCommand">
+            <summary> If set to true will not print an error if no command is used </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.AddCommand(UtilityPack.ArgsCommand)">
+            <summary> Add a new command definition </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.AddCommand(UtilityPack.ArgsCommand[])">
+            <summary> Add a new array of commands definition </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.AddOption(UtilityPack.ArgsOption)">
+            <summary> Add a new option definition </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.AddOption(UtilityPack.ArgsOption[])">
+            <summary> Add a new array of options definition </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.AddParameterGroup(System.String,UtilityPack.ArgsParameter[])">
+            <summary> Add a new array of commands definition </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.CommandCount">
+            <summary> Retrun number of commands used </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.OptionCount">
+            <summary> Retrun number of options used </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.GetCommand(System.Int32)">
+            <summary> Get a command name based on the position </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.GetCommandValue``1(System.Int32)">
+            <summary> Get a command value based on the position </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.OptionExist(System.String)">
+            <summary> Get if an option has been used based on his name</summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.GetOption``1(System.String)">
+            <summary> Get an option value based on his name </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.GetParameter``1(System.String)">
+            <summary> Get an option value based on his name </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.GetParameter(System.String)">
+            <summary> Get an option value based on his name </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.ParameterExist(System.String)">
+            <summary> Get an option value based on his name </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.GetTextParameter(System.String[])">
+            <summary> Get a string of all valid parameters group </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.Parse(System.String[])">
+            <summary> Execute the parsing of the arguments </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.PrintCommands">
+            <summary> Print all the commands parsed and their values </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.PrintOptions">
+            <summary> Print all the options parsed and their values </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.PrintError(System.String,System.String)">
+            <summary> Function of parsing error printing </summary>
+        </member>
+        <member name="T:UtilityPack.ArgsParseErrorException">
+            <summary> Eccezzione lanciata quando avviene un errore nel parsing degli argomenti </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParseErrorException.#ctor">
+            <summary> Eccezzione lanciata quando avviene un errore nel parsing degli argomenti </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParseErrorException.#ctor(System.String)">
+            <summary> Eccezzione lanciata quando avviene un errore nel parsing degli argomenti </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParseErrorException.#ctor(System.String,System.Exception)">
+            <summary> Eccezzione lanciata quando avviene un errore nel parsing degli argomenti </summary>
+        </member>
+    </members>
+</doc>

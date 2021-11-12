@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Print</name>
+    </assembly>
+    <members>
+        <member name="T:UtilityPack.Print">
+            <summary> Class with static functions for printing in console or gui with different colors based on the type of function used </summary>
+        </member>
+        <member name="F:UtilityPack.Print.IsGUI">
+            <summary> If true, the messages will not be written to the console but to gui through the function <see cref="F:UtilityPack.Print.GuiWriteFunction"/> </summary>
+        </member>
+        <member name="F:UtilityPack.Print.IsVerbose">
+            <summary> If false, no messages will be written when the printing functions are called </summary>
+        </member>
+        <member name="F:UtilityPack.Print.IsDebug">
+            <summary> If false, no debugging messages will be written when the function <see cref="M:UtilityPack.Print.Debug(System.Object)"/> is called</summary>
+        </member>
+        <member name="F:UtilityPack.Print.GuiWriteFunction">
+            <summary> Function called when writing to gui instead of console </summary>
+        </member>
+        <member name="M:UtilityPack.Print.Error(System.Object)">
+            <summary> Write a red error message </summary>
+        </member>
+        <member name="M:UtilityPack.Print.Warning(System.Object)">
+            <summary> Write a yellow warning message </summary>
+        </member>
+        <member name="M:UtilityPack.Print.Success(System.Object)">
+            <summary> Write a green success message </summary>
+        </member>
+        <member name="M:UtilityPack.Print.Note(System.Object)">
+            <summary> Write a gray note message </summary>
+        </member>
+        <member name="M:UtilityPack.Print.Message(System.Object)">
+            <summary> Write a plain white message </summary>
+        </member>
+        <member name="M:UtilityPack.Print.Debug(System.Object)">
+            <summary> Write a blue debug message </summary>
+        </member>
+        <member name="M:UtilityPack.Print.PrintParse(System.Object)">
+            <summary> Convert the incoming values to be compatible with the terminal </summary>
+        </member>
+    </members>
+</doc>
