@@ -33,10 +33,10 @@ Classe per costruire stringhe sql, con template di comandi principali e funzioni
 
 ## Istruzioni specifiche
 
-[Istruzioni ArgsParser](https://github.com/MrSimsure/UtilityPackSharp/blob/main/ArgsParser/README.md)
-[Istruzioni Database](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Database/README.md)
-[Istruzioni Logger](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Logger/README.md)
-[Istruzioni Print](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Print/README.md)
+[Istruzioni ArgsParser](https://github.com/MrSimsure/UtilityPackSharp/blob/main/ArgsParser/README.md)\
+[Istruzioni Database](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Database/README.md)\
+[Istruzioni Logger](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Logger/README.md)\
+[Istruzioni Print](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Print/README.md)\
 [Istruzioni SqlBuilder](https://github.com/MrSimsure/UtilityPackSharp/blob/main/SqlBuilder/README.md)
 
 
