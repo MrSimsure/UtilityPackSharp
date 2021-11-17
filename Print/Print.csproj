@@ -6,7 +6,7 @@
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<Company>$(Authors)</Company>
 	<Authors>Simone Benigni</Authors>
-	<PackageId>Simsure.$(SolutionName).$(AssemblyName)</PackageId>
+	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
 	<Version>1.0.2</Version>
   </PropertyGroup>
 
@@ -14,6 +14,10 @@
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<Description>Utility class for a better Console write management</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
+		<PackageTags>Utility; Print; Console; WriteLine; Write; Console.log; </PackageTags>
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -34,7 +38,11 @@
   </Target>
 
 	<ItemGroup>
-		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+		<None Include="..\icon.jpg">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
 	</ItemGroup>
 	
 	<ItemGroup>

@@ -12,6 +12,10 @@
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<Description>Utility class for easily manage databases</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
+		<PackageTags>Utility; Database; SQL;</PackageTags>
 	</PropertyGroup>
 	
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -36,7 +40,11 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+		<None Include="..\icon.jpg">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
 	</ItemGroup>
 
 	<ItemGroup>

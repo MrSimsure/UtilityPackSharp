@@ -20,7 +20,6 @@ namespace UtilityPack
         APPDATAROAM,
         /// <summary> ..\AppData\Local </summary>
         APPDATALOCA
-
     }
     /// <summary> Static class for logging data to disk </summary>
     public static class Logger
@@ -53,7 +52,7 @@ namespace UtilityPack
         }
 
         /// <summary> Save a json object to file in the log directory as a file .json </summary>
-        public static void LogJson(object text, string name = "")
+        public static void LogJson(object obj, string name = "")
         {
             if (!IsLogActive)
                 return;
@@ -65,7 +64,7 @@ namespace UtilityPack
                 string filePath = LogDir + LogDirSub + "/";
 
                 Directory.CreateDirectory(filePath);
-                File.WriteAllText(filePath + fileName, JsonSerializer.Serialize(text));
+                File.WriteAllText(filePath + fileName, JsonSerializer.Serialize(obj));
             }
             catch { }
         }
