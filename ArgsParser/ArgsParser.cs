@@ -99,6 +99,38 @@ namespace UtilityPack
             string selected = Options[name];
             return (T)(object)selected;
         }
+        /// <summary> Get an option value based on his name, but check if it exist otherwise return a default value </summary>
+        public T LoadOption<T>(string name, T defaultValue)
+        {
+            if(OptionExist(name))
+            {
+                string selected = Options[name];
+                
+                string type = typeof(T).Name;
+                
+                try
+                { 
+                    if(type == "Boolean")
+                        return (T)(object)bool.Parse(selected);
+                    if(type == "Int32")
+                        return (T)(object)int.Parse(selected);
+                    if(type == "Single")
+                        return (T)(object)float.Parse(selected);
+                    if(type == "Double")
+                        return (T)(object)double.Parse(selected);
+                
+                    return (T)(object)selected;
+                }
+                catch(Exception)
+                {
+                    return defaultValue;
+                }
+            }
+            else
+            {
+                return defaultValue;
+            } 
+        }
 
 
         /// <summary> Get an option value based on his name </summary>

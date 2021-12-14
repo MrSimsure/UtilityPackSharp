@@ -2,7 +2,7 @@
   "profiles": {
     "Library Test": {
       "commandName": "Project",
-      "commandLineArgs": "\"rapido\" \"\" \"asd\" \"asd\"  \"s\""
+      "commandLineArgs": "\"replace\" -all true"
     }
   }
 }

@@ -13,7 +13,7 @@ namespace Library_Test
 
             //test_database();
             //test_sqlbuilder();
-            //test_parser(args);
+            test_parser(args);
         }
 
         public class sett
@@ -47,7 +47,6 @@ namespace Library_Test
             {
                 new ArgsCommand("replace")
                 {
-                    ValidParameters = {"replaceParam"},
                     ValidOptions    = {"help", "all"}
                 }
             });
@@ -62,7 +61,7 @@ namespace Library_Test
             parser.AddOption(new[]
             {
                 new ArgsOption("help") { Alias = "h",  IsFlag = true},
-                new ArgsOption("all")  { Alias = "a",  IsFlag = true}
+                new ArgsOption("all")  { Alias = "a",  IsFlag = false}
             });
 
             try
@@ -77,13 +76,17 @@ namespace Library_Test
 
             if(parser.GetCommand(0) == "replace")
             {
+                /*
                 string baseString = parser.GetParameter("base_string");
                 string toReplace  = parser.GetParameter("to_replace");
                 string newString  = parser.GetParameter("new_string");
+                */
 
-                string result = baseString.Replace(toReplace, newString);
+                double opt = parser.LoadOption("all", 23.0);
+                Console.WriteLine(opt);
+               // string result = baseString.Replace(toReplace, newString);
 
-                Console.WriteLine(result);
+                //Console.WriteLine(result);
             }     
         }
     

@@ -16,6 +16,7 @@
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
 		<PackageTags>Utility; Arguments; Parsing; Console</PackageTags>
 		<PackageIcon>icon.jpg</PackageIcon>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 	
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

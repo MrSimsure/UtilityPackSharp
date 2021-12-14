@@ -1,5 +1,4 @@
 # Print
----------------
 
 Print mette a disposizione una singola classe statica, con al suo interno diversi metodi a loro volta statici che astraggono le funzioni Console.WriteLine() e Console.Write(), per consentire di scrivere automaticamente messaggi di colori diversi e di disattivare tutti i comandi Print presenti nel programam usando un solo flag.
 
