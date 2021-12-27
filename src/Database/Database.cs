@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using System.IO;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace UtilityPack
 {
@@ -9,6 +9,8 @@ namespace UtilityPack
     public class Database
     {
         private SqlConnection connection;
+        /// <summary> Tempo per ogni comando prima di riportare un errore. (Default=0, tempo illimitato) </summary>
+        public int CommandTimeout = 0;
 
         /// <summary> Abstraction class for easily connecting to an SQL database </summary>
         public Database(string database, string dataSource, string user, string password)
@@ -58,6 +60,7 @@ namespace UtilityPack
 
             using(SqlCommand command = new SqlCommand(sql, connection))
             {
+                command.CommandTimeout = CommandTimeout;
                 using(SqlDataReader reader = command.ExecuteReader())
                 {
                     DataTable data = new DataTable();

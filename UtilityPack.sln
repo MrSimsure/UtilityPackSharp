@@ -3,22 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger", "Logger\Logger.csproj", "{FA194D05-B2E4-44CB-82A2-1C9AB79D4C1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger", "src\Logger\Logger.csproj", "{FA194D05-B2E4-44CB-82A2-1C9AB79D4C1C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArgsParser", "ArgsParser\ArgsParser.csproj", "{8E5853A7-8A86-4E88-AD7F-CE2A368BC464}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArgsParser", "src\ArgsParser\ArgsParser.csproj", "{8E5853A7-8A86-4E88-AD7F-CE2A368BC464}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_Library Test", "Library Test\_Library Test.csproj", "{EDAC8980-51FA-4959-B511-F73F80D5D67A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Print", "Print\Print.csproj", "{E899DCAE-507B-4999-A23A-B3DCF35E13A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Print", "src\Print\Print.csproj", "{E899DCAE-507B-4999-A23A-B3DCF35E13A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15A82697-4998-446F-9885-896287A01769}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBuilder", "SqlBuilder\SqlBuilder.csproj", "{A8685A26-E996-4BA6-8B08-1B5C69A97525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBuilder", "src\SqlBuilder\SqlBuilder.csproj", "{A8685A26-E996-4BA6-8B08-1B5C69A97525}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{8C785881-02DB-4202-83ED-A599689FAF2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "src\Database\Database.csproj", "{8C785881-02DB-4202-83ED-A599689FAF2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Settings", "src\Settings\Settings.csproj", "{90452A2C-4532-489C-AFC5-FD952C460154}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{8C785881-02DB-4202-83ED-A599689FAF2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C785881-02DB-4202-83ED-A599689FAF2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C785881-02DB-4202-83ED-A599689FAF2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90452A2C-4532-489C-AFC5-FD952C460154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90452A2C-4532-489C-AFC5-FD952C460154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90452A2C-4532-489C-AFC5-FD952C460154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90452A2C-4532-489C-AFC5-FD952C460154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

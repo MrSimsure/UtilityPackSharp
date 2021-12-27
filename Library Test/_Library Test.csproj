@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArgsParser\ArgsParser.csproj" />
-    <ProjectReference Include="..\Database\Database.csproj" />
-    <ProjectReference Include="..\Logger\Logger.csproj" />
-    <ProjectReference Include="..\Print\Print.csproj" />
-    <ProjectReference Include="..\SqlBuilder\SqlBuilder.csproj" />
+    <ProjectReference Include="..\src\ArgsParser\ArgsParser.csproj" />
+    <ProjectReference Include="..\src\Database\Database.csproj" />
+    <ProjectReference Include="..\src\Logger\Logger.csproj" />
+    <ProjectReference Include="..\src\Print\Print.csproj" />
+    <ProjectReference Include="..\src\Settings\Settings.csproj" />
+    <ProjectReference Include="..\src\SqlBuilder\SqlBuilder.csproj" />
   </ItemGroup>
 
 </Project>

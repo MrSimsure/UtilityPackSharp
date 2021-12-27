@@ -21,6 +21,7 @@ namespace UtilityPack
         /// <summary> ..\AppData\Local </summary>
         APPDATALOCA
     }
+
     /// <summary> Static class for logging data to disk </summary>
     public static class Logger
     {

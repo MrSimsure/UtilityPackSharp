@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <PackageIcon>icon.jpg</PackageIcon>
+    <Version>1.0.0</Version>
+    <PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+    <Authors>Simone Benigni</Authors>
+    <PackageTags>Utility; Settings; File;</PackageTags>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <DebugType>embedded</DebugType>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+	  <None Include="../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;&#xD;&#xA;" />
+  </Target>
+
+</Project>

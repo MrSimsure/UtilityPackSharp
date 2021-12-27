@@ -1,25 +1,45 @@
-﻿using UtilityPack;
-using System;
-
+﻿using System;
+using UtilityPack;
 
 namespace Library_Test
 {
+    public class opt 
+    {
+        public bool   attivo { get; set;} = false;
+        public string nome   { get; set;} = "pippo";
+        public int    anni   { get; set;} = 123;
+    }
+
+   public class Altro
+   {
+        public Altro()
+        {
+            int anni = Program.Settings.anni;
+        }
+   }
 
     class Program
     {
+        private static Settings<opt> settings = new();
+        public static opt Settings {get => settings.data;}
+
         static void Main(string[] args)
         {
             Console.WriteLine("helo");
+            settings.Load();
+          
+            int anni = settings.data.anni;
+            Console.WriteLine(anni);
+            settings.data.anni = 0;
+
+            settings.Save();
 
             //test_database();
             //test_sqlbuilder();
-            test_parser(args);
+            //test_parser(args);
         }
 
-        public class sett
-        {
-            public string name;
-        }
+
 
         public static void test_database()
         {

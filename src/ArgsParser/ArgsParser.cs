@@ -19,6 +19,8 @@ namespace UtilityPack
         /// <summary> If set to true will not print an error if no command is used </summary>
         public bool allowNoCommand = false;
 
+
+
         /// <summary> Add a new command definition </summary>
         public void AddCommand(ArgsCommand command)
         {

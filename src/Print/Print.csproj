@@ -4,32 +4,33 @@
     <TargetFramework>netstandard2.0</TargetFramework>
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+	<Company>$(Authors)</Company>
 	<Authors>Simone Benigni</Authors>
+	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+	<Version>1.0.2</Version>
   </PropertyGroup>
 
 	<PropertyGroup>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<Description>Utility class for building sql string</Description>
+		<Description>Utility class for a better Console write management</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
-		<PackageTags>Utility; SQL; SqlString; Parameters;</PackageTags>
-		<Version>1.0.1</Version>
+		<PackageTags>Utility; Print; Console; WriteLine; Write; Console.log; </PackageTags>
 	</PropertyGroup>
-	
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>true</Optimize>
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\SqlBuilder\SqlBuilder.xml</DocumentationFile>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Print\Print.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Print\Print.xml</DocumentationFile>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\SqlBuilder\SqlBuilder.xml</DocumentationFile>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
@@ -37,15 +38,21 @@
   </Target>
 
 	<ItemGroup>
-		<None Include="..\icon.jpg">
+		<None Include="..\..\icon.jpg">
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>
 		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
 	</ItemGroup>
 	
+	<ItemGroup>
+    <EmbeddedResource Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <ItemGroup>
-    <None Remove="SqlBuilder.xml" />
+    <None Remove="Print.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +61,6 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
 	
+
 </Project>

@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+	<Authors>Simone Benigni</Authors>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<Description>Utility class parsing console arguments</Description>
+		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
+		<PackageTags>Utility; Arguments; Parsing; Console</PackageTags>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<Version>1.0.1</Version>
+	</PropertyGroup>
+	
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\ArgsParser\ArgsParser.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\ArgsParser\ArgsParser.xml</DocumentationFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ArgsParser.xml" />
+    <None Remove="LICENSE.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\icon.jpg">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
+		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;" />
+  </Target>
+
+</Project>

@@ -1,34 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	<ApplicationIcon />
+	<OutputType>Library</OutputType>
+	<StartupObject />
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<Company>$(Authors)</Company>
-	<Authors>Simone Benigni</Authors>
 	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-	<Version>1.0.2</Version>
+	<Authors>Simone Benigni</Authors>  
   </PropertyGroup>
 
 	<PropertyGroup>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<Description>Utility class for a better Console write management</Description>
+		<Description>Utility class for loggin file to disk</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
-		<PackageTags>Utility; Print; Console; WriteLine; Write; Console.log; </PackageTags>
+		<PackageTags>Utility; Loggin; File;</PackageTags>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>true</Optimize>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Print\Print.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Logger\Logger.xml</DocumentationFile>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Print\Print.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
@@ -37,8 +41,12 @@
     <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;" />
   </Target>
 
+  <ItemGroup>
+    <None Remove="Logger.xml" />
+  </ItemGroup>
+
 	<ItemGroup>
-		<None Include="..\icon.jpg">
+		<None Include="..\..\icon.jpg">
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>
@@ -52,7 +60,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Print.xml" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,6 +69,5 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-	
 
 </Project>
