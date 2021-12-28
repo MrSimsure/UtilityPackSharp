@@ -7,7 +7,7 @@
 	<Company>$(Authors)</Company>
 	<Authors>Simone Benigni</Authors>
 	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-	<Version>1.0.2</Version>
+	<Version>1.0.3</Version>
   </PropertyGroup>
 
 	<PropertyGroup>

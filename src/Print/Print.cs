@@ -145,6 +145,33 @@ namespace UtilityPack
             }
         }
 
+
+        /// <summary> Write a separation line made by a number of segments "----" </summary>
+        public static void Separator(int segments)
+        {
+            if (IsVerbose)
+            {
+                string lineText = "";
+
+                for(int i=0; i<segments; i++)
+                    lineText += "-";
+
+                if (IsGUI)
+                {
+                    GuiWriteFunction(Color.White, lineText, true);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+            
+                    Console.WriteLine(lineText);
+        
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+        }
+
+
         /// <summary> Convert the incoming values to be compatible with the terminal </summary>
         private static string PrintParse(object text)
         {
