@@ -35,7 +35,7 @@ namespace UtilityPack
 
 
         /// <summary> Save some text to file in the log directory as a file .txt </summary>
-        public static void LogText(string text, string name = "")
+        public static void LogText(string text, string name = "", bool append = false)
         {
             if (!IsLogActive)
                 return;
@@ -43,11 +43,19 @@ namespace UtilityPack
             try
             {
                 string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
-                string fileName = $"Text__{name}__{fileDate}.txt";
+                string fileName = $"TextLog__{fileDate}.txt";
+
+                if(name != "")
+                    fileName = name;
+
                 string filePath = LogDir + LogDirSub + "/";
 
                 Directory.CreateDirectory(filePath);
-                File.WriteAllText(filePath + fileName, text);
+
+                if(append)
+                    File.AppendAllText(filePath + fileName, text);
+                else
+                    File.WriteAllText(filePath + fileName, "\n\n"+text);
             }
             catch { }
         }
@@ -115,6 +123,25 @@ namespace UtilityPack
             catch { }
         }
 
+        /// <summary> Delete every file inside the log folder, if another folder path is specified, clear it instead</summary>
+        public static void ClearLogFolder(string path = null)
+        {
+            if(path == null)
+                path = LogDir + LogDirSub + "/";
+
+            DirectoryInfo dir = new DirectoryInfo(path);
+
+            foreach(FileInfo fi in dir.GetFiles())
+            {
+                fi.Delete();
+            }
+
+            foreach (DirectoryInfo di in dir.GetDirectories())
+            {
+                ClearLogFolder(di.FullName);
+                di.Delete();
+            }
+        }
 
         /// <summary> Set the log folder location </summary>
         public static void SetLogLocation(LogLocation location, string customDir = "")

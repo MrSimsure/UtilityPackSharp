@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBuilder", "src\SqlBuilde
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "src\Database\Database.csproj", "{8C785881-02DB-4202-83ED-A599689FAF2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Settings", "src\Settings\Settings.csproj", "{90452A2C-4532-489C-AFC5-FD952C460154}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Settings", "src\Settings\Settings.csproj", "{90452A2C-4532-489C-AFC5-FD952C460154}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CliParser", "src\CliParser\CliParser.csproj", "{FAED8D22-9536-4250-8770-25EB3C157FB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +58,10 @@ Global
 		{90452A2C-4532-489C-AFC5-FD952C460154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90452A2C-4532-489C-AFC5-FD952C460154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90452A2C-4532-489C-AFC5-FD952C460154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAED8D22-9536-4250-8770-25EB3C157FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAED8D22-9536-4250-8770-25EB3C157FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAED8D22-9536-4250-8770-25EB3C157FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAED8D22-9536-4250-8770-25EB3C157FB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

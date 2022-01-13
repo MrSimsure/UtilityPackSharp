@@ -6,11 +6,11 @@ using System.Linq;
 namespace UtilityPack
 {
     /// <summary> Class to parse arguments from the terminal and consult them during execution </summary>
-    public class ArgsParser
+    public class CliParser
     {
-        private List<ArgsCommand>    CommandsDefinition = new List<ArgsCommand>();
-        private List<ArgsOption>     OptionsDefinition  = new  List<ArgsOption>();
-        private Dictionary<string,   List<ArgsParameter>>  ParameterDefinition = new  Dictionary<string,   List<ArgsParameter>>();
+        private List<CliCommand>    CommandsDefinition = new List<CliCommand>();
+        private List<CliOption>     OptionsDefinition  = new List<CliOption>();
+        private Dictionary<string,   List<CliParameter>>  ParameterDefinition = new  Dictionary<string,   List<CliParameter>>();
 
         private Dictionary<string, string> Commands  = new Dictionary<string, string>();
         private Dictionary<string, string> Options   = new Dictionary<string, string>();
@@ -18,36 +18,35 @@ namespace UtilityPack
 
         /// <summary> If set to true will not print an error if no command is used </summary>
         public bool allowNoCommand = false;
-        /// <summary> Carattere o string che riconosce l'inizio della dichiarazione di un'opzione. (Default "-") </summary>
-        public string optionPrefix = "-";
+
 
 
         /// <summary> Add a new command definition </summary>
-        public void AddCommand(ArgsCommand command)
+        public void AddCommand(CliCommand command)
         {
             CommandsDefinition.Add(command);
         }
         /// <summary> Add a new array of commands definition </summary>
-        public void AddCommand(ArgsCommand[] command)
+        public void AddCommand(CliCommand[] command)
         {
             CommandsDefinition.AddRange(command);
         }
 
         /// <summary> Add a new option definition </summary>
-        public void AddOption(ArgsOption option)
+        public void AddOption(CliOption option)
         {
             OptionsDefinition.Add(option);
         }
         /// <summary> Add a new array of options definition </summary>
-        public void AddOption(ArgsOption[] option)
+        public void AddOption(CliOption[] option)
         {
             OptionsDefinition.AddRange(option);
         }
 
         /// <summary> Add a new array of commands definition </summary>
-        public void AddParameterGroup(string name, ArgsParameter[] param)
+        public void AddParameterGroup(string name, CliParameter[] param)
         {
-            var list = new List<ArgsParameter>();
+            var list = new List<CliParameter>();
             list.AddRange(param);
             ParameterDefinition.Add(name, list);
         }
@@ -163,10 +162,10 @@ namespace UtilityPack
             for(int i=0; i<names.Length; i++)
             {
                  string currName = names[i];
-                 List<ArgsParameter> currList = ParameterDefinition[currName];
+                 List<CliParameter> currList = ParameterDefinition[currName];
                  for(int j=0; j<currList.Count; j++)
                  {
-                    ArgsParameter param = currList[j];
+                    CliParameter param = currList[j];
                     str += param.Name+", ";
                  }
                  str = str.TrimEnd(' ').TrimEnd(',');
@@ -202,7 +201,7 @@ namespace UtilityPack
                     next = args[i + 1];
 
                     if(next.Length > 0)
-                        nextIsOpt = next[0].ToString() == optionPrefix;
+                        nextIsOpt = next[0] == '-';
                 }
 
                 //if is an option
@@ -211,7 +210,7 @@ namespace UtilityPack
                     bool optionFound = false;
                     for (int j = 0; j < OptionsDefinition.Count; j++)
                     {         
-                        ArgsOption definition = OptionsDefinition[j];
+                        CliOption definition = OptionsDefinition[j];
                         if (currName == definition.Name || currName == definition.Alias)
                         {
                             optionFound = true;
@@ -250,7 +249,7 @@ namespace UtilityPack
                     bool commandFound = false;
                     for (int j = 0; j < CommandsDefinition.Count; j++)
                     {
-                        ArgsCommand definition = CommandsDefinition[j];
+                        CliCommand definition = CommandsDefinition[j];
                         if (currName == definition.Name)
                         {
                             commandFound = true;
@@ -270,11 +269,11 @@ namespace UtilityPack
             {
                 //option check
                 string lastCommand = Commands.Keys.ToArray()[Commands.Count - 1];
-                ArgsCommand lastCommandDef = null;
+                CliCommand lastCommandDef = null;
 
                 for (int j = 0; j < CommandsDefinition.Count; j++)
                 {
-                    ArgsCommand definition = CommandsDefinition[j];
+                    CliCommand definition = CommandsDefinition[j];
                     if (lastCommand == definition.Name)
                         lastCommandDef = definition;
                 }
@@ -290,7 +289,7 @@ namespace UtilityPack
                 //parameter check
                 bool paramExist = false;
                 int paramCorrect = 0;
-                List<ArgsParameter> correctList = new List<ArgsParameter>();
+                List<CliParameter> correctList = new List<CliParameter>();
 
                 for(int i=0; i<lastCommandDef.ValidParameters.Count; i++)
                 {
@@ -298,7 +297,7 @@ namespace UtilityPack
                     if(ParameterDefinition.ContainsKey(paramGroup))
                     {
                         paramExist = true;
-                        List<ArgsParameter> list = ParameterDefinition[paramGroup];
+                        List<CliParameter> list = ParameterDefinition[paramGroup];
 
                         if(tempParameter.Count == list.Count)
                         {
@@ -316,7 +315,7 @@ namespace UtilityPack
                 if(lastCommandDef.ValidParameters.Count > 0 )
                 { 
                     if(paramExist == false)
-                        PrintError("Parameter group specified not found, check the ArgsCommand definition");
+                        PrintError("Parameter group specified not found, check the CliCommand definition");
                 
                     if(paramCorrect == 1)
                     {
@@ -334,7 +333,7 @@ namespace UtilityPack
 
                 for(int i=0; i<correctList.Count; i++)
                 {
-                    ArgsParameter param = correctList[i];
+                    CliParameter param = correctList[i];
 
                     Parameter[param.Name] = tempParameter[i];
                 }

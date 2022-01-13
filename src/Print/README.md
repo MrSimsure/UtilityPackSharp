@@ -58,3 +58,9 @@ Scrive un messaggio blu di debug
 ```C#
 	Print.Debug(string text)
 ```
+
+**Separator**\
+Scrive una linea di separazione composta da un numero definito di trattini "-----"
+```C#
+	Print.Separator(int segments)
+```
