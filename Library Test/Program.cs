@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UtilityPack;
 
 namespace Library_Test
@@ -25,7 +26,17 @@ namespace Library_Test
 
         static void Main(string[] args)
         {
-            Console.WriteLine("helo");
+            Console.WriteLine("hello");
+            
+            //test_settings();
+            test_database();
+            //test_sqlbuilder();
+            //test_parser(args);
+        }
+
+
+        public static void test_settings()
+        {
             settings.Load();
           
             int anni = settings.data.anni;
@@ -33,17 +44,13 @@ namespace Library_Test
             settings.data.anni = 0;
 
             settings.Save();
-
-            //test_database();
-            //test_sqlbuilder();
-            //test_parser(args);
         }
-
-
 
         public static void test_database()
         {
-
+            //Database DB = new("ETOS", "SERVER-TEST\\SQLEXPR17", "sa", "sa1234!");
+            Database DB = new("ETOS.FDB", "localhost", "SYSDBA", "masterkey", DbType.FIREBIRD);
+            DB.TestConnection(true);
         } 
 
         public static void test_sqlbuilder()

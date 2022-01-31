@@ -14,6 +14,8 @@ namespace UtilityPack
         CUSTOM,
         /// <summary> ..\exe_directory\ </summary>
         EXEPOS,
+        /// <summary> ..\exe_directory\custom_dir </summary>
+        EXEDIR,
         /// <summary> C:\ProgramData\ </summary>
         PROGDATA,
         /// <summary> ..\AppData\Roaming </summary>
@@ -76,6 +78,10 @@ namespace UtilityPack
             {
                 data = (T)Activator.CreateInstance(typeof(T));
                 string settingsJson = JsonSerializer.Serialize(data);
+
+                if(File.Exists(filePath))
+                    File.Move(filePath, path + name + "_reading_error.json");
+
                 File.WriteAllText(filePath, settingsJson);
             }
         }
@@ -124,9 +130,13 @@ namespace UtilityPack
 
                 data = JsonSerializer.Deserialize<T>(new string(settingsJson));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 data = (T)Activator.CreateInstance(typeof(T));
+
+                if(File.Exists(filePath))
+                    File.Move(filePath, path + name + "_reading_error.json");
+
                 SaveCrypt();
             }
         }
@@ -182,6 +192,12 @@ namespace UtilityPack
                 case LogLocation.EXEPOS:
                 {
                     path = AppDomain.CurrentDomain.BaseDirectory+@"\";
+
+                    break;
+                }
+                case LogLocation.EXEDIR:
+                {
+                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir+@"\";
 
                     break;
                 }

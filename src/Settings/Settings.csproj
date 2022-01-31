@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <PackageIcon>icon.jpg</PackageIcon>
-    <Version>1.0.0</Version>
+    <Version>1.0.3.1</Version>
     <PackageId>$(SolutionName).$(AssemblyName)</PackageId>
     <Authors>Simone Benigni</Authors>
     <PackageTags>Utility; Settings; File;</PackageTags>
