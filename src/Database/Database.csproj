@@ -1,69 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<Authors>Simone Benigni</Authors>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Title>$(AssemblyName)</Title>
+		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+		<Version>1.1.0</Version>
+		<Description>Utility class for easily manage databases</Description>
+		<Authors>Simone Benigni</Authors>
+		<PackageTags>Utility; Database; SQL;</PackageTags>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
 
 	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<Description>Utility class for easily manage databases</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
-		<PackageTags>Utility; Database; SQL;</PackageTags>
-		<Version>1.0.2</Version>
+		<IsTrimmable>true</IsTrimmable>
+		<PackageOutputPath>$(SolutionDir)Dist\Database</PackageOutputPath>
 	</PropertyGroup>
-	
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>true</Optimize>
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Database\Database.xml</DocumentationFile>
-  </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Database\Database.xml</DocumentationFile>
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-  </PropertyGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;" />
-  </Target>
-
-  <ItemGroup>
-    <None Remove="Database.xml" />
-  </ItemGroup>
+	<PropertyGroup>
+		<Optimize>true</Optimize>
+		<DocumentationFile>.\Database.xml</DocumentationFile>
+		<DebugType>embedded</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\..\icon.jpg">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
-		</None>
-		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+		<None Include="..\..\icon.jpg" Pack="true" PackagePath="\"></None>
+		<None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+		<None Update="README.md" Pack="true" PackagePath="\"></None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="LICENSE.txt">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</EmbeddedResource>
+		<None Remove="Database.xml" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="8.5.4" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="8.5.4" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+	</ItemGroup>
 
 </Project>

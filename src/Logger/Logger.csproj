@@ -1,80 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-	<ApplicationIcon />
-	<OutputType>Library</OutputType>
-	<StartupObject />
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-	<Authors>Simone Benigni</Authors>  
-  </PropertyGroup>
+	<PropertyGroup>
+		<Title>$(AssemblyName)</Title>
+		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+		<Version>1.1.0</Version>
+		<Description>Utility class for saving file to disk</Description>
+		<Authors>Simone Benigni</Authors>
+		<PackageTags>Utility; Loggin; File;</PackageTags>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
+	</PropertyGroup>
 
 	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<Description>Utility class for loggin file to disk</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
-		<PackageTags>Utility; Loggin; File;</PackageTags>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<DebugType>embedded</DebugType>
-		<Version>1.0.2</Version>
+		<IsTrimmable>true</IsTrimmable>
+		<PackageOutputPath>$(SolutionDir)Dist\Logger</PackageOutputPath>
 	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-    <Optimize>true</Optimize>
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\Logger\Logger.xml</DocumentationFile>
-	<GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-  </PropertyGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;" />
-  </Target>
-
-  <ItemGroup>
-    <Compile Remove="publish\**" />
-    <EmbeddedResource Remove="publish\**" />
-    <None Remove="publish\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Logger.xml" />
-  </ItemGroup>
-
-	<ItemGroup>
-		<None Include="..\..\icon.jpg">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
-		</None>
-		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
-	</ItemGroup>
+	<PropertyGroup>
+		<Optimize>true</Optimize>
+		<DocumentationFile>.\Logger.xml</DocumentationFile>
+		<DebugType>embedded</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
 	
 	<ItemGroup>
-    <EmbeddedResource Include="LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
+		<None Include="..\..\icon.jpg" Pack="true" PackagePath="\"></None>
+		<None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+		<None Update="README.md" Pack="true" PackagePath="\"></None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Logger.xml" />
+	</ItemGroup>
 
 </Project>

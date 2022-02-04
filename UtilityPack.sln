@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15A82697-4998-446F-9885-896287A01769}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBuilder", "src\SqlBuilder\SqlBuilder.csproj", "{A8685A26-E996-4BA6-8B08-1B5C69A97525}"
@@ -21,8 +22,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "src\Database\Database.csproj", "{8C785881-02DB-4202-83ED-A599689FAF2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Settings", "src\Settings\Settings.csproj", "{90452A2C-4532-489C-AFC5-FD952C460154}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CliParser", "src\CliParser\CliParser.csproj", "{FAED8D22-9536-4250-8770-25EB3C157FB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,10 +57,6 @@ Global
 		{90452A2C-4532-489C-AFC5-FD952C460154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90452A2C-4532-489C-AFC5-FD952C460154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90452A2C-4532-489C-AFC5-FD952C460154}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAED8D22-9536-4250-8770-25EB3C157FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAED8D22-9536-4250-8770-25EB3C157FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAED8D22-9536-4250-8770-25EB3C157FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAED8D22-9536-4250-8770-25EB3C157FB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

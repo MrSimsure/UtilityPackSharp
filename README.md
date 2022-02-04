@@ -1,45 +1,42 @@
 # Utility Pack
 
-Soluzione contenete diverse librerie di utility per progetti C#
+Solution containing several utility libraries for C # projects
+
+**WIP**
 
 ---------------------------
 
 
-## Librerie Disponibili
+## Available Libraries 
 
 - **ArgsParser** 
 
-Classi e strutture per definire gli argomenti e i comandi di un programma da termiale.
+Classes and structures for defining arguments and commands of a terminal program.
 
 - **Database** 
 
-Classe per gestire rapidamente la connessione ad un database
+Class to quickly manage connection to a database
 
 - **Logger** 
 
-Classe statica per eseguire in qualunque punto del programma log in una stessa cartella
+Static class to execute anywhere in the program logs in the same folder
 
 - **Print**   
 
-Classe statica  per eseguire print sulla console di vari tipi di messaggi, colorati in base alla tipologia
+Static class to print various types of messages on the console, colored by type
 
 - **SqlBuilder** 
 
-Classe per costruire stringhe sql, con template di comandi principali e funzioni per inserire velocemente parametri o condizioni
+Class for building sql strings, with template of main commands and functions to quickly insert parameters or conditions
 
 
 ---------------------------
 
 
-## Istruzioni specifiche
+## Specific instructions
 
-[Istruzioni ArgsParser](https://github.com/MrSimsure/UtilityPackSharp/blob/main/ArgsParser/README.md)\
-[Istruzioni Database](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Database/README.md)\
-[Istruzioni Logger](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Logger/README.md)\
-[Istruzioni Print](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Print/README.md)\
-[Istruzioni SqlBuilder](https://github.com/MrSimsure/UtilityPackSharp/blob/main/SqlBuilder/README.md)
-
-
----------------------------
-
-*🦄 Progetto base di Simone B. 🦎*
+[instructions ArgsParser](https://github.com/MrSimsure/UtilityPackSharp/blob/main/ArgsParser/README.md)\
+[instructions Database](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Database/README.md)\
+[instructions Logger](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Logger/README.md)\
+[instructions Print](https://github.com/MrSimsure/UtilityPackSharp/blob/main/Print/README.md)\
+[instructions SqlBuilder](https://github.com/MrSimsure/UtilityPackSharp/blob/main/SqlBuilder/README.md)

@@ -10,12 +10,6 @@
         <member name="F:UtilityPack.ArgsCommand.Name">
             <summary> Command Name </summary>
         </member>
-        <member name="F:UtilityPack.ArgsCommand.IsFlag">
-            <summary> If true no additional data after the command is required </summary>
-        </member>
-        <member name="F:UtilityPack.ArgsCommand.DefaultValue">
-            <summary> If no value is passed this value is used instead </summary>
-        </member>
         <member name="F:UtilityPack.ArgsCommand.ValidOptions">
             <summary> List of valid options for this command </summary>
         </member>
@@ -43,11 +37,23 @@
         <member name="M:UtilityPack.ArgsOption.#ctor(System.String)">
             <summary> Argument Option definition </summary>
         </member>
+        <member name="T:UtilityPack.ArgsParameter">
+            <summary> Argument Parameter definition </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsParameter.Name">
+            <summary> Name of the parameter, to retrive it after command parsing </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParameter.#ctor(System.String)">
+            <summary> Argument Parameter definition </summary>
+        </member>
         <member name="T:UtilityPack.ArgsParser">
             <summary> Class to parse arguments from the terminal and consult them during execution </summary>
         </member>
         <member name="F:UtilityPack.ArgsParser.allowNoCommand">
             <summary> If set to true will not print an error if no command is used </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsParser.optionPrefix">
+            <summary> Carattere o string che riconosce l'inizio della dichiarazione di un'opzione. (Default "-") </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.AddCommand(UtilityPack.ArgsCommand)">
             <summary> Add a new command definition </summary>
@@ -70,29 +76,35 @@
         <member name="M:UtilityPack.ArgsParser.OptionCount">
             <summary> Retrun number of options used </summary>
         </member>
+        <member name="M:UtilityPack.ArgsParser.ParameterCount">
+            <summary> Retrun number of parameters used </summary>
+        </member>
         <member name="M:UtilityPack.ArgsParser.GetCommand(System.Int32)">
             <summary> Get a command name based on the position </summary>
-        </member>
-        <member name="M:UtilityPack.ArgsParser.GetCommandValue``1(System.Int32)">
-            <summary> Get a command value based on the position </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.OptionExist(System.String)">
             <summary> Get if an option has been used based on his name</summary>
         </member>
-        <member name="M:UtilityPack.ArgsParser.GetOption``1(System.String)">
+        <member name="M:UtilityPack.ArgsParser.GetOption(System.String)">
             <summary> Get an option value based on his name </summary>
         </member>
-        <member name="M:UtilityPack.ArgsParser.GetParameter``1(System.String)">
+        <member name="M:UtilityPack.ArgsParser.GetOption``1(System.String)">
+            <summary> Get an option value of a specific type based on his name </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.LoadOption``1(System.String,``0)">
+            <summary> Get an option value based on his name, but check if it exist otherwise return a default value </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.ParameterExist(System.String)">
             <summary> Get an option value based on his name </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.GetParameter(System.String)">
             <summary> Get an option value based on his name </summary>
         </member>
-        <member name="M:UtilityPack.ArgsParser.ParameterExist(System.String)">
+        <member name="M:UtilityPack.ArgsParser.GetParameter``1(System.String)">
             <summary> Get an option value based on his name </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.GetTextParameter(System.String[])">
-            <summary> Get a string of all valid parameters group </summary>
+            <summary> Get a string of all valid parameters from a group </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.Parse(System.String[])">
             <summary> Execute the parsing of the arguments </summary>
@@ -102,6 +114,9 @@
         </member>
         <member name="M:UtilityPack.ArgsParser.PrintOptions">
             <summary> Print all the options parsed and their values </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.PrintParameters">
+            <summary> Print all the parameters parsed and their values </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.PrintError(System.String,System.String)">
             <summary> Function of parsing error printing </summary>

@@ -7,8 +7,16 @@
         <member name="T:UtilityPack.Database">
             <summary> Abstraction class for easily connecting to an SQL database </summary>
         </member>
-        <member name="M:UtilityPack.Database.#ctor(System.String,System.String,System.String,System.String)">
-            <summary> Abstraction class for easily connecting to an SQL database </summary>
+        <member name="F:UtilityPack.Database.CommandTimeout">
+            <summary> Time for every command to run before calling an error (Default=0, unlimited time) </summary>
+        </member>
+        <member name="P:UtilityPack.Database.type">
+            <summary> Type of this database </summary>
+        </member>
+        <member name="M:UtilityPack.Database.#ctor(System.String,System.String,System.String,System.String,System.Nullable{UtilityPack.DbType})">
+            <summary> 
+            Abstraction class for easily connecting to an SQL database 
+            </summary>
         </member>
         <member name="M:UtilityPack.Database.ChangeDatabase(System.String)">
             <summary> Change the connected database </summary>
@@ -17,7 +25,9 @@
             <exception cref="T:System.InvalidOperationException"></exception>
         </member>
         <member name="M:UtilityPack.Database.TestConnection(System.Boolean)">
-            <summary> Test the connection </summary>
+            <summary> 
+            Test the connection 
+            </summary>
         </member>
         <member name="M:UtilityPack.Database.ExecuteSqlQuery(System.String)">
             <summary> Execute a query on the database and return the result in form of a <see cref="T:System.Data.DataTable"/> </summary>

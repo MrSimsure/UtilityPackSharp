@@ -1,4 +1,5 @@
 # Logger
+---------------
 
 Logger mette a disposizione una singola classe statica, con al suo interno diversi metodi a loro volta statici che si occupano di eseguire rapide scritture di file su disco in luoghi predefiniti.
 

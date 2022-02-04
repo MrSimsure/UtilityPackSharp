@@ -14,6 +14,8 @@ namespace UtilityPack
         CUSTOM,
         /// <summary> ..\exe_directory\ </summary>
         EXEPOS,
+        /// <summary> ..\exe_directory\custom_dir </summary>
+        EXEDIR,
         /// <summary> C:\ProgramData\ </summary>
         PROGDATA,
         /// <summary> ..\AppData\Roaming </summary>
@@ -25,111 +27,130 @@ namespace UtilityPack
     /// <summary> Static class for logging data to disk </summary>
     public static class Logger
     {
-        /// <summary> Root directory where to save the logs </summary>
-        private static string LogDir = @"C:\Logs\";
-        /// <summary> If false, no logs will ever be saved </summary>
-        public static bool IsLogActive = false;
-        /// <summary> Sub directory to save the logs, by default the name of the application </summary>
-        public static string LogDirSub = AppDomain.CurrentDomain.FriendlyName;
+        /// <summary> 
+        /// Root directory where to save the logs 
+        /// <br/> (Default same directory as the exe) 
+        /// </summary>
+        private static string path = AppDomain.CurrentDomain.BaseDirectory+@"\";
+        
+        /// <summary> 
+        /// If false, no logs will ever be saved 
+        /// <br/>(Default true)
+        /// </summary>
+        public static bool IsLogActive = true;
+        
+        /// <summary> 
+        /// If true, when an error occur it will be thrown, otherwhise the functions will silently return false 
+        /// <br/>(Default false)
+        /// </summary>
+        public static bool IsCatchErrorOn = false;
 
 
 
-        /// <summary> Save some text to file in the log directory as a file .txt </summary>
-        public static void LogText(string text, string name = "", bool append = false)
+        /// <summary> 
+        /// Save some text to file in the log directory as a file .txt 
+        /// </summary>
+        public static bool SaveText(string text, string name = "", bool append = false)
         {
             if (!IsLogActive)
-                return;
+                return true;
 
             try
             {
                 string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
-                string fileName = $"TextLog__{fileDate}.txt";
+                string fileName = $"Log__{fileDate}.txt";
 
                 if(name != "")
                     fileName = name;
 
-                string filePath = LogDir + LogDirSub + "/";
-
-                Directory.CreateDirectory(filePath);
+                Directory.CreateDirectory(path);
 
                 if(append)
-                    File.AppendAllText(filePath + fileName, text);
+                    File.AppendAllText(path + fileName, "\n\n"+text);
                 else
-                    File.WriteAllText(filePath + fileName, "\n\n"+text);
+                    File.WriteAllText(path + fileName, text);
+
+                return true;
             }
-            catch { }
+            catch(Exception e)
+            {
+                if(IsCatchErrorOn)
+                    throw(e);
+                else
+                    return false;
+            }
         }
 
-        /// <summary> Save a json object to file in the log directory as a file .json </summary>
-        public static void LogJson(object obj, string name = "")
+
+        /// <summary> 
+        /// Save some json text to file in the log directory as a file .json 
+        /// </summary>
+        public static bool SaveJson(string text, string name = "", bool append = false)
         {
             if (!IsLogActive)
-                return;
+                return true;
 
             try
             {
                 string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
-                string fileName = $"JSON__{name}__{fileDate}.json";
-                string filePath = LogDir + LogDirSub + "/";
+                string fileName = $"Log__{fileDate}.json";
 
-                Directory.CreateDirectory(filePath);
-                File.WriteAllText(filePath + fileName, JsonSerializer.Serialize(obj));
+                if(name != "")
+                    fileName = name;
+
+                Directory.CreateDirectory(path);
+
+                if(append)
+                   File.AppendAllText(path + fileName, "\n\n"+text);
+                else
+                   File.WriteAllText(path + fileName, text);
+
+                return true;
             }
-            catch { }
-        }
-
-        /// <summary> Save some json text to file in the log directory as a file .json </summary>
-        public static void LogJson(string text, string name = "")
-        {
-            if (!IsLogActive)
-                return;
-
-            try
+            catch(Exception e)
             {
-                string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
-                string fileName = $"JSON__{name}__{fileDate}.json";
-                string filePath = LogDir + LogDirSub + "/";
-
-                Directory.CreateDirectory(filePath);
-                File.WriteAllText(filePath + fileName, text);
+                if(IsCatchErrorOn)
+                    throw(e);
+                else
+                    return false;
             }
-            catch { }
         }
 
-        /// <summary> Save a list of json objects to file in the log directory as a file .json </summary>
-        public static void LogJsonList<T>(List<T> list, string name = "")
+        /// <summary> 
+        /// Save a json object to file in the log directory as a file .json 
+        /// </summary>
+        public static bool SaveJson(object obj, string name = "", bool append = false)
         {
-            if (!IsLogActive)
-                return;
+            return SaveJson(JsonSerializer.Serialize(obj), name, append);
+        }
+  
+        /// <summary> 
+        /// Save a list of json objects to file in the log directory as a file .json 
+        /// </summary>
+        public static bool SaveJsonList<T>(List<T> list, string name = "", bool append = false)
+        {
+            string output = "{\n";
 
-            try
+            for (int i = 0; i < list.Count; i++)
             {
-                string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
-                string fileName = $"JSON_list__{name}__{fileDate}.json";
-                string filePath = LogDir + LogDirSub + "/";
-
-                string output = "{\n";
-
-                for (int i = 0; i < list.Count; i++)
-                {
-                    output += JsonSerializer.Serialize(list[i]);
-                    output += ",\n\n";
-                }
-                output += "}";
-
-                Directory.CreateDirectory(filePath);
-                File.WriteAllText(filePath + fileName, output);
+                output += JsonSerializer.Serialize(list[i]);
+                output += ",\n\n";
             }
-            catch { }
+            output += "}";
+
+            return SaveJson(output, name, append);
         }
 
-        /// <summary> Delete every file inside the log folder, if another folder path is specified, clear it instead</summary>
-        public static void ClearLogFolder(string path = null)
-        {
-            if(path == null)
-                path = LogDir + LogDirSub + "/";
 
-            DirectoryInfo dir = new DirectoryInfo(path);
+        /// <summary> 
+        /// Delete every file inside the log folder, if another folder path is specified, clear it instead
+        /// </summary>
+        public static void ClearLogFolder(string chosenPath = null)
+        {
+            if(chosenPath == null)
+                chosenPath = path;
+
+            DirectoryInfo dir = new DirectoryInfo(chosenPath);
 
             foreach(FileInfo fi in dir.GetFiles())
             {
@@ -143,45 +164,46 @@ namespace UtilityPack
             }
         }
 
-        /// <summary> Set the log folder location </summary>
-        public static void SetLogLocation(LogLocation location, string customDir = "")
+        /// <summary> 
+        /// Set the log folder location 
+        /// </summary>
+        public static void SetLocation(LogLocation location, string customDir = "")
         {
             switch(location)
             {
                 case LogLocation.ROOT:
                 {
-                    LogDir = Path.GetPathRoot(Environment.SystemDirectory);
-
+                    path = Path.GetPathRoot(Environment.SystemDirectory);
                     break;
                 }
                 case LogLocation.CUSTOM:
                 {
-                    LogDir = customDir;
-
+                    path = customDir;
                     break;
                 }
                 case LogLocation.EXEPOS:
                 {
-                    LogDir = AppDomain.CurrentDomain.BaseDirectory+@"\";
-
+                    path = AppDomain.CurrentDomain.BaseDirectory+@"\";
+                    break;
+                }
+                case LogLocation.EXEDIR:
+                {
+                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir+@"\";
                     break;
                 }
                 case LogLocation.PROGDATA:
                 {
-                    LogDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                     break;
                 }
                 case LogLocation.APPDATAROAM:
                 {
-                    LogDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                     break;
                 }
-                    case LogLocation.APPDATALOCA:
+                case LogLocation.APPDATALOCA:
                 {
-                    LogDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                     break;
                 }
             }

@@ -6,7 +6,7 @@ using System.Text.Json;
 namespace UtilityPack
 {
     /// <summary> Log location types </summary>
-    public enum LogLocation
+    public enum SettLocation
     {
         /// <summary> C:\ </summary>
         ROOT,
@@ -36,18 +36,19 @@ namespace UtilityPack
 
         /// <summary>
         /// Path where save the setting file.
-        /// Default same directory as the exe
+        /// (Default same directory as the exe)
         /// </summary>
         public string path = AppDomain.CurrentDomain.BaseDirectory+@"\";
 
         /// <summary>
         /// Name of the setting file, withotu extension. <br/>
-        /// Default "settings"
+        /// (Default "settings")
         /// </summary>
         public string name = "settings";
 
         /// <summary>
         /// If true, automatically use <see cref="SaveCrypt"/> when calling <see cref="Save"/> and <see cref="LoadCrypt"/> when calling <see cref="Load"/>
+        /// <br/>(Default false)
         /// </summary>
         public bool   crypt = false;
 
@@ -173,50 +174,43 @@ namespace UtilityPack
         /// <summary> 
         /// Set the settings file save location
         /// </summary>
-        public void SetLocation(LogLocation location, string customDir = "")
+        public void SetLocation(SettLocation location, string customDir = "")
         {
             switch(location)
             {
-                case LogLocation.ROOT:
+                case SettLocation.ROOT:
                 {
                     path = Path.GetPathRoot(Environment.SystemDirectory);
-
                     break;
                 }
-                case LogLocation.CUSTOM:
+                case SettLocation.CUSTOM:
                 {
                     path = customDir;
-
                     break;
                 }
-                case LogLocation.EXEPOS:
+                case SettLocation.EXEPOS:
                 {
                     path = AppDomain.CurrentDomain.BaseDirectory+@"\";
-
                     break;
                 }
-                case LogLocation.EXEDIR:
+                case SettLocation.EXEDIR:
                 {
                     path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir+@"\";
-
                     break;
                 }
-                case LogLocation.PROGDATA:
+                case SettLocation.PROGDATA:
                 {
                     path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-
                     break;
                 }
-                case LogLocation.APPDATAROAM:
+                case SettLocation.APPDATAROAM:
                 {
                     path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
                     break;
                 }
-                    case LogLocation.APPDATALOCA:
+                case SettLocation.APPDATALOCA:
                 {
                     path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
                     break;
                 }
             }

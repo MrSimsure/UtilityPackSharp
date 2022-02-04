@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.1.1</Version>
-		<Description>Utility class for a better Console write management</Description>
+		<Version>1.0.3.2</Version>
+		<Description></Description>
 		<Authors>Simone Benigni</Authors>
-		<PackageTags>Utility; Print; Console; WriteLine; Write; Console.log; </PackageTags>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<PackageTags>Utility; Settings; File;</PackageTags>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -22,15 +21,19 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
 		<IsTrimmable>true</IsTrimmable>
-		<PackageOutputPath>$(SolutionDir)Dist\Print</PackageOutputPath>
+		<PackageOutputPath>$(SolutionDir)Dist\$(ProjectName)\</PackageOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Optimize>true</Optimize>
-		<DocumentationFile>.\Print.xml</DocumentationFile>
+		<DocumentationFile>.\Settings.xml</DocumentationFile>
 		<DebugType>embedded</DebugType>
-		<DebugSymbols>false</DebugSymbols>
+		<DebugSymbols>true</DebugSymbols>
 	</PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy &quot;$(TargetDir)..\*.nupkg&quot; &quot;$(SolutionDir)Dist\$(ProjectName)\*&quot;" />
+	</Target>
 
 	<ItemGroup>
 		<None Include="..\..\icon.jpg" Pack="true" PackagePath="\"></None>
@@ -39,7 +42,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Print.xml" />
+		<None Remove="Settings.xml" />
 	</ItemGroup>
-	
+
 </Project>

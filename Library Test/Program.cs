@@ -26,10 +26,11 @@ namespace Library_Test
 
         static void Main(string[] args)
         {
-            Console.WriteLine("hello");
-            
+            Print.IsDebug = true;
+            Print.Debug("hello");
+            Print.Message("hello");
             //test_settings();
-            test_database();
+            //test_database();
             //test_sqlbuilder();
             //test_parser(args);
         }

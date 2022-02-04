@@ -1,59 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-	<Authors>Simone Benigni</Authors>
-  </PropertyGroup>
+	
+	<PropertyGroup>
+		<Title>$(AssemblyName)</Title>
+		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+		<Version>1.1.1</Version>
+		<Description>Utility class for building sql string</Description>
+		<Authors>Simone Benigni</Authors>
+		<PackageTags>Utility; SQL; SqlString; Parameters;</PackageTags>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
 
 	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-		<Description>Utility class for building sql string</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
-		<PackageTags>Utility; SQL; SqlString; Parameters;</PackageTags>
-		<Version>1.0.1</Version>
+		<IsTrimmable>true</IsTrimmable>
+		<PackageOutputPath>$(SolutionDir)Dist\SqlBuilder</PackageOutputPath>
 	</PropertyGroup>
 	
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>true</Optimize>
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\SqlBuilder\SqlBuilder.xml</DocumentationFile>
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-    <DocumentationFile>C:\Users\Simone\Desktop\Simone\CS\UtilityPack\SqlBuilder\SqlBuilder.xml</DocumentationFile>
-  </PropertyGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;" />
-  </Target>
+	<PropertyGroup>
+		<Optimize>true</Optimize>
+		<DocumentationFile>.\SqlBuilder.xml</DocumentationFile>
+		<DebugType>embedded</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\..\icon.jpg">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
-		</None>
-		<None Include="LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+		<None Include="..\..\icon.jpg" Pack="true" PackagePath="\"></None>
+		<None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+		<None Update="README.md" Pack="true" PackagePath="\"></None>
 	</ItemGroup>
 	
-  <ItemGroup>
-    <None Remove="SqlBuilder.xml" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="SqlBuilder.xml" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-	
 </Project>

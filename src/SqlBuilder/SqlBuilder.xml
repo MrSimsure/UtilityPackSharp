@@ -10,8 +10,17 @@
         <member name="F:UtilityPack.SqlStringType.MANUAL">
             <summary> total manual command </summary>
         </member>
-        <member name="F:UtilityPack.SqlStringType.IMPORT">
-            <summary>template for <br/>- import 'table_name' (DATA) values (:DATA)</summary>
+        <member name="F:UtilityPack.SqlStringType.INSERT">
+            <summary>template for: <br/>INSERT 'table_name' (...) values (...)</summary>
+        </member>
+        <member name="F:UtilityPack.SqlStringType.SELECT">
+            <summary>template fo:r <br/>SELECT ... FROM 'table_name' WHERE ... = ... </summary>
+        </member>
+        <member name="F:UtilityPack.SqlStringType.UPDATE">
+            <summary>template for: <br/>UPDATE 'table_name' SET ... = ... WHERE ... = ... </summary>
+        </member>
+        <member name="F:UtilityPack.SqlStringType.DELETE">
+            <summary>template for: <br/>DELETE FROM 'table_name' WHERE ... = ... </summary>
         </member>
         <member name="T:UtilityPack.SqlString">
             <summary> Class to easly build sql strings </summary>
@@ -19,8 +28,32 @@
         <member name="M:UtilityPack.SqlString.#ctor">
             <summary> Class to easly build sql strings </summary>
         </member>
-        <member name="M:UtilityPack.SqlString.SetParam(System.String,System.Object)">
-            <summary> Set a parameter inside the command </summary>
+        <member name="M:UtilityPack.SqlString.CreateManual(System.String)">
+            <summary> Create from zero a sqlString </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.CreateInsert(System.String)">
+            <summary> Create a sqlString with an INSERT template </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.CreateUpdate(System.String)">
+            <summary> Create a sqlString with an UPDATE template </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.CreateDelete(System.String)">
+            <summary> Create a sqlString with an DELETE template </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.CreateSelect(System.String)">
+            <summary> Create a sqlString with an SELECT template </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.SetSelect(System.String)">
+            <summary> Set a select option inside the command, valid for SELECT type </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.SetParam(System.String,System.Object,UtilityPack.DbParamType)">
+            <summary> Set a parameter inside the command, valid for MANUAL and INSERT type </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.SetWhere(System.String,System.Object)">
+            <summary> Set where conditions inside the command, valid for SELECT and UPDATE type </summary>
+        </member>
+        <member name="M:UtilityPack.SqlString.SetJoin(UtilityPack.DbJoinType,System.String,System.String,System.String)">
+            <summary> Set a JOIN inside the command, valid for SELECT type </summary>
         </member>
         <member name="M:UtilityPack.SqlString.GetCommand">
             <summary> Returns the command clean of all temporary constructs and ready to be inserted into a database </summary>

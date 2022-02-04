@@ -18,6 +18,13 @@ namespace UtilityPack
         DELETE
     }
 
+    public enum DbParamType
+    {
+        NULL,
+        PLUS,
+        MINUS
+    }
+
     public enum DbJoinType
     {
         INNER
@@ -140,7 +147,7 @@ namespace UtilityPack
         }
 
         /// <summary> Set a parameter inside the command, valid for MANUAL and INSERT type </summary>
-        public SqlString SetParam(string index, object value)
+        public SqlString SetParam(string index, object value, DbParamType type = DbParamType.NULL)
         {
             if(commandType == SqlStringType.SELECT)
                 throw new Exception("Can't use SetParam inside a SELECT SqlString");
@@ -148,6 +155,12 @@ namespace UtilityPack
                 throw new Exception("Can't use SetParam inside a DELETE SqlString");
 
             string val = ConvertValue(value);
+            if (type == DbParamType.MINUS)
+                val = index + "-" + val;
+
+            if (type == DbParamType.PLUS)
+                val = index + "+" + val;
+
 
             if(commandType == SqlStringType.MANUAL)
                 command = Regex.Replace(command, @"\B" + index + @"\b", val);
@@ -167,6 +180,7 @@ namespace UtilityPack
 
             return this;
         }
+        
 
         /// <summary> Set where conditions inside the command, valid for SELECT and UPDATE type </summary>
         public SqlString SetWhere(string index, object value)

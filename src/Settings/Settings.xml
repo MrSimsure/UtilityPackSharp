@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Settings</name>
+    </assembly>
+    <members>
+        <member name="T:UtilityPack.SettLocation">
+            <summary> Log location types </summary>
+        </member>
+        <member name="F:UtilityPack.SettLocation.ROOT">
+            <summary> C:\ </summary>
+        </member>
+        <member name="F:UtilityPack.SettLocation.CUSTOM">
+            <summary> Custom Path </summary>
+        </member>
+        <member name="F:UtilityPack.SettLocation.EXEPOS">
+            <summary> ..\exe_directory\ </summary>
+        </member>
+        <member name="F:UtilityPack.SettLocation.EXEDIR">
+            <summary> ..\exe_directory\custom_dir </summary>
+        </member>
+        <member name="F:UtilityPack.SettLocation.PROGDATA">
+            <summary> C:\ProgramData\ </summary>
+        </member>
+        <member name="F:UtilityPack.SettLocation.APPDATAROAM">
+            <summary> ..\AppData\Roaming </summary>
+        </member>
+        <member name="F:UtilityPack.SettLocation.APPDATALOCA">
+            <summary> ..\AppData\Local </summary>
+        </member>
+        <member name="T:UtilityPack.Settings`1">
+            <summary>
+            Class to manage settings
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Settings`1.data">
+            <summary>
+            Property holding all the data, Loaded after calling <see cref="M:UtilityPack.Settings`1.Load"/> and saved on disk after have called <see cref="M:UtilityPack.Settings`1.Save"/>
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Settings`1.path">
+            <summary>
+            Path where save the setting file.
+            (Default same directory as the exe)
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Settings`1.name">
+            <summary>
+            Name of the setting file, withotu extension. <br/>
+            (Default "settings")
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Settings`1.crypt">
+            <summary>
+            If true, automatically use <see cref="M:UtilityPack.Settings`1.SaveCrypt"/> when calling <see cref="M:UtilityPack.Settings`1.Save"/> and <see cref="M:UtilityPack.Settings`1.LoadCrypt"/> when calling <see cref="M:UtilityPack.Settings`1.Load"/>
+            <br/>(Default false)
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Settings`1.Load">
+            <summary>
+            Load the settings from file making
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Settings`1.Save">
+            <summary>
+            Save the settings to file
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Settings`1.LoadCrypt">
+            <summary>
+            Load the settings from file making it unreadable to human <br/>
+            Automaticlay done when calling <see cref="M:UtilityPack.Settings`1.Load"/> if <see cref="F:UtilityPack.Settings`1.crypt"/> is set to true
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Settings`1.SaveCrypt">
+            <summary>
+            Save the settings to file making it unreadable to human <br/>
+            Automaticlay done when calling <see cref="M:UtilityPack.Settings`1.Save"/> if <see cref="F:UtilityPack.Settings`1.crypt"/> is set to true
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Settings`1.SetLocation(UtilityPack.SettLocation,System.String)">
+            <summary> 
+            Set the settings file save location
+            </summary>
+        </member>
+    </members>
+</doc>

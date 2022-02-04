@@ -1,27 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <PackageIcon>icon.jpg</PackageIcon>
-    <Version>1.0.3.1</Version>
-    <PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-    <Authors>Simone Benigni</Authors>
-    <PackageTags>Utility; Settings; File;</PackageTags>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <DebugType>embedded</DebugType>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Title>$(AssemblyName)</Title>
+		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
+		<Version>1.1.0</Version>
+		<Description></Description>
+		<Authors>Simone Benigni</Authors>
+		<PackageTags>Utility; Settings; File;</PackageTags>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\icon.jpg">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-	  <None Include="../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
-  </ItemGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl>https://github.com/MrSimsure/UtilityPackSharp</PackageProjectUrl>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
+		<IsTrimmable>true</IsTrimmable>
+		<PackageOutputPath>$(SolutionDir)Dist\Settings</PackageOutputPath>
+	</PropertyGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(OutDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)Dist\$(ProjectName).dll&quot;&#xD;&#xA;copy &quot;$(OutDir)$(ProjectName).xml&quot; &quot;$(SolutionDir)Dist\$(ProjectName).xml&quot;&#xD;&#xA;" />
-  </Target>
+	<PropertyGroup>
+		<Optimize>true</Optimize>
+		<DocumentationFile>.\Settings.xml</DocumentationFile>
+		<DebugType>embedded</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\icon.jpg" Pack="true" PackagePath="\"></None>
+		<None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+		<None Update="README.md" Pack="true" PackagePath="\"></None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Settings.xml" />
+	</ItemGroup>
 
 </Project>
