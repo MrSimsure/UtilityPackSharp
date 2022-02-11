@@ -195,27 +195,7 @@ namespace UtilityPack
         /// <summary> Convert the incoming values to be compatible with the terminal </summary>
         private static string PrintParse(object text)
         {
-            if (text is int)
-                return text.ToString();
-            if (text is double)
-                return text.ToString();
-            if (text is string)
-                return (string)text;
-            if (text is float)
-                return text.ToString();
-            if (text is bool)
-            {
-                bool val = (bool)text;
-
-                if(val == true)
-                    return "true";
-                else
-                    return "false";
-            }
-            if(text is DateTime)
-                return text.ToString();
-
-            return (string)text;
+            return (string)Convert.ChangeType(text, typeof(string));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using UtilityPack;
 
@@ -27,8 +28,17 @@ namespace Library_Test
         static void Main(string[] args)
         {
             Print.IsDebug = true;
-            Print.Debug("hello");
-            Print.Message("hello");
+            //Print.Message("hello");
+
+            string str = "23";
+            float flt = 50.12313421f;
+
+            DbParsingOption opt = new DbParsingOption() {decimalDiv=",", decimalNumber=6,};
+
+            var val = Database.ParseToNumber(str, 5, opt);
+
+            Print.Message(true); 
+            
             //test_settings();
             //test_database();
             //test_sqlbuilder();
@@ -50,7 +60,7 @@ namespace Library_Test
         public static void test_database()
         {
             //Database DB = new("ETOS", "SERVER-TEST\\SQLEXPR17", "sa", "sa1234!");
-            Database DB = new("ETOS.FDB", "localhost", "SYSDBA", "masterkey", DbType.FIREBIRD);
+            Database DB = new("ETOS.FDB", "localhost", "SYSDBA", "masterkey", DbSystem.FIREBIRD);
             DB.TestConnection(true);
         } 
 

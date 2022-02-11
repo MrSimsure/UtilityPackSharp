@@ -4,16 +4,46 @@
         <name>Database</name>
     </assembly>
     <members>
+        <member name="T:UtilityPack.DbSystem">
+            <summary>
+            Different type of Database system
+            </summary>
+        </member>
+        <member name="T:UtilityPack.DbParsingOption">
+            <summary>
+            Options used when parsing a returned value to another
+            </summary>
+        </member>
+        <member name="F:UtilityPack.DbParsingOption.trim">
+            <summary>
+            If true execute a trim on the obtained string
+            </summary>
+        </member>
+        <member name="F:UtilityPack.DbParsingOption.returnNull">
+            <summary>
+            if true, allow the function to return null is database value is null
+            </summary>
+        </member>
+        <member name="F:UtilityPack.DbParsingOption.decimalDiv">
+            <summary>
+            Specify the division simbol if the value is a float and must be returned as a string
+            </summary>
+        </member>
+        <member name="F:UtilityPack.DbParsingOption.decimalNumber">
+            <summary>
+            Specify the number of decimal values
+            </summary>
+        </member>
         <member name="T:UtilityPack.Database">
             <summary> Abstraction class for easily connecting to an SQL database </summary>
         </member>
         <member name="F:UtilityPack.Database.CommandTimeout">
             <summary> Time for every command to run before calling an error (Default=0, unlimited time) </summary>
         </member>
-        <member name="P:UtilityPack.Database.type">
+        <member name="P:UtilityPack.Database.system">
             <summary> Type of this database </summary>
         </member>
-        <member name="M:UtilityPack.Database.#ctor(System.String,System.String,System.String,System.String,System.Nullable{UtilityPack.DbType})">
+        <member name="M:UtilityPack.Database.#ctor(System.String,System.String,System.String,System.String,System.Nullable{UtilityPack.DbSystem})">
             <summary> 
             Abstraction class for easily connecting to an SQL database 
             </summary>
@@ -44,6 +74,16 @@
             <exception cref="T:System.InvalidCastException"></exception>
             <exception cref="T:System.InvalidOperationException"></exception>
             <exception cref="T:System.ObjectDisposedException"></exception>
+        </member>
+        <member name="M:UtilityPack.Database.ParseToNumber``1(System.Object,``0,UtilityPack.DbParsingOption)">
+            <summary>
+            Parse a recived object from a query to a numeric value
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Database.ParseToString(System.Object,System.String,UtilityPack.DbParsingOption)">
+            <summary>
+            Parse a recived object from a query to a string
+            </summary>
         </member>
     </members>
 </doc>

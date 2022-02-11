@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.1.1</Version>
+		<Version>1.1.2</Version>
 		<Description>Utility class for a better Console write management</Description>
 		<Authors>Simone Benigni</Authors>
 		<PackageTags>Utility; Print; Console; WriteLine; Write; Console.log; </PackageTags>
