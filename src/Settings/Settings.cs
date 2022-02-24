@@ -180,7 +180,7 @@ namespace UtilityPack
             {
                 case SettLocation.ROOT:
                 {
-                    path = Path.GetPathRoot(Environment.SystemDirectory);
+                    path = Path.GetPathRoot(Environment.SystemDirectory)+@"\"+customDir;
                     break;
                 }
                 case SettLocation.CUSTOM:
@@ -190,27 +190,27 @@ namespace UtilityPack
                 }
                 case SettLocation.EXEPOS:
                 {
-                    path = AppDomain.CurrentDomain.BaseDirectory+@"\";
+                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
                     break;
                 }
                 case SettLocation.EXEDIR:
                 {
-                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir+@"\";
+                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
                     break;
                 }
                 case SettLocation.PROGDATA:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)+@"\"+customDir;
                     break;
                 }
                 case SettLocation.APPDATAROAM:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\"+customDir;
                     break;
                 }
                 case SettLocation.APPDATALOCA:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+@"\"+customDir;
                     break;
                 }
             }

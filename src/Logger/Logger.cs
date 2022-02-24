@@ -31,7 +31,7 @@ namespace UtilityPack
         /// Root directory where to save the logs 
         /// <br/> (Default same directory as the exe) 
         /// </summary>
-        private static string path = AppDomain.CurrentDomain.BaseDirectory+@"\";
+        public static string path = AppDomain.CurrentDomain.BaseDirectory+@"\";
         
         /// <summary> 
         /// If false, no logs will ever be saved 
@@ -173,7 +173,7 @@ namespace UtilityPack
             {
                 case LogLocation.ROOT:
                 {
-                    path = Path.GetPathRoot(Environment.SystemDirectory);
+                    path = Path.GetPathRoot(Environment.SystemDirectory)+@"\"+customDir;
                     break;
                 }
                 case LogLocation.CUSTOM:
@@ -183,27 +183,27 @@ namespace UtilityPack
                 }
                 case LogLocation.EXEPOS:
                 {
-                    path = AppDomain.CurrentDomain.BaseDirectory+@"\";
+                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
                     break;
                 }
                 case LogLocation.EXEDIR:
                 {
-                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir+@"\";
+                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
                     break;
                 }
                 case LogLocation.PROGDATA:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)+@"\"+customDir;
                     break;
                 }
                 case LogLocation.APPDATAROAM:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\"+customDir;
                     break;
                 }
                 case LogLocation.APPDATALOCA:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+@"\"+customDir;
                     break;
                 }
             }
