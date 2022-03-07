@@ -56,6 +56,11 @@
             <br/>(Default false)
             </summary>
         </member>
+        <member name="F:UtilityPack.Settings`1.prettyPrint">
+            <summary>
+            If true pretty print the json file
+            </summary>
+        </member>
         <member name="M:UtilityPack.Settings`1.Load">
             <summary>
             Load the settings from file making

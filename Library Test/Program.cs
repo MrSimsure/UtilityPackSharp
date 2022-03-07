@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Globalization;
 using System.IO;
 using UtilityPack;
+using UtilityPack.Print;
 
 namespace Library_Test
 {
@@ -27,22 +29,10 @@ namespace Library_Test
 
         static void Main(string[] args)
         {
-            Print.IsDebug = true;
-            //Print.Message("hello");
+            test_settings();
 
-            string str = "23";
-            float flt = 50.12313421f;
-
-            DbParsingOption opt = new DbParsingOption() {decimalDiv=",", decimalNumber=6,};
-
-            var val = Database.ParseToNumber(str, 5, opt);
-
-            Print.Message(true); 
-            
-            //test_settings();
-            //test_database();
-            //test_sqlbuilder();
-            //test_parser(args);
+            //string val = RegistryManager.Read(RegistryHive.LocalMachine, @"SOFTWARE\WOW6432Node\ODBC\ODBC.INI\ETOS", "Server");
+            //Print.Message(val);
         }
 
 

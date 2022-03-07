@@ -52,6 +52,10 @@ namespace UtilityPack
         /// </summary>
         public bool   crypt = false;
 
+        /// <summary>
+        /// If true pretty print the json file
+        /// </summary>
+        public bool prettyPrint = true;
 
         
         /// <summary>
@@ -100,7 +104,7 @@ namespace UtilityPack
 
             string filePath = path + name + ".json";
 
-            string settingsJson = JsonSerializer.Serialize(data);
+            string settingsJson = JsonSerializer.Serialize(data, new JsonSerializerOptions(){WriteIndented = prettyPrint });
             File.WriteAllText(filePath, settingsJson);
         }
 

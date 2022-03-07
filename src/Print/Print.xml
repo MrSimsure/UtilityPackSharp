@@ -4,46 +4,46 @@
         <name>Print</name>
     </assembly>
     <members>
-        <member name="T:UtilityPack.Print">
+        <member name="T:UtilityPack.Print.Print">
             <summary> Class with static functions for printing in console or gui with different colors based on the type of function used </summary>
         </member>
-        <member name="F:UtilityPack.Print.IsGUI">
-            <summary> If true, the messages will not be written to the console but to gui through the function <see cref="F:UtilityPack.Print.GuiWriteFunction"/> <br/>(Default false)</summary>
+        <member name="F:UtilityPack.Print.Print.IsGUI">
+            <summary> If true, the messages will not be written to the console but to gui through the function <see cref="F:UtilityPack.Print.Print.GuiWriteFunction"/> <br/>(Default false)</summary>
         </member>
-        <member name="F:UtilityPack.Print.IsVerbose">
+        <member name="F:UtilityPack.Print.Print.IsVerbose">
             <summary> If false, no messages will be written when the printing functions are called <br/>(Default true) </summary>
         </member>
-        <member name="F:UtilityPack.Print.IsDebug">
-            <summary> If false, no debugging messages will be written when the function <see cref="M:UtilityPack.Print.Debug(System.Object,System.Boolean)"/> is called <br/>(Default false)</summary>
+        <member name="F:UtilityPack.Print.Print.IsDebug">
+            <summary> If false, no debugging messages will be written when the function <see cref="M:UtilityPack.Print.Print.Debug(System.Object,System.Boolean)"/> is called <br/>(Default false)</summary>
         </member>
-        <member name="F:UtilityPack.Print.GuiWriteFunction">
+        <member name="F:UtilityPack.Print.Print.GuiWriteFunction">
             <summary> Function called when writing to gui instead of console </summary>
         </member>
-        <member name="M:UtilityPack.Print.Message(System.Object,System.Boolean)">
+        <member name="M:UtilityPack.Print.Print.Message(System.Object,System.Boolean)">
             <summary> Write a plain WHITE message, if 'line' is true go to new line  </summary>
         </member>
-        <member name="M:UtilityPack.Print.Text(System.Object,System.Boolean)">
+        <member name="M:UtilityPack.Print.Print.Text(System.Object,System.Boolean)">
             <summary> Write a plain BLACK message, if 'line' is true go to new line  </summary>
         </member>
-        <member name="M:UtilityPack.Print.Error(System.Object,System.Boolean)">
+        <member name="M:UtilityPack.Print.Print.Error(System.Object,System.Boolean)">
             <summary> Write a RED error message, if 'line' is true go to new line </summary>
         </member>
-        <member name="M:UtilityPack.Print.Warning(System.Object,System.Boolean)">
+        <member name="M:UtilityPack.Print.Print.Warning(System.Object,System.Boolean)">
             <summary> Write a YELLOW warning message, if 'line' is true go to new line  </summary>
         </member>
-        <member name="M:UtilityPack.Print.Success(System.Object,System.Boolean)">
+        <member name="M:UtilityPack.Print.Print.Success(System.Object,System.Boolean)">
             <summary> Write a GREEN success message, if 'line' is true go to new line  </summary>
         </member>
-        <member name="M:UtilityPack.Print.Note(System.Object,System.Boolean)">
+        <member name="M:UtilityPack.Print.Print.Note(System.Object,System.Boolean)">
             <summary> Write a GRAY note message, if 'line' is true go to new line  </summary>
         </member>
-        <member name="M:UtilityPack.Print.Debug(System.Object,System.Boolean)">
+        <member name="M:UtilityPack.Print.Print.Debug(System.Object,System.Boolean)">
             <summary> Write a CYAN debug message, if 'line' is true go to new line  </summary>
         </member>
-        <member name="M:UtilityPack.Print.Separator(System.Int32)">
+        <member name="M:UtilityPack.Print.Print.Separator(System.Int32)">
             <summary> Write a separation line made by a number of segments "----" </summary>
         </member>
-        <member name="M:UtilityPack.Print.PrintParse(System.Object)">
+        <member name="M:UtilityPack.Print.Print.PrintParse(System.Object)">
             <summary> Convert the incoming values to be compatible with the terminal </summary>
         </member>
     </members>

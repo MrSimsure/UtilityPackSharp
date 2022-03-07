@@ -4,11 +4,15 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Library_Test</RootNamespace>
+    <DebugType>embedded</DebugType>
+	  <AllowedReferenceRelatedFileExtensions>.pdb</AllowedReferenceRelatedFileExtensions>
+	  <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\src\ArgsParser\ArgsParser.csproj" />
     <ProjectReference Include="..\src\Database\Database.csproj" />
+    <ProjectReference Include="..\src\FileManager\FileManager.csproj" />
     <ProjectReference Include="..\src\Logger\Logger.csproj" />
     <ProjectReference Include="..\src\Print\Print.csproj" />
     <ProjectReference Include="..\src\Settings\Settings.csproj" />

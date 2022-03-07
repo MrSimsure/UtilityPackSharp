@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.1.2</Version>
-		<Description></Description>
+		<Version>1.0.1</Version>
+		<Description>Utility class for saving file to disk</Description>
 		<Authors>Simone Benigni</Authors>
-		<PackageTags>Utility; Settings; File;</PackageTags>
-		<TargetFramework>netcoreapp3.0</TargetFramework>
+		<PackageTags>Utility; File;</PackageTags>
+		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -22,14 +22,14 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
 		<IsTrimmable>true</IsTrimmable>
-		<PackageOutputPath>$(SolutionDir)Dist\Settings</PackageOutputPath>
+		<PackageOutputPath>$(SolutionDir)Dist\FileManager</PackageOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Optimize>true</Optimize>
-		<DocumentationFile>.\Settings.xml</DocumentationFile>
+		<DocumentationFile>.\FileManager.xml</DocumentationFile>
 		<DebugType>embedded</DebugType>
-		<DebugSymbols>true</DebugSymbols>
+		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -39,7 +39,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Settings.xml" />
+		<PackageReference Include="CsvHelper" Version="27.2.1" />
+		<PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
+		<PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="FileManager.xml" />
 	</ItemGroup>
 
 </Project>
+
+
+

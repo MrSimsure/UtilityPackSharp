@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace UtilityPack
+namespace UtilityPack.Print
 {
     /// <summary> Class with static functions for printing in console or gui with different colors based on the type of function used </summary>
     public static class Print
