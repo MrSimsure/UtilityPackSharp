@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.0.4</Version>
 		<Description>Utility class for saving file to disk</Description>
 		<Authors>Simone Benigni</Authors>
 		<PackageTags>Utility; File;</PackageTags>

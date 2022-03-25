@@ -151,7 +151,7 @@ namespace UtilityPack
         public T GetParameter<T>(string name)
         {
             string selected = Parameter[name];
-            return (T)(object)selected;
+            return (T)Convert.ChangeType((object)selected, typeof(T));
         }
         
         

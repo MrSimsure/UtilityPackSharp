@@ -10,19 +10,22 @@
             </summary>
         </member>
         <member name="F:UtilityPack.CsvManager.delimiter">
-            <summary> Delimiter used in the csv files </summary>
+            <summary> Delimiter used in the csv files. (Deafault ;)</summary>
+        </member>
+        <member name="F:UtilityPack.CsvManager.createFolders">
+            <summary> If true create every unexisting directory when passing a csv path. (Deafault true) </summary>
         </member>
         <member name="M:UtilityPack.CsvManager.Read``1(System.String)">
             <summary>
             Create a list of values reading them from a csv file
             </summary>
         </member>
-        <member name="M:UtilityPack.CsvManager.Write``2(System.String,System.String,System.Collections.Generic.List{``0})">
+        <member name="M:UtilityPack.CsvManager.Write``2(System.String,System.Collections.Generic.List{``0})">
             <summary>
             Write a list of instance to a csv file, with a specific class map to define specific behaviour
             </summary>
         </member>
-        <member name="M:UtilityPack.CsvManager.Write``1(System.String,System.String,System.Collections.Generic.List{``0})">
+        <member name="M:UtilityPack.CsvManager.Write``1(System.String,System.Collections.Generic.List{``0})">
             <summary>
             Write a list of instance to a csv file
             </summary>

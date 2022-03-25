@@ -13,8 +13,10 @@ namespace UtilityPack
     /// </summary>
     public static class CsvManager
     {
-        /// <summary> Delimiter used in the csv files </summary>
+        /// <summary> Delimiter used in the csv files. (Deafault ;)</summary>
         public static string delimiter = ";";
+         /// <summary> If true create every unexisting directory when passing a csv path. (Deafault true) </summary>
+        public static bool createFolders = true;
 
         /// <summary>
         /// Create a list of values reading them from a csv file
@@ -36,9 +38,11 @@ namespace UtilityPack
         /// <summary>
         /// Write a list of instance to a csv file, with a specific class map to define specific behaviour
         /// </summary>
-        public static string Write<T, M>(string path, string name, List<T> prodotti) where M : ClassMap
+        public static string Write<T, M>(string path, List<T> prodotti) where M : ClassMap
         {
-            string pathComplete = path+ $"{name}.csv"; 
+            string dirPath = Path.GetDirectoryName(path);
+            if(!Directory.Exists(dirPath) && createFolders)
+                Directory.CreateDirectory(dirPath);
 
             CsvConfiguration config = new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = delimiter, Encoding = Encoding.UTF8 };
             using(var writer = new StreamWriter(path))
@@ -49,7 +53,7 @@ namespace UtilityPack
 
                     csv.WriteRecords(prodotti);
 
-                    return pathComplete;
+                    return path;
                 }
             }
         }
@@ -57,9 +61,11 @@ namespace UtilityPack
         /// <summary>
         /// Write a list of instance to a csv file
         /// </summary>
-        public static string Write<T>(string path, string name, List<T> prodotti) 
+        public static string Write<T>(string path, List<T> prodotti) 
         {
-            string pathComplete = path+ $"{name}.csv"; 
+            string dirPath = Path.GetDirectoryName(path);
+            if(!Directory.Exists(dirPath) && createFolders)
+                Directory.CreateDirectory(dirPath);
 
             CsvConfiguration config = new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = delimiter, Encoding = Encoding.UTF8 };
             using(var writer = new StreamWriter(path))
@@ -68,7 +74,7 @@ namespace UtilityPack
                 {
                     csv.WriteRecords(prodotti);
 
-                    return pathComplete;
+                    return path;
                 }
             }
         }
