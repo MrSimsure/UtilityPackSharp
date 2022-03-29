@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace UtilityPack
+namespace UtilityPack.Logger
 {
     /// <summary> Log location types </summary>
     public enum LogLocation

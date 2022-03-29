@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace UtilityPack
+namespace UtilityPack.SqlBuilder
 {
     /// <summary> Sql strings type </summary>
     public enum SqlStringType

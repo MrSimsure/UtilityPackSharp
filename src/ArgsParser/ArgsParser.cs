@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UtilityPack
+namespace UtilityPack.ArgsParser
 {
     /// <summary> Class to parse arguments from the terminal and consult them during execution </summary>
     public class ArgsParser
@@ -18,6 +18,8 @@ namespace UtilityPack
 
         /// <summary> If set to true will not print an error if no command is used </summary>
         public bool allowNoCommand = false;
+        /// <summary> If set to true will not print an error if no pareter is passed </summary>
+        public bool allowNoParameter = false;
         /// <summary> Carattere o string che riconosce l'inizio della dichiarazione di un'opzione. (Default "-") </summary>
         public string optionPrefix = "-";
 
@@ -300,16 +302,24 @@ namespace UtilityPack
                         paramExist = true;
                         List<ArgsParameter> list = ParameterDefinition[paramGroup];
 
-                        if(tempParameter.Count == list.Count)
+                        if(allowNoParameter == false)
+                        { 
+                            if(tempParameter.Count == list.Count)
+                            {
+                                paramCorrect = 0;
+                                correctList = list;
+                                break;
+                            }
+                            if(tempParameter.Count > list.Count)
+                                paramCorrect = 1;
+                            if(tempParameter.Count < list.Count)
+                                paramCorrect = 2;
+                        }
+                        else
                         {
                             paramCorrect = 0;
                             correctList = list;
-                            break;
                         }
-                        if(tempParameter.Count > list.Count)
-                            paramCorrect = 1;
-                        if(tempParameter.Count < list.Count)
-                            paramCorrect = 2;
                     }
                 }
      
@@ -318,25 +328,30 @@ namespace UtilityPack
                     if(paramExist == false)
                         PrintError("Parameter group specified not found, check the ArgsCommand definition");
                 
-                    if(paramCorrect == 1)
-                    {
-                        string validParam = GetTextParameter(lastCommandDef.ValidParameters.ToArray());
-                        PrintError("Too many parameters for this command. \nValid parameter sets are:", validParam);
-                    }
+                    if(allowNoParameter == false)
+                    { 
+                        if(paramCorrect == 1)
+                        {
+                            string validParam = GetTextParameter(lastCommandDef.ValidParameters.ToArray());
+                            PrintError("Too many parameters for this command. \nValid parameter sets are:", validParam);
+                        }
                     
-                    if(paramCorrect == 2)
-                    {
-                        string validParam = GetTextParameter(lastCommandDef.ValidParameters.ToArray());
-                        PrintError("Not enought parameters for this command. \nValid parameter sets are:", validParam);
+                        if(paramCorrect == 2)
+                        {
+                            string validParam = GetTextParameter(lastCommandDef.ValidParameters.ToArray());
+                            PrintError("Not enought parameters for this command. \nValid parameter sets are:", validParam);
+                        }
                     }
                 }
                     
 
                 for(int i=0; i<correctList.Count; i++)
                 {
-                    ArgsParameter param = correctList[i];
-
-                    Parameter[param.Name] = tempParameter[i];
+                    if(correctList.Count > i && tempParameter.Count > i)
+                    {
+                        ArgsParameter param = correctList[i];
+                        Parameter[param.Name] = tempParameter[i];
+                    }       
                 }
             }
             else

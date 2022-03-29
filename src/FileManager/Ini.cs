@@ -3,7 +3,7 @@ using IniParser.Model;
 using System;
 using System.IO;
 
-namespace UtilityPack
+namespace UtilityPack.FileManager.Ini
 {
     /// <summary>
     /// Static class to read and write data from a ini files

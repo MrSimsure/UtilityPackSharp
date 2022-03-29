@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 
-namespace UtilityPack
+namespace UtilityPack.Setting
 {
     /// <summary> Log location types </summary>
     public enum SettLocation

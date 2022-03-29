@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace UtilityPack
+namespace UtilityPack.FileManager.Csv
 {
     /// <summary>
     /// Static class to read and write data from a csv files

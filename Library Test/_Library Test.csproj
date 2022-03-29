@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\ArgsParser\ArgsParser.csproj" />
+    <ProjectReference Include="..\src\Connections\Connections.csproj" />
     <ProjectReference Include="..\src\Database\Database.csproj" />
     <ProjectReference Include="..\src\FileManager\FileManager.csproj" />
     <ProjectReference Include="..\src\Logger\Logger.csproj" />

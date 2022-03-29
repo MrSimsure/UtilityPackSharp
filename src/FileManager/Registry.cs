@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace UtilityPack
+namespace UtilityPack.FileManager.Register
 {
     /// <summary>
     /// Static class to read and write data from the windows registry

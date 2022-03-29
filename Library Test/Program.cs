@@ -2,8 +2,13 @@
 using System;
 using System.Globalization;
 using System.IO;
-using UtilityPack;
+
 using UtilityPack.Print;
+using UtilityPack.Databse;
+using UtilityPack.Connections.FTP;
+using UtilityPack.Setting;
+using UtilityPack.SqlBuilder;
+using UtilityPack.ArgsParser;
 
 namespace Library_Test
 {
@@ -29,12 +34,23 @@ namespace Library_Test
 
         static void Main(string[] args)
         {
-            test_settings();
+            test_ftp();
 
             //string val = RegistryManager.Read(RegistryHive.LocalMachine, @"SOFTWARE\WOW6432Node\ODBC\ODBC.INI\ETOS", "Server");
             //Print.Message(val);
         }
 
+        public static void test_ftp()
+        {
+            FtpConnection.printDebug = true;
+            string localFolder = AppDomain.CurrentDomain.BaseDirectory+"ftp";
+
+            using(FtpConnection connection = new(ProtocolType.SFTP, "173.249.51.65", "simone", "enter.srv.21", "22"))
+            {
+                connection.UploadFile(localFolder, "Exported_Orders");   
+                connection.DownloadFile("Exported_Orders", localFolder);    
+            }       
+        }
 
         public static void test_settings()
         {

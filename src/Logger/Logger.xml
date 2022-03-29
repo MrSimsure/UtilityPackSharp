@@ -4,77 +4,77 @@
         <name>Logger</name>
     </assembly>
     <members>
-        <member name="T:UtilityPack.LogLocation">
+        <member name="T:UtilityPack.Logger.LogLocation">
             <summary> Log location types </summary>
         </member>
-        <member name="F:UtilityPack.LogLocation.ROOT">
+        <member name="F:UtilityPack.Logger.LogLocation.ROOT">
             <summary> C:\ </summary>
         </member>
-        <member name="F:UtilityPack.LogLocation.CUSTOM">
+        <member name="F:UtilityPack.Logger.LogLocation.CUSTOM">
             <summary> Custom Path </summary>
         </member>
-        <member name="F:UtilityPack.LogLocation.EXEPOS">
+        <member name="F:UtilityPack.Logger.LogLocation.EXEPOS">
             <summary> ..\exe_directory\ </summary>
         </member>
-        <member name="F:UtilityPack.LogLocation.EXEDIR">
+        <member name="F:UtilityPack.Logger.LogLocation.EXEDIR">
             <summary> ..\exe_directory\custom_dir </summary>
         </member>
-        <member name="F:UtilityPack.LogLocation.PROGDATA">
+        <member name="F:UtilityPack.Logger.LogLocation.PROGDATA">
             <summary> C:\ProgramData\ </summary>
         </member>
-        <member name="F:UtilityPack.LogLocation.APPDATAROAM">
+        <member name="F:UtilityPack.Logger.LogLocation.APPDATAROAM">
             <summary> ..\AppData\Roaming </summary>
         </member>
-        <member name="F:UtilityPack.LogLocation.APPDATALOCA">
+        <member name="F:UtilityPack.Logger.LogLocation.APPDATALOCA">
             <summary> ..\AppData\Local </summary>
         </member>
-        <member name="T:UtilityPack.Logger">
+        <member name="T:UtilityPack.Logger.Logger">
             <summary> Static class for logging data to disk </summary>
         </member>
-        <member name="F:UtilityPack.Logger.path">
+        <member name="F:UtilityPack.Logger.Logger.path">
             <summary> 
             Root directory where to save the logs 
             <br/> (Default same directory as the exe) 
             </summary>
         </member>
-        <member name="F:UtilityPack.Logger.IsLogActive">
+        <member name="F:UtilityPack.Logger.Logger.IsLogActive">
             <summary> 
             If false, no logs will ever be saved 
             <br/>(Default true)
             </summary>
         </member>
-        <member name="F:UtilityPack.Logger.IsCatchErrorOn">
+        <member name="F:UtilityPack.Logger.Logger.IsCatchErrorOn">
             <summary> 
             If true, when an error occur it will be thrown, otherwhise the functions will silently return false 
             <br/>(Default false)
             </summary>
         </member>
-        <member name="M:UtilityPack.Logger.SaveText(System.String,System.String,System.Boolean)">
+        <member name="M:UtilityPack.Logger.Logger.SaveText(System.String,System.String,System.Boolean)">
             <summary> 
             Save some text to file in the log directory as a file .txt 
             </summary>
         </member>
-        <member name="M:UtilityPack.Logger.SaveJson(System.String,System.String,System.Boolean)">
+        <member name="M:UtilityPack.Logger.Logger.SaveJson(System.String,System.String,System.Boolean)">
             <summary> 
             Save some json text to file in the log directory as a file .json 
             </summary>
         </member>
-        <member name="M:UtilityPack.Logger.SaveJson(System.Object,System.String,System.Boolean)">
+        <member name="M:UtilityPack.Logger.Logger.SaveJson(System.Object,System.String,System.Boolean)">
             <summary> 
             Save a json object to file in the log directory as a file .json 
             </summary>
         </member>
-        <member name="M:UtilityPack.Logger.SaveJsonList``1(System.Collections.Generic.List{``0},System.String,System.Boolean)">
+        <member name="M:UtilityPack.Logger.Logger.SaveJsonList``1(System.Collections.Generic.List{``0},System.String,System.Boolean)">
             <summary> 
             Save a list of json objects to file in the log directory as a file .json 
             </summary>
         </member>
-        <member name="M:UtilityPack.Logger.ClearLogFolder(System.String)">
+        <member name="M:UtilityPack.Logger.Logger.ClearLogFolder(System.String)">
             <summary> 
             Delete every file inside the log folder, if another folder path is specified, clear it instead
             </summary>
         </member>
-        <member name="M:UtilityPack.Logger.SetLocation(UtilityPack.LogLocation,System.String)">
+        <member name="M:UtilityPack.Logger.Logger.SetLocation(UtilityPack.Logger.LogLocation,System.String)">
             <summary> 
             Set the log folder location 
             </summary>

@@ -4,59 +4,59 @@
         <name>FileManager</name>
     </assembly>
     <members>
-        <member name="T:UtilityPack.CsvManager">
+        <member name="T:UtilityPack.FileManager.Csv.CsvManager">
             <summary>
             Static class to read and write data from a csv files
             </summary>
         </member>
-        <member name="F:UtilityPack.CsvManager.delimiter">
+        <member name="F:UtilityPack.FileManager.Csv.CsvManager.delimiter">
             <summary> Delimiter used in the csv files. (Deafault ;)</summary>
         </member>
-        <member name="F:UtilityPack.CsvManager.createFolders">
+        <member name="F:UtilityPack.FileManager.Csv.CsvManager.createFolders">
             <summary> If true create every unexisting directory when passing a csv path. (Deafault true) </summary>
         </member>
-        <member name="M:UtilityPack.CsvManager.Read``1(System.String)">
+        <member name="M:UtilityPack.FileManager.Csv.CsvManager.Read``1(System.String)">
             <summary>
             Create a list of values reading them from a csv file
             </summary>
         </member>
-        <member name="M:UtilityPack.CsvManager.Write``2(System.String,System.Collections.Generic.List{``0})">
+        <member name="M:UtilityPack.FileManager.Csv.CsvManager.Write``2(System.String,System.Collections.Generic.List{``0})">
             <summary>
             Write a list of instance to a csv file, with a specific class map to define specific behaviour
             </summary>
         </member>
-        <member name="M:UtilityPack.CsvManager.Write``1(System.String,System.Collections.Generic.List{``0})">
+        <member name="M:UtilityPack.FileManager.Csv.CsvManager.Write``1(System.String,System.Collections.Generic.List{``0})">
             <summary>
             Write a list of instance to a csv file
             </summary>
         </member>
-        <member name="T:UtilityPack.IniManager">
+        <member name="T:UtilityPack.FileManager.Ini.IniManager">
             <summary>
             Static class to read and write data from a ini files
             </summary>
         </member>
-        <member name="F:UtilityPack.IniManager.printErrors">
+        <member name="F:UtilityPack.FileManager.Ini.IniManager.printErrors">
             <summary>If true print errors, when a file is not found or a section or key are missing </summary>
         </member>
-        <member name="F:UtilityPack.IniManager.forceWrite">
+        <member name="F:UtilityPack.FileManager.Ini.IniManager.forceWrite">
             <summary> If true create section and key when they are not found during writing </summary>
         </member>
-        <member name="M:UtilityPack.IniManager.Write(System.String,System.String,System.String,System.Object)">
+        <member name="M:UtilityPack.FileManager.Ini.IniManager.Write(System.String,System.String,System.String,System.Object)">
             <summary>
             Write a value in a ini file
             </summary>
         </member>
-        <member name="M:UtilityPack.IniManager.Read``1(System.String,System.String,System.String,``0)">
+        <member name="M:UtilityPack.FileManager.Ini.IniManager.Read``1(System.String,System.String,System.String,``0)">
             <summary>
             Read a value from a file ini, if some error occours return the default value passed instead
             </summary>
         </member>
-        <member name="T:UtilityPack.RegistryManager">
+        <member name="T:UtilityPack.FileManager.Register.RegistryManager">
             <summary>
             Static class to read and write data from the windows registry
             </summary>
         </member>
-        <member name="M:UtilityPack.RegistryManager.Read(Microsoft.Win32.RegistryHive,System.String,System.String)">
+        <member name="M:UtilityPack.FileManager.Register.RegistryManager.Read(Microsoft.Win32.RegistryHive,System.String,System.String)">
             <summary>
             Read a value from a specific section of the registry
             </summary>

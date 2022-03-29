@@ -4,62 +4,62 @@
         <name>Database</name>
     </assembly>
     <members>
-        <member name="T:UtilityPack.DbSystem">
+        <member name="T:UtilityPack.Databse.DbSystem">
             <summary>
             Different type of Database system
             </summary>
         </member>
-        <member name="T:UtilityPack.DbParsingOption">
+        <member name="T:UtilityPack.Databse.DbParsingOption">
             <summary>
             Options used when parsing a returned value to another
             </summary>
         </member>
-        <member name="F:UtilityPack.DbParsingOption.trim">
+        <member name="F:UtilityPack.Databse.DbParsingOption.trim">
             <summary>
             If true execute a trim on the obtained string
             </summary>
         </member>
-        <member name="F:UtilityPack.DbParsingOption.returnNull">
+        <member name="F:UtilityPack.Databse.DbParsingOption.returnNull">
             <summary>
             if true, allow the function to return null is database value is null
             </summary>
         </member>
-        <member name="F:UtilityPack.DbParsingOption.decimalDiv">
+        <member name="F:UtilityPack.Databse.DbParsingOption.decimalDiv">
             <summary>
             Specify the division simbol if the value is a float and must be returned as a string
             </summary>
         </member>
-        <member name="F:UtilityPack.DbParsingOption.decimalNumber">
+        <member name="F:UtilityPack.Databse.DbParsingOption.decimalNumber">
             <summary>
             Specify the number of decimal values
             </summary>
         </member>
-        <member name="T:UtilityPack.Database">
+        <member name="T:UtilityPack.Databse.Database">
             <summary> Abstraction class for easily connecting to an SQL database </summary>
         </member>
-        <member name="F:UtilityPack.Database.CommandTimeout">
+        <member name="F:UtilityPack.Databse.Database.CommandTimeout">
             <summary> Time for every command to run before calling an error (Default=0, unlimited time) </summary>
         </member>
-        <member name="P:UtilityPack.Database.system">
+        <member name="P:UtilityPack.Databse.Database.system">
             <summary> Type of this database </summary>
         </member>
-        <member name="M:UtilityPack.Database.#ctor(System.String,System.String,System.String,System.String,System.Nullable{UtilityPack.DbSystem})">
+        <member name="M:UtilityPack.Databse.Database.#ctor(System.String,System.String,System.String,System.String,System.Nullable{UtilityPack.Databse.DbSystem})">
             <summary> 
             Abstraction class for easily connecting to an SQL database 
             </summary>
         </member>
-        <member name="M:UtilityPack.Database.ChangeDatabase(System.String)">
+        <member name="M:UtilityPack.Databse.Database.ChangeDatabase(System.String)">
             <summary> Change the connected database </summary>
             <exception cref="T:System.Data.SqlClient.SqlException"></exception>
             <exception cref="T:System.InvalidCastException"></exception>
             <exception cref="T:System.InvalidOperationException"></exception>
         </member>
-        <member name="M:UtilityPack.Database.TestConnection(System.Boolean)">
+        <member name="M:UtilityPack.Databse.Database.TestConnection(System.Boolean)">
             <summary> 
             Test the connection 
             </summary>
         </member>
-        <member name="M:UtilityPack.Database.ExecuteSqlQuery(System.String)">
+        <member name="M:UtilityPack.Databse.Database.ExecuteSqlQuery(System.String)">
             <summary> Execute a query on the database and return the result in form of a <see cref="T:System.Data.DataTable"/> </summary>
             <exception cref="T:System.IO.IOException"></exception>
             <exception cref="T:System.Data.SqlClient.SqlException"></exception>
@@ -67,7 +67,7 @@
             <exception cref="T:System.InvalidOperationException"></exception>
             <exception cref="T:System.ObjectDisposedException"></exception>
         </member>
-        <member name="M:UtilityPack.Database.ExecuteSqlCommand(System.String)">
+        <member name="M:UtilityPack.Databse.Database.ExecuteSqlCommand(System.String)">
             <summary> Execute a command on the database </summary>
             <exception cref="T:System.IO.IOException"></exception>
             <exception cref="T:System.Data.SqlClient.SqlException"></exception>
@@ -75,12 +75,12 @@
             <exception cref="T:System.InvalidOperationException"></exception>
             <exception cref="T:System.ObjectDisposedException"></exception>
         </member>
-        <member name="M:UtilityPack.Database.ParseToNumber``1(System.Object,``0,UtilityPack.DbParsingOption)">
+        <member name="M:UtilityPack.Databse.Database.ParseToNumber``1(System.Object,``0,UtilityPack.Databse.DbParsingOption)">
             <summary>
             Parse a recived object from a query to a numeric value
             </summary>
         </member>
-        <member name="M:UtilityPack.Database.ParseToString(System.Object,System.String,UtilityPack.DbParsingOption)">
+        <member name="M:UtilityPack.Databse.Database.ParseToString(System.Object,System.String,UtilityPack.Databse.DbParsingOption)">
             <summary>
             Parse a recived object from a query to a string
             </summary>

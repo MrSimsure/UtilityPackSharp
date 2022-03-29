@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 /*
-namespace UtilityPack
+namespace UtilityPack.Setting
 {
 
     public static class Settings<T>

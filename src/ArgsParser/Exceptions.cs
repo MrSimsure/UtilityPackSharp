@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace UtilityPack
+namespace UtilityPack.ArgsParser
 {
     /// <summary> Eccezzione lanciata quando avviene un errore nel parsing degli argomenti </summary>
     [Serializable]

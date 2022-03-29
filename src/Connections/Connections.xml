@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Connections</name>
+    </assembly>
+    <members>
+        <member name="T:UtilityPack.Connections.Ftp.FtpConnectionException">
+            <summary> Exception thrown when an ftp connection fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnectionException.#ctor">
+            <summary> Exception thrown when an ftp connection fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnectionException.#ctor(System.String)">
+            <summary> Exception thrown when an ftp connection fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnectionException.#ctor(System.String,System.Exception)">
+            <summary> Exception thrown when an ftp connection fails</summary>
+        </member>
+        <member name="T:UtilityPack.Connections.Ftp.FtpDownloadException">
+            <summary> Exception thrown when an ftp download fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpDownloadException.#ctor">
+            <summary> Exception thrown when an ftp download fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpDownloadException.#ctor(System.String)">
+            <summary> Exception thrown when an ftp download fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpDownloadException.#ctor(System.String,System.Exception)">
+            <summary> Exception thrown when an ftp download fails</summary>
+        </member>
+        <member name="T:UtilityPack.Connections.Ftp.FtpUploadException">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpUploadException.#ctor">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpUploadException.#ctor(System.String)">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpUploadException.#ctor(System.String,System.Exception)">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="T:UtilityPack.Connections.Ftp.ProtocolType">
+            <summary>
+            Type of FTP protocols
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Connections.Ftp.ProtocolType.FTP">
+            <summary> File Transfer Protocol </summary>
+        </member>
+        <member name="F:UtilityPack.Connections.Ftp.ProtocolType.SFTP">
+            <summary> SSH File Transfer Protocol </summary>
+        </member>
+        <member name="T:UtilityPack.Connections.Ftp.FtpConnection">
+            <summary>
+            Class to manage a connection to a specific ftp or sftp server
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Connections.Ftp.FtpConnection.printDebug">
+            <summary> If true, print additional debug information on console. (Default false) </summary>
+        </member>
+        <member name="P:UtilityPack.Connections.Ftp.FtpConnection.protocol">
+            <summary> Protocol type of this connection </summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.#ctor(UtilityPack.Connections.Ftp.ProtocolType,System.String,System.String,System.String,System.String)">
+            <summary>
+            Create an instance of an FTP connection passing the connection type and acces data
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+            <exception cref="T:System.InvalidOperationException"></exception>
+            <exception cref="T:System.ObjectDisposedException"></exception>
+            <exception cref="T:System.Net.Sockets.SocketException"></exception>
+            <exception cref="T:Renci.SshNet.Common.SshConnectionException"></exception>
+            <exception cref="T:Renci.SshNet.Common.SshAuthenticationException"></exception>
+            <exception cref="T:Renci.SshNet.Common.ProxyException"></exception>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.DownloadFile(System.String,System.String)">
+            <summary>
+            Choose a remote file or folder to download (remotePaht) and place the downloaded content inside a local file or folder (destinationPath)
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.UploadFile(System.String,System.String)">
+            <summary>
+            Choose a local file or folder (filePath) to upload to a remote file or folder (destionationPath)
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.ElaboratePath(System.String)">
+            <summary>
+            Giving a local path elaborate it further and return a list.      <br/>
+            If the passed path is just a file the list will contains only it <br/>
+            If the passed path is a folder the list will contains every file inside that folder
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.Dispose">
+            <summary>
+            Dispose every connection
+            </summary>
+        </member>
+    </members>
+</doc>

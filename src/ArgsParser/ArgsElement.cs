@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UtilityPack
+namespace UtilityPack.ArgsParser
 {
     /// <summary> Argument Command definition </summary>
     public class ArgsCommand

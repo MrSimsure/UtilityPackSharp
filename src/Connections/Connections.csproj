@@ -3,11 +3,11 @@
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.2.1</Version>
-		<Description></Description>
+		<Version>1.0.5</Version>
+		<Description>Utility class for connecting to various protocols</Description>
 		<Authors>Simone Benigni</Authors>
-		<PackageTags>Utility; Settings; File;</PackageTags>
-		<TargetFramework>netcoreapp3.0</TargetFramework>
+		<PackageTags>Utility; Connection;</PackageTags>
+		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -22,14 +22,14 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
 		<IsTrimmable>true</IsTrimmable>
-		<PackageOutputPath>$(SolutionDir)Dist\Settings</PackageOutputPath>
+		<PackageOutputPath>$(SolutionDir)Dist\Connections</PackageOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Optimize>true</Optimize>
-		<DocumentationFile>.\Settings.xml</DocumentationFile>
+		<DocumentationFile>.\Connections.xml</DocumentationFile>
 		<DebugType>embedded</DebugType>
-		<DebugSymbols>true</DebugSymbols>
+		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -38,8 +38,18 @@
 		<None Update="README.md" Pack="true" PackagePath="\"></None>
 	</ItemGroup>
 
+
 	<ItemGroup>
-		<None Remove="Settings.xml" />
+		<None Remove="Connections.xml" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <PackageReference Include="FluentFTP" Version="37.0.2" />
+	  <PackageReference Include="SSH.NET" Version="2020.0.1" />
 	</ItemGroup>
 
 </Project>
+
+
+
