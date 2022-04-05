@@ -4,11 +4,14 @@ using System.Globalization;
 using System.IO;
 
 using UtilityPack.Print;
-using UtilityPack.Databse;
-using UtilityPack.Connections.FTP;
+using UtilityPack.Database;
+using UtilityPack.Connections.Ftp;
 using UtilityPack.Setting;
 using UtilityPack.SqlBuilder;
 using UtilityPack.ArgsParser;
+using System.Collections.Generic;
+using System.Linq;
+using UtilityPack.FileManager.Ini;
 
 namespace Library_Test
 {
@@ -40,15 +43,43 @@ namespace Library_Test
             //Print.Message(val);
         }
 
+        public static string GetRealFileName(string path)
+        {
+            string directory = Path.GetDirectoryName(path);
+            string pattern = Path.GetFileName(path);
+            string resultFileName;
+
+            IEnumerable<string> foundFiles = Directory.EnumerateFiles(directory, pattern);
+
+            if (foundFiles.Any())
+            {
+                if (foundFiles.Count() > 1)
+                {
+                    throw new Exception("Ambiguous File reference for " + path);
+                }
+                else
+                {
+                    resultFileName = foundFiles.First();
+                }
+            }
+            else
+            {
+                throw new FileNotFoundException("File not found" + path, path);
+            }
+
+            return resultFileName;
+        }
+
         public static void test_ftp()
         {
             FtpConnection.printDebug = true;
             string localFolder = AppDomain.CurrentDomain.BaseDirectory+"ftp";
 
-            using(FtpConnection connection = new(ProtocolType.SFTP, "173.249.51.65", "simone", "enter.srv.21", "22"))
+            using(FtpConnection connection = new(FtpProtocolType.SFTP, "173.249.51.65", "simone", "enter.srv.21", "22"))
             {
-                connection.UploadFile(localFolder, "Exported_Orders");   
-                connection.DownloadFile("Exported_Orders", localFolder);    
+               //connection.Upload(localFolder+"/Order_6.xml", "./Exported_Orders");   
+               connection.Download("Exported_Orders", localFolder);    
+               //connection.ClearFolder("./Exported_Orders/");
             }       
         }
 

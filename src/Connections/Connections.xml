@@ -40,16 +40,70 @@
         <member name="M:UtilityPack.Connections.Ftp.FtpUploadException.#ctor(System.String,System.Exception)">
             <summary> Exception thrown when an ftp upload fails</summary>
         </member>
-        <member name="T:UtilityPack.Connections.Ftp.ProtocolType">
+        <member name="T:UtilityPack.Connections.Ftp.FtpDeleteException">
+            <summary> Exception thrown when an ftp delete fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpDeleteException.#ctor">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpDeleteException.#ctor(System.String)">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpDeleteException.#ctor(System.String,System.Exception)">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="T:UtilityPack.Connections.Ftp.FtpListException">
+            <summary> Exception thrown when an ftp list fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpListException.#ctor">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpListException.#ctor(System.String)">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpListException.#ctor(System.String,System.Exception)">
+            <summary> Exception thrown when an ftp upload fails</summary>
+        </member>
+        <member name="T:UtilityPack.Connections.Ftp.FtpProtocolType">
             <summary>
             Type of FTP protocols
             </summary>
         </member>
-        <member name="F:UtilityPack.Connections.Ftp.ProtocolType.FTP">
+        <member name="F:UtilityPack.Connections.Ftp.FtpProtocolType.FTP">
             <summary> File Transfer Protocol </summary>
         </member>
-        <member name="F:UtilityPack.Connections.Ftp.ProtocolType.SFTP">
+        <member name="F:UtilityPack.Connections.Ftp.FtpProtocolType.SFTP">
             <summary> SSH File Transfer Protocol </summary>
+        </member>
+        <member name="T:UtilityPack.Connections.Ftp.FtpElementType">
+            <summary>
+            Element type from a remote ftp folder 
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Connections.Ftp.FtpElementType.FILE">
+            <summary> A remote file </summary>
+        </member>
+        <member name="F:UtilityPack.Connections.Ftp.FtpElementType.DIRECTORY">
+            <summary> A remote folder </summary>
+        </member>
+        <member name="T:UtilityPack.Connections.Ftp.FtpElement">
+            <summary>
+            A remote Element, can be a file or a folder
+            </summary>
+        </member>
+        <member name="P:UtilityPack.Connections.Ftp.FtpElement.type">
+            <summary> Type of the element </summary>
+        </member>
+        <member name="F:UtilityPack.Connections.Ftp.FtpElement.name">
+            <summary> Name and extension (if is a file) of the element </summary>
+        </member>
+        <member name="F:UtilityPack.Connections.Ftp.FtpElement.path">
+            <summary> Full path of the element </summary>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpElement.#ctor(UtilityPack.Connections.Ftp.FtpElementType,System.String)">
+            <summary>
+            A remote Element, can be a file or a folder
+            </summary>
         </member>
         <member name="T:UtilityPack.Connections.Ftp.FtpConnection">
             <summary>
@@ -62,7 +116,7 @@
         <member name="P:UtilityPack.Connections.Ftp.FtpConnection.protocol">
             <summary> Protocol type of this connection </summary>
         </member>
-        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.#ctor(UtilityPack.Connections.Ftp.ProtocolType,System.String,System.String,System.String,System.String)">
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.#ctor(UtilityPack.Connections.Ftp.FtpProtocolType,System.String,System.String,System.String,System.String)">
             <summary>
             Create an instance of an FTP connection passing the connection type and acces data
             </summary>
@@ -76,15 +130,41 @@
             <exception cref="T:Renci.SshNet.Common.SshAuthenticationException"></exception>
             <exception cref="T:Renci.SshNet.Common.ProxyException"></exception>
         </member>
-        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.DownloadFile(System.String,System.String)">
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.Download(System.String,System.String)">
             <summary>
-            Choose a remote file or folder to download (remotePaht) and place the downloaded content inside a local file or folder (destinationPath)
+            Choose a remote file or folder to download (remotePath) and place the downloaded content inside a local file or folder (localPath)
             </summary>
+            <exception cref="T:UtilityPack.Connections.Ftp.FtpDownloadException"></exception>
         </member>
-        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.UploadFile(System.String,System.String)">
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.Upload(System.String,System.String)">
             <summary>
-            Choose a local file or folder (filePath) to upload to a remote file or folder (destionationPath)
+            Choose a local file or folder (localPath) to upload to a remote file or folder (remotePath)
             </summary>
+            <exception cref="T:UtilityPack.Connections.Ftp.FtpUploadException"></exception>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.DeleteFile(System.String)">
+            <summary>
+            Delete a remote file
+            </summary>
+            <exception cref="T:UtilityPack.Connections.Ftp.FtpDeleteException"></exception>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.DeleteFolder(System.String)">
+            <summary>
+            Delete a remote folder with every content
+            </summary>
+            <exception cref="T:UtilityPack.Connections.Ftp.FtpDeleteException"></exception>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.ClearFolder(System.String,System.Boolean)">
+            <summary>
+            Delete all the content of a remote folder
+            </summary>
+            <exception cref="T:UtilityPack.Connections.Ftp.FtpDeleteException"></exception>
+        </member>
+        <member name="M:UtilityPack.Connections.Ftp.FtpConnection.ListDirectory(System.String)">
+            <summary>
+            Get an array of <see cref="T:UtilityPack.Connections.Ftp.FtpElement"/> contained in the passed remote path
+            </summary>
+            <exception cref="T:UtilityPack.Connections.Ftp.FtpListException"></exception>
         </member>
         <member name="M:UtilityPack.Connections.Ftp.FtpConnection.ElaboratePath(System.String)">
             <summary>

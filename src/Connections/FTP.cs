@@ -12,12 +12,47 @@ namespace UtilityPack.Connections.Ftp
     /// <summary>
     /// Type of FTP protocols
     /// </summary>
-    public enum ProtocolType
+    public enum FtpProtocolType
     {
         /// <summary> File Transfer Protocol </summary>
         FTP,
         /// <summary> SSH File Transfer Protocol </summary>
         SFTP
+    }
+
+    /// <summary>
+    /// Element type from a remote ftp folder 
+    /// </summary>
+    public enum FtpElementType
+    {
+        /// <summary> A remote file </summary>
+        FILE,
+        /// <summary> A remote folder </summary>
+        DIRECTORY
+    }
+
+    /// <summary>
+    /// A remote Element, can be a file or a folder
+    /// </summary>
+    public class FtpElement
+    {
+        /// <summary> Type of the element </summary>
+        public FtpElementType type {get; private set;}
+        /// <summary> Name and extension (if is a file) of the element </summary>
+        public string name;
+        /// <summary> Full path of the element </summary>
+        public string path;
+
+        /// <summary>
+        /// A remote Element, can be a file or a folder
+        /// </summary>
+        public FtpElement(FtpElementType _type, string _path)
+        {
+            path = _path;
+            name = Path.GetFileName(_path);
+            type = _type;
+
+        }  
     }
 
     /// <summary>
@@ -28,7 +63,7 @@ namespace UtilityPack.Connections.Ftp
         /// <summary> If true, print additional debug information on console. (Default false) </summary>
         public static bool   printDebug = false;
         /// <summary> Protocol type of this connection </summary>
-        public  ProtocolType protocol  { get; } = ProtocolType.FTP;
+        public  FtpProtocolType protocol  { get; } = FtpProtocolType.FTP;
 
         private FtpClient    ftpClient  = null;
         private SftpClient   sftpClient = null;
@@ -45,26 +80,26 @@ namespace UtilityPack.Connections.Ftp
         /// <exception cref="SshConnectionException"></exception>
         /// <exception cref="SshAuthenticationException"></exception>
         /// <exception cref="ProxyException"></exception>
-        public FtpConnection(ProtocolType connectionProtocol, string host, string user, string pass, string port)
+        public FtpConnection(FtpProtocolType connectionProtocol, string host, string user, string pass, string port)
         {
             try
             { 
-                if(connectionProtocol == ProtocolType.FTP)
+                if(connectionProtocol == FtpProtocolType.FTP)
                 {
                     ftpClient = new FtpClient(host, user, pass);
                     ftpClient.AutoConnect();
 
-                    protocol = ProtocolType.FTP;
+                    protocol = FtpProtocolType.FTP;
 
                     if(printDebug)
                         Console.WriteLine("FTP connected to host: "+host);
                 }
-                if(connectionProtocol == ProtocolType.SFTP)
+                if(connectionProtocol == FtpProtocolType.SFTP)
                 {
                    sftpClient = new SftpClient(host, int.Parse(port), user, pass);
                    sftpClient.Connect();
 
-                    protocol = ProtocolType.SFTP;
+                    protocol = FtpProtocolType.SFTP;
 
                     if(printDebug)
                         Console.WriteLine("SFTP connected to host: "+host);
@@ -77,13 +112,14 @@ namespace UtilityPack.Connections.Ftp
         }
 
         /// <summary>
-        /// Choose a remote file or folder to download (remotePaht) and place the downloaded content inside a local file or folder (destinationPath)
+        /// Choose a remote file or folder to download (remotePath) and place the downloaded content inside a local file or folder (localPath)
         /// </summary>
-        public void DownloadFile(string remotePath, string destinationPath)
+        /// <exception cref="FtpDownloadException"></exception>
+        public void Download(string remotePath, string localPath)
         {
             try
             {
-                if(protocol == ProtocolType.FTP)
+                if(protocol == FtpProtocolType.FTP)
                 {
                     if(ftpClient == null)
                         throw(new NullReferenceException("FTP client is not connected"));
@@ -93,12 +129,12 @@ namespace UtilityPack.Connections.Ftp
                     //remote path is a directory
                     if(remoteType == FtpFileSystemObjectType.Directory)
                     {
-                        if(!Directory.Exists(destinationPath))
-                            Directory.CreateDirectory(destinationPath);
+                        if(!Directory.Exists(localPath))
+                            Directory.CreateDirectory(localPath);
 
                         foreach (FtpListItem item in ftpClient.GetListing(remotePath))
                         {
-                            string finalPath = Path.Combine(destinationPath, item.Name);
+                            string finalPath = Path.Combine(localPath, item.Name);
 
 	                        if(item.Type == FtpFileSystemObjectType.File)
                                 ftpClient.DownloadFile(finalPath, item.FullName);    
@@ -110,15 +146,15 @@ namespace UtilityPack.Connections.Ftp
                     //remote path is a file
                     if(remoteType == FtpFileSystemObjectType.File)
                     {
-                        string finalPath = destinationPath;
+                        string finalPath = localPath;
 
                         //if the destination is a folder create the folder an set the final path as 'folder + file_name'
-                        if(Path.GetExtension(destinationPath) == "" )
+                        if(Path.GetExtension(localPath) == "" )
                         {
-                            if(!Directory.Exists(destinationPath))
-                                Directory.CreateDirectory(destinationPath);
+                            if(!Directory.Exists(localPath))
+                                Directory.CreateDirectory(localPath);
 
-                            finalPath = Path.Combine(destinationPath, Path.GetFileName(remotePath));
+                            finalPath = Path.Combine(localPath, Path.GetFileName(remotePath));
 
                             if(printDebug)
                                 Console.WriteLine("Saving file in: "+finalPath);
@@ -128,7 +164,7 @@ namespace UtilityPack.Connections.Ftp
                     }     
                 }
 
-                if(protocol == ProtocolType.SFTP)
+                if(protocol == FtpProtocolType.SFTP)
                 {
                     if(sftpClient == null)
                         throw(new NullReferenceException("SFTP client is not connected"));
@@ -138,14 +174,14 @@ namespace UtilityPack.Connections.Ftp
                     //remote path is a directory
                     if(isDirectory)
                     {
-                        if(!Directory.Exists(destinationPath))
-                            Directory.CreateDirectory(destinationPath);
+                        if(!Directory.Exists(localPath))
+                            Directory.CreateDirectory(localPath);
 
                         foreach (SftpFile item in sftpClient.ListDirectory(remotePath))
                         {
 	                        if(item.IsRegularFile == true)
                             {
-                                string finalPath = Path.Combine(destinationPath, item.Name);
+                                string finalPath = Path.Combine(localPath, item.Name);
 
                                 using(FileStream fs = new FileStream( finalPath, FileMode.Create))
                                 {
@@ -161,15 +197,15 @@ namespace UtilityPack.Connections.Ftp
                     //remote path is a file
                     if(isDirectory == false)
                     {
-                        string finalPath = destinationPath;
+                        string finalPath = localPath;
 
                         //if the destination is a folder create the folder an set the final path as 'folder + file_name'
-                        if(Path.GetExtension(destinationPath) == "" )
+                        if(Path.GetExtension(localPath) == "" )
                         {
-                            if(!Directory.Exists(destinationPath))
-                                Directory.CreateDirectory(destinationPath);
+                            if(!Directory.Exists(localPath))
+                                Directory.CreateDirectory(localPath);
 
-                            finalPath = Path.Combine(destinationPath, Path.GetFileName(remotePath));
+                            finalPath = Path.Combine(localPath, Path.GetFileName(remotePath));
                         }
 
                         if(printDebug)
@@ -189,22 +225,27 @@ namespace UtilityPack.Connections.Ftp
         }
 
         /// <summary>
-        /// Choose a local file or folder (filePath) to upload to a remote file or folder (destionationPath)
+        /// Choose a local file or folder (localPath) to upload to a remote file or folder (remotePath)
         /// </summary>
-        public void UploadFile(string filePath, string destinationPath)
+        /// <exception cref="FtpUploadException"></exception>
+        public void Upload(string localPath, string remotePath)
         {
             try
             {
-                List<string> files = ElaboratePath(filePath);
-                             
-                if(protocol == ProtocolType.FTP)
+                List<string> files = ElaboratePath(localPath);
+                         
+                if(protocol == FtpProtocolType.FTP)
                 {
                     if(ftpClient == null)
                         throw(new NullReferenceException("FTP client is not connected"));
 
                     foreach(string file in files)
                     { 
-                        string finalPath = Path.Combine(destinationPath, Path.GetFileName(file));
+                        string finalPath = remotePath;
+                        
+                        if( files.Count > 1 || (files.Count == 1 && Path.GetFileName(file) != Path.GetFileName(remotePath)) )
+                            finalPath = Path.Combine(remotePath, Path.GetFileName(file));
+
                         ftpClient.UploadFile(file, finalPath);     
                     
                         if(printDebug)
@@ -212,7 +253,7 @@ namespace UtilityPack.Connections.Ftp
                     }
                 }
 
-                if(protocol == ProtocolType.SFTP)
+                if(protocol == FtpProtocolType.SFTP)
                 {
                    
                     if(sftpClient == null)
@@ -220,7 +261,10 @@ namespace UtilityPack.Connections.Ftp
 
                     foreach(string file in files)
                     { 
-                        string finalPath = Path.Combine(destinationPath, Path.GetFileName(file));
+                        string finalPath = remotePath;
+                        
+                        if( files.Count > 1 || (files.Count == 1 && Path.GetFileName(file) != Path.GetFileName(remotePath)) )
+                            finalPath = Path.Combine(remotePath, Path.GetFileName(file));
 
                         using(FileStream fs = File.OpenRead(file))
                         { 
@@ -237,6 +281,157 @@ namespace UtilityPack.Connections.Ftp
             catch(Exception ex)
             { 
                 throw new FtpUploadException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Delete a remote file
+        /// </summary>
+        /// <exception cref="FtpDeleteException"></exception>
+        public void DeleteFile(string remotePath)
+        {
+            try
+            {  
+                if(protocol == FtpProtocolType.FTP)
+                {
+                    if(ftpClient == null)
+                        throw(new NullReferenceException("FTP client is not connected"));
+
+                    ftpClient.DeleteFile(remotePath);
+                }
+
+                if(protocol == FtpProtocolType.SFTP)
+                {
+                    if(sftpClient == null)
+                        throw(new NullReferenceException("SFTP client is not connected"));
+
+                    sftpClient.DeleteFile(remotePath);
+                }
+                
+            }
+            catch(Exception ex)
+            { 
+                throw new FtpDeleteException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Delete a remote folder with every content
+        /// </summary>
+        /// <exception cref="FtpDeleteException"></exception>
+        public void DeleteFolder(string remotePath)
+        {
+            try
+            {  
+                if(protocol == FtpProtocolType.FTP)
+                {
+                    if(ftpClient == null)
+                        throw(new NullReferenceException("FTP client is not connected"));
+
+                    ftpClient.DeleteDirectory(remotePath, FtpListOption.Recursive);
+                }
+
+                if(protocol == FtpProtocolType.SFTP)
+                {
+                    if(sftpClient == null)
+                        throw(new NullReferenceException("SFTP client is not connected"));
+
+                    sftpClient.DeleteDirectory(remotePath);
+                }
+                
+            }
+            catch(Exception ex)
+            { 
+                throw new FtpDeleteException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Delete all the content of a remote folder
+        /// </summary>
+        /// <exception cref="FtpDeleteException"></exception>
+        public void ClearFolder(string remotePath, bool deleteSubFolder = true)
+        {
+            try
+            {  
+                if(protocol == FtpProtocolType.FTP)
+                {
+                    if(ftpClient == null)
+                        throw(new NullReferenceException("FTP client is not connected"));
+
+                    foreach(FtpListItem item in ftpClient.GetListing(remotePath))
+                    {
+                        if(item.Type == FtpFileSystemObjectType.File)
+                            ftpClient.DeleteFile(item.FullName);
+                        if(item.Type == FtpFileSystemObjectType.Directory && deleteSubFolder)
+                            ftpClient.DeleteDirectory(item.FullName, FtpListOption.Recursive);
+                    }
+                }
+
+                if(protocol == FtpProtocolType.SFTP)
+                {
+                    if(sftpClient == null)
+                        throw(new NullReferenceException("SFTP client is not connected"));
+
+                    foreach(SftpFile item in sftpClient.ListDirectory(remotePath))
+                    {
+                        if(item.IsRegularFile)
+                            sftpClient.DeleteFile(item.FullName);   
+                         if(item.IsDirectory && item.Name != "." && item.Name != ".." && deleteSubFolder)
+                            sftpClient.DeleteDirectory(item.FullName); 
+                    }
+                }
+                
+            }
+            catch(Exception ex)
+            { 
+                throw new FtpDeleteException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get an array of <see cref="FtpElement"/> contained in the passed remote path
+        /// </summary>
+        /// <exception cref="FtpListException"></exception>
+        public FtpElement[] ListDirectory(string remotePath)
+        {
+            try
+            {  
+                List<FtpElement> list= new List<FtpElement>();
+
+                if(protocol == FtpProtocolType.FTP)
+                {
+                    if(ftpClient == null)
+                        throw(new NullReferenceException("FTP client is not connected"));
+
+                    foreach(FtpListItem item in ftpClient.GetListing(remotePath))
+                    {
+                        if(item.Type==FtpFileSystemObjectType.File)
+                            list.Add(new FtpElement(FtpElementType.FILE, item.FullName));
+                        if(item.Type==FtpFileSystemObjectType.Directory)
+                            list.Add(new FtpElement(FtpElementType.DIRECTORY, item.FullName));
+                    }
+                }
+
+                if(protocol == FtpProtocolType.SFTP)
+                {
+                    if(sftpClient == null)
+                        throw(new NullReferenceException("SFTP client is not connected"));
+
+                    foreach(SftpFile item in sftpClient.ListDirectory(remotePath))
+                    {
+                        if(item.IsRegularFile)
+                            list.Add(new FtpElement(FtpElementType.FILE, item.FullName));
+                        if(item.IsDirectory)
+                            list.Add(new FtpElement(FtpElementType.DIRECTORY, item.FullName));
+                    }
+                }
+
+                return list.ToArray();
+            }
+            catch(Exception ex)
+            { 
+                throw new FtpListException(ex.Message);
             }
         }
 

@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
 
-namespace UtilityPack.Databse
+namespace UtilityPack.Database
 {
     /// <summary>
     /// Different type of Database system
