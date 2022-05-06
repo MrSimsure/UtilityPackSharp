@@ -182,7 +182,7 @@ namespace UtilityPack.ArgsParser
         /// <summary> Execute the parsing of the arguments </summary>
         public void Parse(string[] args)
         {
-            List<string>  tempParameter = new List<string>();
+            List<string> tempParameter = new List<string>();
 
             //loop all the arguments
             int size = args.Length;
@@ -365,19 +365,19 @@ namespace UtilityPack.ArgsParser
         /// <summary> Print all the commands parsed and their values </summary>
         public void PrintCommands()
         {
-            foreach (KeyValuePair<string, string> cmd in Commands)
+            foreach(KeyValuePair<string, string> cmd in Commands)
                 Console.WriteLine("Command = {0}, Value = {1}", cmd.Key, cmd.Value);
         }
         /// <summary> Print all the options parsed and their values </summary>
         public void PrintOptions()
         {
-            foreach (KeyValuePair<string, string> cmd in Options)
+            foreach(KeyValuePair<string, string> cmd in Options)
                 Console.WriteLine("Option = {0}, Value = {1}", cmd.Key, cmd.Value);
         }
         /// <summary> Print all the parameters parsed and their values </summary>
         public void PrintParameters()
         {
-            foreach (KeyValuePair<string, string> cmd in Parameter)
+            foreach(KeyValuePair<string, string> cmd in Parameter)
                 Console.WriteLine("Parameter = {0}, Value = {1}", cmd.Key, cmd.Value);
         }
 

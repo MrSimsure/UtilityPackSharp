@@ -15,6 +15,8 @@ namespace UtilityPack.FileManager.Csv
     {
         /// <summary> Delimiter used in the csv files. (Deafault ;)</summary>
         public static string delimiter = ";";
+        /// <summary> Culture to write csv files </summary>
+        public static CultureInfo culture = CultureInfo.InvariantCulture;
          /// <summary> If true create every unexisting directory when passing a csv path. (Deafault true) </summary>
         public static bool createFolders = true;
 
@@ -23,7 +25,7 @@ namespace UtilityPack.FileManager.Csv
         /// </summary>
         public static List<T> Read<T>(string path)
         {
-            CsvConfiguration config = new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = delimiter, Encoding = Encoding.UTF8 };
+            CsvConfiguration config = new CsvConfiguration(culture) { Delimiter = delimiter, Encoding = Encoding.UTF8 };
             using(var reader = new StreamReader(path))
             {
                 using(var csv = new CsvReader(reader, config))
@@ -44,7 +46,7 @@ namespace UtilityPack.FileManager.Csv
             if(!Directory.Exists(dirPath) && createFolders)
                 Directory.CreateDirectory(dirPath);
 
-            CsvConfiguration config = new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = delimiter, Encoding = Encoding.UTF8 };
+            CsvConfiguration config = new CsvConfiguration(culture) { Delimiter = delimiter, Encoding = Encoding.UTF8 };
             using(var writer = new StreamWriter(path))
             {
                 using(var csv = new CsvWriter(writer, config))
@@ -67,7 +69,7 @@ namespace UtilityPack.FileManager.Csv
             if(!Directory.Exists(dirPath) && createFolders)
                 Directory.CreateDirectory(dirPath);
 
-            CsvConfiguration config = new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = delimiter, Encoding = Encoding.UTF8 };
+            CsvConfiguration config = new CsvConfiguration(culture) { Delimiter = delimiter, Encoding = Encoding.UTF8 };
             using(var writer = new StreamWriter(path))
             {
                 using(var csv = new CsvWriter(writer, config))
