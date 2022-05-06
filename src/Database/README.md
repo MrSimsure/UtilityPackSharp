@@ -62,27 +62,27 @@ Specify the number of decimal values
 
 ## Example 
 ```C#
-	// create the connection
-	Database DB = new Database("VAULT", "localhost", "mario", "12345678", DbSystem.SQL_SERVER);
+    // create the connection
+    Database DB = new Database("VAULT", "localhost", "mario", "12345678", DbSystem.SQL_SERVER);
 
-			//test the connection
-            bool isConnected = DB.TestConnection(true);
+    //test the connection
+    bool isConnected = DB.TestConnection(true);
 
-            if(isConnected)
-            {
-	            // create and execute the query
-                string query = "SELECT name, age FROM users";
+    if(isConnected)
+    {
+        // create and execute the query
+        string query = "SELECT name, age FROM users";
 
-                DataTable result = DB.ExecuteSqlQuery(query);
+        DataTable result = DB.ExecuteSqlQuery(query);
 
-				// if no results are found return
-                if(result.Rows.Count <= 0)
-                    return;
+        // if no results are found return
+        if(result.Rows.Count <= 0)
+            return;
 
-				// get the result from first row and column "age"
-                object value = result.Rows[0]["age"];
+        // get the result from first row and column "age"
+        object value = result.Rows[0]["age"];
 
-				// use the parse method to transform the value to int
-                int firstUserAge = Database.ParseToNumber(value, 0);
-            }
+        // use the parse method to transform the value to int
+        int firstUserAge = Database.ParseToNumber(value, 0);
+    }
 ```
