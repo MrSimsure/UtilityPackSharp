@@ -7,7 +7,6 @@ using UtilityPack.Print;
 using UtilityPack.Database;
 using UtilityPack.Connections.Ftp;
 using UtilityPack.Setting;
-using UtilityPack.SqlBuilder;
 using UtilityPack.ArgsParser;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,8 +117,8 @@ namespace Library_Test
 
         public static void test_sqlbuilder()
         {
-            SqlString sql = SqlString.CreateUpdate("CLIFO");
-
+            SqlFactory sql = SqlString.CreateUpdate("CLIFO");
+            SqlS
             sql.SetParam("NOME",    "lucio");
             sql.SetParam("COGNOME", "asdasd");
 

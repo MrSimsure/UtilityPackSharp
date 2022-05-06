@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace UtilityPack.SqlBuilder
 {
     /// <summary> Sql strings type </summary>
-    public enum SqlStringType
+    public enum SqlFactoryType
     {
         /// <summary> total manual command </summary>
         MANUAL,
@@ -18,85 +18,85 @@ namespace UtilityPack.SqlBuilder
         DELETE
     }
 
-    public enum DbParamType
+    public enum SqlFactoryParam
     {
         NULL,
         PLUS,
         MINUS
     }
 
-    public enum DbJoinType
+    public enum SqlFactoryJoin
     {
         INNER
     }
 
 
     /// <summary> Class to easly build sql strings </summary>
-    public class SqlString
+    public class SqlFactory
     {
         private string table;
         private string command;
-        private SqlStringType? commandType = null;
+        private SqlFactoryType? commandType = null;
 
         /// <summary> Class to easly build sql strings </summary>
-        private SqlString()
+        private SqlFactory()
         {}
 
         #region    CREATE METHODS
 
-        /// <summary> Create from zero a sqlString </summary>
-        public static SqlString CreateManual(string text)
+        /// <summary> Create from zero a SqlFactory </summary>
+        public static SqlFactory CreateManual(string text)
         {
-            SqlString sql = new SqlString();
+            SqlFactory sql = new SqlFactory();
 
             sql.command     = text;
-            sql.commandType = SqlStringType.MANUAL;
+            sql.commandType = SqlFactoryType.MANUAL;
 
             return sql;
         }
 
-        /// <summary> Create a sqlString with an INSERT template </summary>
-        public static SqlString CreateInsert(string tableName)
+        /// <summary> Create a SqlFactory with an INSERT template </summary>
+        public static SqlFactory CreateInsert(string tableName)
         {
-            SqlString sql = new SqlString();
+            SqlFactory sql = new SqlFactory();
 
-            sql.commandType = SqlStringType.INSERT;
+            sql.commandType = SqlFactoryType.INSERT;
             sql.command     = $@"INSERT INTO {tableName} (@@@) values (###)";
             sql.table = tableName;
 
             return sql;
         }
 
-        /// <summary> Create a sqlString with an UPDATE template </summary>
-        public static SqlString CreateUpdate(string tableName)
+        /// <summary> Create a SqlFactory with an UPDATE template </summary>
+        public static SqlFactory CreateUpdate(string tableName)
         {
-            SqlString sql = new SqlString();
+            SqlFactory sql = new SqlFactory();
 
-            sql.commandType = SqlStringType.UPDATE;
+            sql.commandType = SqlFactoryType.UPDATE;
             sql.command     = $@"UPDATE {tableName} SET @@@ = ### WHERE +++ = ---";
             sql.table = tableName;
 
             return sql;
         }
 
-        /// <summary> Create a sqlString with an DELETE template </summary>
-        public static SqlString CreateDelete(string tableName)
+        /// <summary> Create a SqlFactory with an DELETE template </summary>
+        public static SqlFactory CreateDelete(string tableName)
         {
-            SqlString sql = new SqlString();
+            SqlFactory sql = new SqlFactory();
 
-            sql.commandType = SqlStringType.DELETE;
+            sql.commandType = SqlFactoryType.DELETE;
             sql.command     = $@"DELETE FROM {tableName} WHERE +++ = ---";
             sql.table = tableName;
 
             return sql;
         }
 
-        /// <summary> Create a sqlString with an SELECT template </summary>
-        public static SqlString CreateSelect(string tableName)
+        /// <summary> Create a SqlFactory with an SELECT template </summary>
+        public static SqlFactory CreateSelect(string tableName)
         {
-            SqlString sql = new SqlString();
+            SqlFactory sql = new SqlFactory();
 
-            sql.commandType = SqlStringType.SELECT;
+            sql.commandType = SqlFactoryType.SELECT;
             sql.command     = $@"SELECT *** FROM {tableName} !!! WHERE +++ = ---";
             sql.table = tableName;
 
@@ -109,19 +109,19 @@ namespace UtilityPack.SqlBuilder
         {
             string val = "";
 
-            if (value is string)
+            if(value is string)
                 val = $"'{ ((string)value).Replace("'", "") }'";
                
-            if (value is float)
+            if(value is float)
                 val = $"{ ((float)value).ToString().Replace(",", ".") }";
                       
-            if (value is int)
+            if(value is int)
                 val = $"{(int)value}";
 
-            if (value is double)
+            if(value is double)
                 val = $"{ ((double)value).ToString().Replace(",", ".") }";
 
-            if (value is null)
+            if(value is null)
                 val = $"NULL";
 
             return val;
@@ -129,50 +129,50 @@ namespace UtilityPack.SqlBuilder
   
 
         /// <summary> Set a select option inside the command, valid for SELECT type </summary>
-        public SqlString SetSelect(string index)
+        public SqlFactory SetSelect(string index)
         {
-            if(commandType == SqlStringType.MANUAL)
+            if(commandType == SqlFactoryType.MANUAL)
                 throw new Exception("Can't use SetSelect inside a SELECT SqlString");
-            if(commandType == SqlStringType.INSERT)
+            if(commandType == SqlFactoryType.INSERT)
                 throw new Exception("Can't use SetSelect inside a SELECT SqlString");
-            if(commandType == SqlStringType.UPDATE)
+            if(commandType == SqlFactoryType.UPDATE)
                 throw new Exception("Can't use SetSelect inside a UPDATE SqlString");
-            if(commandType == SqlStringType.DELETE)
+            if(commandType == SqlFactoryType.DELETE)
                 throw new Exception("Can't use SetSelect inside a DELETE SqlString");
 
-            if(commandType == SqlStringType.SELECT)
+            if(commandType == SqlFactoryType.SELECT)
                  command = Regex.Replace(command, @"\*\*\*", $"{index}, ***");     
             
             return this;
         }
 
         /// <summary> Set a parameter inside the command, valid for MANUAL and INSERT type </summary>
-        public SqlString SetParam(string index, object value, DbParamType type = DbParamType.NULL)
+        public SqlFactory SetParam(string index, object value, SqlFactoryParam type = SqlFactoryParam.NULL)
         {
-            if(commandType == SqlStringType.SELECT)
+            if(commandType == SqlFactoryType.SELECT)
                 throw new Exception("Can't use SetParam inside a SELECT SqlString");
-            if(commandType == SqlStringType.DELETE)
+            if(commandType == SqlFactoryType.DELETE)
                 throw new Exception("Can't use SetParam inside a DELETE SqlString");
 
             string val = ConvertValue(value);
-            if (type == DbParamType.MINUS)
+            if (type == SqlFactoryParam.MINUS)
                 val = index + "-" + val;
 
-            if (type == DbParamType.PLUS)
+            if (type == SqlFactoryParam.PLUS)
                 val = index + "+" + val;
 
 
-            if(commandType == SqlStringType.MANUAL)
+            if(commandType == SqlFactoryType.MANUAL)
                 command = Regex.Replace(command, @"\B" + index + @"\b", val);
 
 
-            if(commandType == SqlStringType.INSERT)
+            if(commandType == SqlFactoryType.INSERT)
             {
                 command = Regex.Replace(command, "@@@", $"{index}, @@@");
                 command = Regex.Replace(command, "###", $"{val}, ###");
             }       
 
-            if(commandType == SqlStringType.UPDATE)
+            if(commandType == SqlFactoryType.UPDATE)
             {
                 command = Regex.Replace(command, "@@@", $"{index}");
                 command = Regex.Replace(command, "###", $"{val}, @@@ = ###");
@@ -183,16 +183,16 @@ namespace UtilityPack.SqlBuilder
         
 
         /// <summary> Set where conditions inside the command, valid for SELECT and UPDATE type </summary>
-        public SqlString SetWhere(string index, object value)
+        public SqlFactory SetWhere(string index, object value)
         {
-            if(commandType == SqlStringType.INSERT)
+            if(commandType == SqlFactoryType.INSERT)
                 throw new Exception("Can't use SetWhere inside a INSERT SqlString");
-            if(commandType == SqlStringType.MANUAL)
+            if(commandType == SqlFactoryType.MANUAL)
                 throw new Exception("Can't use SetWhere inside a MANUAL SqlString");
 
             string val = ConvertValue(value);
 
-            if(commandType == SqlStringType.SELECT || commandType == SqlStringType.DELETE || commandType == SqlStringType.UPDATE)
+            if(commandType == SqlFactoryType.SELECT || commandType == SqlFactoryType.DELETE || commandType == SqlFactoryType.UPDATE)
             {
                 command = Regex.Replace(command, @"\+\+\+", $"{index}");
                 command = Regex.Replace(command, "---", $"{val} AND +++ = ---");
@@ -202,23 +202,23 @@ namespace UtilityPack.SqlBuilder
         }
 
         /// <summary> Set a JOIN inside the command, valid for SELECT type </summary>
-        public SqlString SetJoin(DbJoinType joinType, string tableName, string columnSX, string columnDX)
+        public SqlFactory SetJoin(SqlFactoryJoin joinType, string tableName, string columnSX, string columnDX)
         {
-            if(commandType == SqlStringType.INSERT)
+            if(commandType == SqlFactoryType.INSERT)
                 throw new Exception("Can't use SetJoin inside a INSERT SqlString");
-            if(commandType == SqlStringType.MANUAL)
+            if(commandType == SqlFactoryType.MANUAL)
                 throw new Exception("Can't use SetJoin inside a MANUAL SqlString");
-            if(commandType == SqlStringType.DELETE)
+            if(commandType == SqlFactoryType.DELETE)
                 throw new Exception("Can't use SetJoin inside a DELETE SqlString");
-            if(commandType == SqlStringType.UPDATE)
+            if(commandType == SqlFactoryType.UPDATE)
                 throw new Exception("Can't use SetJoin inside a UPDATE SqlString");
 
             string join = "";
 
-            if(joinType == DbJoinType.INNER)
+            if(joinType == SqlFactoryJoin.INNER)
                  join = "INNER";
 
-            if(commandType == SqlStringType.SELECT)
+            if(commandType == SqlFactoryType.SELECT)
                 command = Regex.Replace(command, @"!!!", $"{join} JOIN {tableName} ON {table}.{columnSX} = {tableName}.{columnDX} !!!");
         
             return this;
@@ -230,7 +230,7 @@ namespace UtilityPack.SqlBuilder
         {
             string finalCommand = command;
             
-            if(commandType == SqlStringType.INSERT)
+            if(commandType == SqlFactoryType.INSERT)
             {
                 finalCommand = Regex.Replace(finalCommand, ", ###", "");
                 finalCommand = Regex.Replace(finalCommand, ", @@@", "");
@@ -239,7 +239,7 @@ namespace UtilityPack.SqlBuilder
                 finalCommand = Regex.Replace(finalCommand, "@@@", "");
             }    
 
-            if(commandType == SqlStringType.UPDATE)
+            if(commandType == SqlFactoryType.UPDATE)
             {
                 if(finalCommand.Contains(" SET @@@ = ###"))
                     throw new Exception("sqlString of type UPDATE dosen't include any SET values, use SetParam before calling GetCommand");
@@ -247,7 +247,7 @@ namespace UtilityPack.SqlBuilder
                 finalCommand = Regex.Replace(finalCommand, ", @@@ = ###", "");
             }   
 
-            if(commandType == SqlStringType.SELECT)
+            if(commandType == SqlFactoryType.SELECT)
             {
                 if(finalCommand.Contains(", ***"))
                     finalCommand = Regex.Replace(finalCommand, @", \*\*\*", "");
@@ -257,7 +257,7 @@ namespace UtilityPack.SqlBuilder
                 finalCommand = Regex.Replace(finalCommand, @"!!!", "");
             }
 
-            if(commandType == SqlStringType.SELECT || commandType == SqlStringType.UPDATE || commandType == SqlStringType.DELETE)
+            if(commandType == SqlFactoryType.SELECT || commandType == SqlFactoryType.UPDATE || commandType == SqlFactoryType.DELETE)
             {
                 finalCommand = Regex.Replace(finalCommand, @"WHERE \+\+\+ = ---", "");
                 finalCommand = Regex.Replace(finalCommand, @" AND \+\+\+ = ---", "");
