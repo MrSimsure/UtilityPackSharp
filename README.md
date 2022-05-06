@@ -4,8 +4,6 @@ Solution containing several utility libraries for C # projects
 
 **WIP**
 
----------------------------
-
 
 ## Available Libraries 
 

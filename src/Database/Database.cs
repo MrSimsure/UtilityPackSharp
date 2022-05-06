@@ -27,7 +27,7 @@ namespace UtilityPack.Database
         /// </summary>
         public bool trim = false;
         /// <summary>
-        /// if true, allow the function to return null is database value is null
+        /// If true, allow the function to return null if database value is null
         /// </summary>
         public bool returnNull = false;
         /// <summary>
@@ -86,7 +86,7 @@ namespace UtilityPack.Database
         }
 
         /// <summary> 
-        /// Test the connection 
+        /// Return true if the connection succeed, false otherwise
         /// </summary>
         public bool TestConnection(bool print)
         {
@@ -165,7 +165,7 @@ namespace UtilityPack.Database
         }
 
 
-        /// <summary> Execute a command on the database </summary>
+        /// <summary> Execute a command on the database, return the number of affected rows </summary>
         /// <exception cref="IOException"></exception>
         /// <exception cref="SqlException"></exception>
         /// <exception cref="InvalidCastException"></exception>
