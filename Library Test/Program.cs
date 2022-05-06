@@ -12,6 +12,7 @@ using UtilityPack.ArgsParser;
 using System.Collections.Generic;
 using System.Linq;
 using UtilityPack.FileManager.Ini;
+using System.Data;
 
 namespace Library_Test
 {
@@ -96,9 +97,23 @@ namespace Library_Test
 
         public static void test_database()
         {
-            //Database DB = new("ETOS", "SERVER-TEST\\SQLEXPR17", "sa", "sa1234!");
-            Database DB = new("ETOS.FDB", "localhost", "SYSDBA", "masterkey", DbSystem.FIREBIRD);
-            DB.TestConnection(true);
+            
+            Database DB = new Database("VAULT", "localhost", "mario", "12345678", DbSystem.SQL_SERVER);
+
+            bool isConnected = DB.TestConnection(true);
+
+            if(isConnected)
+            {
+                string query = "SELECT name, age FROM users";
+
+                DataTable result = DB.ExecuteSqlQuery(query);
+
+                if(result.Rows.Count <= 0)
+                    return;
+
+                object value = result.Rows[0]["age"];
+                int firstUserAge = Database.ParseToNumber(value, 0);
+            }
         } 
 
         public static void test_sqlbuilder()
