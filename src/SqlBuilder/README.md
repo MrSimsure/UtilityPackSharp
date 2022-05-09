@@ -2,29 +2,29 @@
 
 
 ## *Enum* SqlFactoryType
-- MANUAL\
+- **MANUAL**\
 A totally  manual command, the only supported operation is 'SetParam()' that works like a string.replace()
-- INSERT\
+- **INSERT**\
 An insert command structured like 'INSERT INTO table_name (...) VALUES (...);'
-- SELECT\
+- **SELECT**\
 A select command structured like  'SELECT .. FROM table_name;'
-- UPDATE\
+- **UPDATE**\
 An update command structured like 'UPDATE table_name SET ...;'
-- DELETE\
+- **DELETE**\
 A delete command structured like  'DELETE FROM table_name ...;'
 
 
 ## *Enum* SqlFactoryParam
-- NULL\
+- **NULL**\
 When a parameter should be set exactly as the value passed (param = values)
-- PLUS\
+- **PLUS**\
 When a parameter should be set as an addition of the value passed (param += value)
-- MINUS\
+- **MINUS**\
 When a parameter should be set as a subtraction of the value passed (param -= value)
 
 
 ## *Enum* SqlFactoryJoin
-- INNER\
+- **INNER**\
 An inner join to attach to a command
 
 
