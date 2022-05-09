@@ -146,7 +146,7 @@ namespace UtilityPack.SqlBuilder
             return this;
         }
 
-        /// <summary> Set a parameter inside the command, valid for MANUAL and INSERT type </summary>
+        /// <summary> Set a parameter inside the command, valid for MANUAL, INSERT and UPDATE type </summary>
         public SqlFactory SetParam(string index, object value, SqlFactoryParam type = SqlFactoryParam.NULL)
         {
             if(commandType == SqlFactoryType.SELECT)
@@ -182,7 +182,7 @@ namespace UtilityPack.SqlBuilder
         }
         
 
-        /// <summary> Set where conditions inside the command, valid for SELECT and UPDATE type </summary>
+        /// <summary> Set where conditions inside the command, valid for SELECT, UPDATE and DELETE type </summary>
         public SqlFactory SetWhere(string index, object value)
         {
             if(commandType == SqlFactoryType.INSERT)

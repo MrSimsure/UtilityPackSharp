@@ -2,21 +2,21 @@
 
 
 ## *Enum* SqlFactoryType
-- MANUAL
-- INSERT
-- SELECT
-- UPDATE
-- DELETE
+- MANUAL  : a totaly manual command, the only supported operation is 'SetParam()' that works like a string.replace()
+- INSERT  : an insert command structured like 'INSERT INTO table_name (...) VALUES (...);'
+- SELECT  : a select command structured like  'SELECT .. FROM table_name;'
+- UPDATE  : an update command structured like 'UPDATE table_name SET ...;'
+- DELETE  : a delete command structured like  'DELETE FROM table_name ...;'
 
 
 ## *Enum* SqlFactoryParam
-- NULL
-- PLUS
-- MINUS
+- NULL    : when a parameter should be set exactly as the value passed (param = values)
+- PLUS    : when a parameter should be set as an addition of the value passed (param += value)
+- MINUS   : when a parameter should be set as a subtraction of the value passed (param -= value)
 
 
 ## *Enum* SqlFactoryJoin
-- INNER
+- INNER   : in inner join to attach to a command
 
 
 ## *Class* Database
@@ -45,11 +45,11 @@ Returns the command clean of all temporary constructs and ready to be inserted i
 - **SetSelect(  *string* index )** : *SqlFactory*\
 Set a select option inside the command, valid for SELECT type
 
-- **SetParam( *string* index, *object* value, *SqlFactoryParam* type  )** : *SqlFactory*\
-Set a parameter inside the command, valid for MANUAL and INSERT type
+- **SetParam( *string* index, *object* value, *SqlFactoryParam* type)** : *SqlFactory*\
+Set a parameter inside the command, valid for MANUAL, INSERT and UPDATE type
 
 - **SetWhere( *string* index, *object* value)** : *SqlFactory*\
-Set where conditions inside the command, valid for SELECT, DELETE and UPDATE type
+Set where conditions inside the command, valid for SELECT, UPDATE and DELETE type
 
 - **SetJoin( *SqlFactoryJoin* joinType, *string* tableName, *string* columnSX, *string* columnDX)** : *SqlFactory*\
 Set a JOIN inside the command, valid for SELECT type
