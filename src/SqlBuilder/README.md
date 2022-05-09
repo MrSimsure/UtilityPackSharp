@@ -60,7 +60,7 @@ Set a JOIN inside the command, valid for SELECT type
     // Create a new update on table USERS
     SqlFactory sql = SqlFactory.CreateUpdate("users");
 
-    // Set all the parameters "SET (...) VALUES (...)"
+    // Set all the parameters "param = value,"
     sql.SetParam("nome",    "mario");
     sql.SetParam("cognome", "rossi");
     sql.SetParam("anni",    30);
