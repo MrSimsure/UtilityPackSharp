@@ -57,7 +57,7 @@ Set a JOIN inside the command, valid for SELECT type
 
 ## Example 
 ```C#
-	// Create a new update on table USERS
+    // Create a new update on table USERS
     SqlFactory sql = SqlFactory.CreateUpdate("users");
 
 	// Set all the parameters "SET (...) VALUES (...)"
@@ -65,10 +65,10 @@ Set a JOIN inside the command, valid for SELECT type
     sql.SetParam("cognome", "rossi");
     sql.SetParam("anni",    30);
 
-	// Set a WHERE
+    // Set a WHERE
     sql.SetWhere("id",      106);
 
-	// Get the final command 
-	// "UPDATE users SET nome='mario', cognome='rossi', anni=30 WHERE id=106;"
+    // Get the final command 
+    // "UPDATE users SET nome='mario', cognome='rossi', anni=30 WHERE id=106;"
     string command = sql.GetCommand();
 ```
