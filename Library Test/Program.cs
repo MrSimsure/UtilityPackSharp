@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UtilityPack.FileManager.Ini;
 using System.Data;
+using UtilityPack.SqlBuilder;
 
 namespace Library_Test
 {
@@ -117,15 +118,18 @@ namespace Library_Test
 
         public static void test_sqlbuilder()
         {
-            SqlFactory sql = SqlString.CreateUpdate("CLIFO");
-            SqlS
-            sql.SetParam("NOME",    "lucio");
-            sql.SetParam("COGNOME", "asdasd");
 
-            sql.SetWhere("ANNI",    123);
-            sql.SetWhere("CITTA",   "paperopoli");
+            SqlFactory sql = SqlFactory.CreateUpdate("USERS");
+            
+            sql.SetParam("NOME",    "mario");
+            sql.SetParam("COGNOME", "rossi");
+            sql.SetParam("ANNI",    123);
+            sql.SetParam("CITTA",   "paperopoli");
 
-            Console.WriteLine(sql.GetCommand());
+            sql.SetWhere("ID",      481237108);
+
+            string command = sql.GetCommand();
+
         }
 
         public static void test_parser(string[] args)

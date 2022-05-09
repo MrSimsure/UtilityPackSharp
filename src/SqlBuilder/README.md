@@ -43,10 +43,32 @@ Returns the command clean of all temporary constructs and ready to be inserted i
 
 
 - **SetSelect(  *string* index )** : *SqlFactory*\
-Returns the command clean of all temporary constructs and ready to be inserted into a database
+Set a select option inside the command, valid for SELECT type
+
 - **SetParam( *string* index, *object* value, *SqlFactoryParam* type  )** : *SqlFactory*\
-Returns the command clean of all temporary constructs and ready to be inserted into a database
+Set a parameter inside the command, valid for MANUAL and INSERT type
+
 - **SetWhere( *string* index, *object* value)** : *SqlFactory*\
-Returns the command clean of all temporary constructs and ready to be inserted into a database
+Set where conditions inside the command, valid for SELECT, DELETE and UPDATE type
+
 - **SetJoin( *SqlFactoryJoin* joinType, *string* tableName, *string* columnSX, *string* columnDX)** : *SqlFactory*\
-Returns the command clean of all temporary constructs and ready to be inserted into a database
+Set a JOIN inside the command, valid for SELECT type
+
+
+## Example 
+```C#
+	// Create a new update on table USERS
+    SqlFactory sql = SqlFactory.CreateUpdate("users");
+
+	// Set all the parameters "SET (...) VALUES (...)"
+    sql.SetParam("nome",    "mario");
+    sql.SetParam("cognome", "rossi");
+    sql.SetParam("anni",    30);
+
+	// Set a WHERE
+    sql.SetWhere("id",      106);
+
+	// Get the final command 
+	// "UPDATE users SET nome='mario', cognome='rossi', anni=30 WHERE id=106;"
+    string command = sql.GetCommand();
+```
