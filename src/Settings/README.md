@@ -34,7 +34,7 @@ If true, automatically use "SaveCrypt()" when calling "Save()" and "LoadCrypt()"
  If true pretty print the json file
 
 ### Methods
-- **SetLocation(*SettLocation* location, *string* customDir)** : *void*\
+- **SetLocation(*SettLocation* location, *string?* customDir)** : *void*\
 Set the settings file save location.
 When location == SettLocation.CUSTOM, the "customDir" parameter work as a full path. In every other cases "customDir" works as an additional final string to the base path.
 

@@ -38,27 +38,27 @@ Additional sub directories where save the logs, added at the end of BasePath.
 
 
 ### Method
-- **SetLocation(*LogLocation* location, *string* customDir)**\
+- **SetLocation(*LogLocation* location, *string?* customDir)**\
 Set the log save location
 
 - **SetSubLocation(*string* subLocation)**\
 Set the log folder sub location 
 
 
-- **SaveText(*string* text, *string* name , *bool* append)**\
+- **SaveText(*string* text, *string?* name , *bool?* append)**\
 Save some text to file in the log directory as a file .txt 
 
-- ****SaveJson(*string* text, *string* name , *bool* append)****\
+- ****SaveJson(*string* text, *string?* name , *bool?* append)****\
 Save some json text to file in the log directory as a file .json 
 
-- ****SaveJson(*object* text, *string* name , *bool* append)****\
+- ****SaveJson(*object* text, *string?* name , *bool?* append)****\
 Save a json object to file in the log directory as a file .json 
 
-- ****SaveJsonList< T >(*List< T >* list, *string* name , *bool* append)****\
+- ****SaveJsonList< T >(*List< T >* list, *string?* name , *bool?* append)****\
 Save a list of json objects to file in the log directory as a file .json 
 
 
-- **ClearLogFolder(*string* chosenPath)**\
+- **ClearLogFolder(*string?* chosenPath)**\
  Delete every file inside the log folder, if another folder BasePath is specified, clear it instead
 
 
