@@ -22,7 +22,7 @@ Every program can create a definition class and then create an instance of Setti
 
 
 
-## *Class* Settings<\T>
+## *Class* Settings<T>
 ### Property
 - **data** : *public T*\
 Property holding all the data, Loaded after calling "Load()" and saved on disk after calling "Save()"
