@@ -70,6 +70,7 @@ Automaticlay done when calling "Save()" if "crypt" is set to true
     class Program
     {
         // Create the Setting instance, passing the definition class as generic parameter
+        // Making the instance static allow us to access data from every where in the program
         public static Settings<ProgramData> setting = new();
 
         static void Main()
