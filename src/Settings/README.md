@@ -13,7 +13,7 @@ Every program can create a definition class and then create an instance of Setti
 *../exe_directory/*
 - **EXEDIR**\
 *../exe_directory/custom_dir* 
-- **PROGDATA**
+- **PROGDATA**\
 *C:/ProgramData/*
 - **APPDATAROAM**\
 *../AppData/Roaming*
