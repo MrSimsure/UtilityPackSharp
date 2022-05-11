@@ -1,67 +1,61 @@
 # Print
----------------
+Print provides a single static class, with  several static methods that abstract the functions Console.WriteLine() and Console.Write(), this allow to automatically write messages of different colors and disable all commands Print present in the program using a single flag.
 
-Print mette a disposizione una singola classe statica, con al suo interno diversi metodi a loro volta statici che astraggono le funzioni Console.WriteLine() e Console.Write(), per consentire di scrivere automaticamente messaggi di colori diversi e di disattivare tutti i comandi Print presenti nel programam usando un solo flag.
+## *Class* Print
+### Property
+- **IsVerbose** : static public bool\
+Only if set to 'true' all Print methods calls will actually write to console.
 
-## Proprietà di Print
+- **IsDebug** : static public bool\
+Only if set to 'true' the "Print.Debug()" calls will actually write to the console.
 
-**IsVerbose** : bool\
-Valore booleano, solo se impostato a 'true' tutti i metodi di Print scriveranno effettivamente su console.
+- **IsGUI** : static public bool\
+If it is necessary to develop an application with a graphical interface, it is possible to send all the Print methods to some graphical component instead of the console.
+To do this, it is necessary to set this property to 'true' and then to define the 'GuiWriteFunction' property of Print.
 
-**IsDebug** : bool\
-Valore booleano, solo se impostato a 'true' il metodo Print.Debug() scriverà effettivamente su console.
-
-**IsGUI** : bool\
-Valore booleano, se fosse necessario sviluppare una'applicazione con interfaccia grafica, è possibile rimandare tutti i metodi di Print ad un qualche componente grafico invece che alla console.\
-Per farlo è necessario settare questa proprietà a 'true' e poi valorizzare la proprietà 'GuiWriteFunction' di Print.
-
-**GuiWriteFunction** : Action<Color, string, bool>\
-Proprietà di tipo Action, per definire un qualche metodo a cui reinderizzare le chiamate di Print, il metodo impostato dovrà prendere in input 3 valori di tipo:
-- Color, il colore del messaggio che sta arrivando
-- string, il testo del messaggio che sta arrivando
-- bool, se il messaggio ha l'ultimo carattere come nuova linea '\n'
+- **GuiWriteFunction** : static public Action<Color, string, bool>\
+Define some method to which Print calls are re-routed, the set method must take 3 values as input:
+- Color, the color of the message that is coming
+- string, the text of the message that is coming
+- bool, if the message has the last character as a new line '\ n'
 
 
-## Metodi di Print
+### Methods
 
-**Error**\
-Scrive un messaggio rosso di errore
+- **Error**\
+Write a red error message
+
+- **Warning**\
+Write a yellow warning message
+
+- **Succes**\
+Write a green succes message
+
+- **Note**\
+Write a gray note message
+
+- **Message**\
+Write a white message
+
+- **Debug**\
+Write a cyan debug message
+
+- **Separator**\
+Writes a separator line consisting of a defined number of dashes "-----"
+
+
+## Example 
 ```C#
-	Print.Error(string text)
-```
-
-**Warning**\
-Scrive un messaggio giallo di attenzione
-```C#
-	Print.Warning(string text)
-```
-
-**Succes**\
-Scrive un messaggio verde di successo
-```C#
-	Print.Succes(string text)
-```
-
-**Note**\
-Scrive un messaggio grigio di nota
-```C#
-	Print.Note(string text)
-```
-
-**Message**\
-Scrive un generico messaggio bianco
-```C#
-	Print.Message(string text)
-```
-
-**Debug**\
-Scrive un messaggio blu di debug
-```C#
-	Print.Debug(string text)
-```
-
-**Separator**\
-Scrive una linea di separazione composta da un numero definito di trattini "-----"
-```C#
-	Print.Separator(int segments)
+	try
+	{
+		...
+		
+		Print.Succes("Execution terminated");
+		Print.Debug("Ending time: "+DateTime.Now());
+	}
+	catch()
+	{
+		Print.Error("Something has gone wrong");
+	}
+    
 ```
