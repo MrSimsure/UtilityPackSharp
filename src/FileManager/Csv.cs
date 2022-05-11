@@ -31,7 +31,7 @@ namespace UtilityPack.FileManager.Csv
                 using(var csv = new CsvReader(reader, config))
                 {
                     List<T> records = csv.GetRecords<T>().ToList();
-            
+          
                     return records;
                 } 
             }           

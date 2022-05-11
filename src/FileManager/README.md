@@ -20,12 +20,33 @@ If true create every unexisting directory when passing a csv path. (Deafault tru
 - **Read< T >(*string* path)** : *List< T >*\
 Create a list of values reading them from a csv file
 
-- **Write< T >(*SettLocation* location, *string?* customDir)** : *string*\
+- **Write< T >(*string* path, *List< T >* prodotti)** : *string*\
 Write a list of instance to a csv file
 
-- **Write< T, M >(*SettLocation* location, *string?* customDir)** : *string*\
+- **Write< T, M >(*string* path, *List< T >* prodotti)** : *string*\
  Write a list of instance to a csv file, with a specific class map to define specific behaviour
 
+### Example
+
+```C#
+	// Define and create an instance to rappresent a csv row
+	class Item
+	{
+		public string Name;
+		public int Age;
+	} 
+	
+    Lsit<Item> list = new();
+
+	// Read the csv content from file and create a list
+	list = CsvManager.Read<Item>("C:\example.csv");
+
+	// Modify the list and save it back as csv
+	list.RemoveAt(0);
+	
+	CsvManager.Write<Item>("C:\example.csv", list);
+	
+```
 
 ## *Class* IniManager
 ### Property
@@ -43,6 +64,12 @@ Read a value from a file ini, if some error occours return the default value pas
 - **Write(*string* filePath, *string* section, *string* key, *object* value)** : *bool*\
 Read a value from a file ini, if some error occours return the default value passed instead
 
+### Example
+
+```C#
+
+	
+```
 
 ## *Class* RegistryManager
 
@@ -50,5 +77,9 @@ Read a value from a file ini, if some error occours return the default value pas
 - **Read(*RegistryHive* root, *string* key, *string* subKey)** : *string*\
 Read a value from a specific section of the registry
 
+### Example
 
+```C#
 
+	
+```
