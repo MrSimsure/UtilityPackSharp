@@ -1,74 +1,92 @@
 # Logger
----------------
 
-Logger mette a disposizione una singola classe statica, con al suo interno diversi metodi a loro volta statici che si occupano di eseguire rapide scritture di file su disco in luoghi predefiniti.
+Logger provides a single static class, with several static methods that take care of performing rapid writing of files to disk in predefined places.
 
-## Enumeratori
-**LogLocation**\
-Definizioni per i luoghi dove impostare la cartella madre per i log.
+## *Enum* LogLocation
+ - **ROOT**\
+ *C:/*
+- **CUSTOM**\
+*Custom Path*
+- **EXEPOS**\
+*../exe_directory/*
+- **EXEDIR**\
+*../exe_directory/custom_dir* 
+- **PROGDATA**\
+*C:/ProgramData/*
+- **APPDATAROAM**\
+*../AppData/Roaming*
+- **APPDATALOCA**\
+*../AppData/Local* 
+
+## *Class* Logger
+
+### Property
+- **IsLogActive** : bool\
+Only if set to 'true' the Logger methods will actually save files to disk.
+(Default true)
+
+- **IsCatchErrorActive** : bool\
+If true, when an error occur it will be thrown, otherwhise the functions will silently return false.
+(Default false)
+
+- **BasePath** : string\
+Root directory where to save the logs.
+(Default same directory as the exe) 
+
+- **SubPath** : string\
+Additional sub directories where save the logs, added at the end of BasePath.
+(Default "")
+
+
+
+### Method
+- **SetLocation(*LogLocation* location, *string* customDir)**\
+Set the log save location
+
+- **SetSubLocation(string* subLocation)**\
+Set the log folder sub location 
+
+
+- **SaveText(*string* text, *string* name , *bool* append)**\
+Save some text to file in the log directory as a file .txt 
+
+- ****SaveJson(*string* text, *string* name , *bool* append)****\
+Save some json text to file in the log directory as a file .json 
+
+- ****SaveJson(*object* text, *string* name , *bool* append)****\
+Save a json object to file in the log directory as a file .json 
+
+- ****SaveJsonList< T >(*List< T >* list, *string* name , *bool* append)****\
+Save a list of json objects to file in the log directory as a file .json 
+
+
+- **ClearLogFolder(*string* chosenPath)**\
+ Delete every file inside the log folder, if another folder BasePath is specified, clear it instead
+
+
+## Example 
 ```C#
-public enum LogLocation
-{   
-        ROOT,
-        CUSTOM,
-        EXEPOS,
-        PROGDATA,
-        APPDATAROAM,
-        APPDATALOCA
+class jsonObj
+{
+	public string Name;
+	public int Age;
 }
-```
-- ROOT = C:\
-- CUSTOM = cartella libera
-- EXEPOS = stessa cartella in cui si trova l'eseguibile
-- PROGDATA = C:\ProgramData\
-- APPDATAROAM = ..\AppData\Roaming
-- APPDATALOCA = ..\AppData\Local
 
+static void Main()
+{
+	// Set the main log folder location
+	Logger.SetLocation(LogLocation.APPDATALOCA, "ProgramLogs");
 
+	// Save a simple text message on a report.txt file located in the log folder
+	Logger.SaveText("Report message", "report");
 
-## Proprietà di Logger
+	// Create and append a json like object to a report_data.json file located in the log folder
+	jsonObj json = new()
+	{
+		Name = "Burt",
+		Age  = 20
+	};
 
-**IsLogActive** : bool\
-Valore booleano, solo se impostato a 'true' i metodi di Logger salveranno effettivamente i file su disco.
-
-**LogDirSub** : string\
-Stringa per definire sottocartelle su cui scrivere i file, la sottocartella è posizionata dentro la cartella principale, definita dal metodo SetLogLocation().
-
-
-
-## Metodi di Logger
-
-**SetLogLocation**\
-Usata per definire il luogo dove è posizionata la cartella madre di logging, richiede un valore dell'enumeratore LogLocation.\
-Il parametro 'customDir' è necessario unicamente se si sceglie il valore 'LogLocation.CUSTOM'.
-```C#
-	SetLogLocation(LogLocation location, string customDir = "")
-```
-
-**LogText**\
-Scrive su disco un testo, come argomenti richiede il testo da scrivere e l'eventuale nome aggiuntivo del file.\
-Formato del file .txt
-```C#
-	LogText(string text, string name = "")
-```
-
-**LogJson**\
-Scrive su disco un oggetto json, come argomenti richiede un oggetto serializzabile come json e l'eventuale nome aggiuntivo del file.\
-Formato del file .json
-```C#
-	LogJson(object obj, string name = "")
-```
-
-**LogJson**\
-Scrive su disco un oggetto json, come argomenti richiede un testo in formato json e l'eventuale nome aggiuntivo del file.\
-Formato del file .json
-```C#
-	LogJson(string text, string name = "")
-```
-
-**LogJsonList**\
-Scrive su disco una lista di oggetti json, come argomenti richiede una lista di oggetti serializzabili come json e l'eventuale nome aggiuntivo del file.\
-Formato del file .json
-```C#
-	LogJsonList<T>(List<T> list, string name = "")
+	Logger.SaveJson(json, "report_data", true);
+}
 ```

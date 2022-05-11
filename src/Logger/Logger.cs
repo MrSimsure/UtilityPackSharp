@@ -28,22 +28,28 @@ namespace UtilityPack.Logger
     public static class Logger
     {
         /// <summary> 
-        /// Root directory where to save the logs 
-        /// <br/> (Default same directory as the exe) 
+        /// Root directory where to save the logs <br/> 
+        /// (Default same directory as the exe) 
         /// </summary>
-        public static string path = AppDomain.CurrentDomain.BaseDirectory+@"\";
+        public static string BasePath = AppDomain.CurrentDomain.BaseDirectory+@"\";
+
+        /// <summary> 
+        /// Additional sub directories where save the logs, added at the end of BasePath <br/> 
+        /// (Default "") 
+        /// </summary>
+        public static string SubPath = "";
         
         /// <summary> 
-        /// If false, no logs will ever be saved 
-        /// <br/>(Default true)
+        /// If false, logs will not be saved <br/>
+        /// (Default true)
         /// </summary>
         public static bool IsLogActive = true;
         
         /// <summary> 
-        /// If true, when an error occur it will be thrown, otherwhise the functions will silently return false 
-        /// <br/>(Default false)
+        /// If true, when an error occur it will be thrown, otherwhise the functions will silently return false <br/>
+        /// (Default false)
         /// </summary>
-        public static bool IsCatchErrorOn = false;
+        public static bool IsCatchErrorActive = false;
 
 
 
@@ -59,28 +65,31 @@ namespace UtilityPack.Logger
             {
                 string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
                 string fileName = $"Log__{fileDate}.txt";
+                string fullPath = BasePath+SubPath;
+
+                if(!fullPath.EndsWith("/"))
+                    fullPath += "/";
 
                 if(name != "")
                     fileName = name;
 
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(fullPath);
 
                 if(append)
-                    File.AppendAllText(path + fileName, "\n\n"+text);
+                    File.AppendAllText(fullPath + fileName, "\n\n"+text);
                 else
-                    File.WriteAllText(path + fileName, text);
+                    File.WriteAllText(fullPath + fileName, text);
 
                 return true;
             }
             catch(Exception e)
             {
-                if(IsCatchErrorOn)
+                if(IsCatchErrorActive)
                     throw(e);
                 else
                     return false;
             }
         }
-
 
         /// <summary> 
         /// Save some json text to file in the log directory as a file .json 
@@ -94,22 +103,26 @@ namespace UtilityPack.Logger
             {
                 string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
                 string fileName = $"Log__{fileDate}.json";
+                string fullPath = BasePath+SubPath;
+
+                if(!fullPath.EndsWith("/"))
+                    fullPath += "/";
 
                 if(name != "")
                     fileName = name;
 
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(fullPath);
 
                 if(append)
-                   File.AppendAllText(path + fileName, "\n\n"+text);
+                   File.AppendAllText(fullPath + fileName, "\n\n"+text);
                 else
-                   File.WriteAllText(path + fileName, text);
+                   File.WriteAllText(fullPath + fileName, text);
 
                 return true;
             }
             catch(Exception e)
             {
-                if(IsCatchErrorOn)
+                if(IsCatchErrorActive)
                     throw(e);
                 else
                     return false;
@@ -142,13 +155,14 @@ namespace UtilityPack.Logger
         }
 
 
+
         /// <summary> 
-        /// Delete every file inside the log folder, if another folder path is specified, clear it instead
+        /// Delete every file inside the log folder, if another folder BasePath is specified, clear it instead
         /// </summary>
         public static void ClearLogFolder(string chosenPath = null)
         {
             if(chosenPath == null)
-                chosenPath = path;
+                chosenPath = BasePath;
 
             DirectoryInfo dir = new DirectoryInfo(chosenPath);
 
@@ -165,7 +179,7 @@ namespace UtilityPack.Logger
         }
 
         /// <summary> 
-        /// Set the log folder location 
+        /// Set the log save location 
         /// </summary>
         public static void SetLocation(LogLocation location, string customDir = "")
         {
@@ -173,40 +187,49 @@ namespace UtilityPack.Logger
             {
                 case LogLocation.ROOT:
                 {
-                    path = Path.GetPathRoot(Environment.SystemDirectory)+@"\"+customDir;
+                    BasePath = Path.GetPathRoot(Environment.SystemDirectory)+@"\"+customDir;
                     break;
                 }
                 case LogLocation.CUSTOM:
                 {
-                    path = customDir;
+                    BasePath = customDir;
                     break;
                 }
                 case LogLocation.EXEPOS:
                 {
-                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
+                    BasePath = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
                     break;
                 }
                 case LogLocation.EXEDIR:
                 {
-                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
+                    BasePath = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
                     break;
                 }
                 case LogLocation.PROGDATA:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)+@"\"+customDir;
+                    BasePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)+@"\"+customDir;
                     break;
                 }
                 case LogLocation.APPDATAROAM:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\"+customDir;
+                    BasePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\"+customDir;
                     break;
                 }
                 case LogLocation.APPDATALOCA:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+@"\"+customDir;
+                    BasePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+@"\"+customDir;
                     break;
                 }
             }
         }
+    
+        /// <summary> 
+        /// Set the log folder sub location 
+        /// </summary>
+        public static void SetSubLocation(string subLocation)
+        {
+            SubPath = subLocation;
+        }
+    
     }
 }

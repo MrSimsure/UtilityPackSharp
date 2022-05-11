@@ -2,7 +2,6 @@
 using System;
 using System.Globalization;
 using System.IO;
-
 using UtilityPack.Print;
 using UtilityPack.Database;
 using UtilityPack.Connections.Ftp;
@@ -13,6 +12,7 @@ using System.Linq;
 using UtilityPack.FileManager.Ini;
 using System.Data;
 using UtilityPack.SqlBuilder;
+using UtilityPack.Logger;
 
 namespace Library_Test
 {
@@ -29,21 +29,29 @@ namespace Library_Test
         // Create the Setting instance, passing the definition class as generic parameter
         public static Settings<ProgramData> setting = new();
 
+
+        class jsonObj
+        {
+            public string Name;
+            public int Age;
+        }
+
         static void Main()
         {
-            // Choose setting configuration ad load the data
-            setting.crypt = true;
-            setting.SetLocation(SettLocation.PROGDATA, "ProgramName/");
-            setting.Load();
-          
-            // Change a some values
-            setting.data.Uses += 1;
+            // Set the main log folder location
+            Logger.SetLocation(LogLocation.APPDATALOCA, "ProgramLogs");
 
-            // Save the setting to file
-            setting.Save();
+            // Save a simple text message on a report.txt file located in the log folder
+            Logger.SaveText("Report message", "report");
 
-            // Read a value from the setting data
-            string name = setting.data.Name;
+            // Create and append a json like object to a report_data.json file located in the log folder
+            jsonObj json = new()
+            {
+                Name = "Burt",
+                Age  = 20
+            };
+
+            Logger.SaveJson(json, "report_data", true);
         }
 
 
@@ -89,6 +97,19 @@ namespace Library_Test
 
         public static void test_settings()
         {
+            // Choose setting configuration ad load the data
+            setting.crypt = true;
+            setting.SetLocation(SettLocation.PROGDATA, "ProgramName/");
+            setting.Load();
+          
+            // Change a some values
+            setting.data.Uses += 1;
+
+            // Save the setting to file
+            setting.Save();
+
+            // Read a value from the setting data
+            string name = setting.data.Name;
         }
 
         public static void test_database()
