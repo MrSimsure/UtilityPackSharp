@@ -16,33 +16,36 @@ using UtilityPack.SqlBuilder;
 
 namespace Library_Test
 {
-    public class opt 
+    // Definition class with default values
+    public class ProgramData 
     {
-        public bool   attivo { get; set;} = false;
-        public string nome   { get; set;} = "pippo";
-        public int    anni   { get; set;} = 123;
+        public bool   isActive { get; set;} = false;
+        public string Name     { get; set;} = "Michael";
+        public int    Uses     { get; set;} = 123;
     }
-
-   public class Altro
-   {
-        public Altro()
-        {
-            int anni = Program.Settings.anni;
-        }
-   }
 
     class Program
     {
-        private static Settings<opt> settings = new();
-        public static opt Settings {get => settings.data;}
+        // Create the Setting instance, passing the definition class as generic parameter
+        public static Settings<ProgramData> setting = new();
 
-        static void Main(string[] args)
+        static void Main()
         {
-            test_ftp();
+            // Choose setting configuration ad load the data
+            setting.crypt = true;
+            setting.SetLocation(SettLocation.PROGDATA, "ProgramName/");
+            setting.Load();
+          
+            // Change a some values
+            setting.data.Uses += 1;
 
-            //string val = RegistryManager.Read(RegistryHive.LocalMachine, @"SOFTWARE\WOW6432Node\ODBC\ODBC.INI\ETOS", "Server");
-            //Print.Message(val);
+            // Save the setting to file
+            setting.Save();
+
+            // Read a value from the setting data
+            string name = setting.data.Name;
         }
+
 
         public static string GetRealFileName(string path)
         {
@@ -86,13 +89,6 @@ namespace Library_Test
 
         public static void test_settings()
         {
-            settings.Load();
-          
-            int anni = settings.data.anni;
-            Console.WriteLine(anni);
-            settings.data.anni = 0;
-
-            settings.Save();
         }
 
         public static void test_database()

@@ -55,3 +55,38 @@ Automaticlay done when calling "Load()" if "crypt" is set to true
 - **SaveCrypt()**
 Save the settings data to file, but crypting them, making it unreadable to human.
 Automaticlay done when calling "Save()" if "crypt" is set to true
+
+
+## Example 
+```C#
+    // Definition class with default values
+    public class ProgramData 
+    {
+        public bool   isActive { get; set;} = false;
+        public string Name     { get; set;} = "Michael";
+        public int    Uses     { get; set;} = 123;
+    }
+
+    class Program
+    {
+        // Create the Setting instance, passing the definition class as generic parameter
+        public static Settings<ProgramData> setting = new();
+
+        static void Main()
+        {
+            // Choose setting configuration ad load the data
+            setting.crypt = true;
+            setting.SetLocation(SettLocation.PROGDATA, "ProgramName/");
+            setting.Load();
+          
+            // Change a some values
+            setting.data.Uses += 1;
+
+            // Save the setting to file
+            setting.Save();
+
+            // Read a value from the setting data
+            string name = setting.data.Name;
+        }
+	}
+```
