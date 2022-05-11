@@ -14,9 +14,9 @@ If it is necessary to develop an application with a graphical interface, it is p
 To do this, it is necessary to set this property to 'true' and then to define the 'GuiWriteFunction' property of Print.
 
 - **GuiWriteFunction** : *static public Action<Color, string, bool>*\
-Define some method to which Print calls are re-routed, the set method must take 3 values as input:
--- Color, the color of the message that is coming
--- string, the text of the message that is coming
+Define some method to which Print calls are re-routed, the set method must take 3 values as input:\
+-- Color, the color of the message that is coming\
+-- string, the text of the message that is coming\
 -- bool, if the message has the last character as a new line '\ n'
 
 
