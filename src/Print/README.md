@@ -46,6 +46,9 @@ Writes a separator line consisting of a defined number of dashes "-----"
 
 ## Example 
 ```C#
+	Print.IsVerbose = true;
+	Print.IsDebug = true;
+	
 	try
 	{
 		...
