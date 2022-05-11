@@ -12,8 +12,6 @@ namespace UtilityPack.Setting
         ROOT,
         /// <summary> Custom Path </summary>
         CUSTOM,
-        /// <summary> ..\exe_directory\ </summary>
-        EXEPOS,
         /// <summary> ..\exe_directory\custom_dir </summary>
         EXEDIR,
         /// <summary> C:\ProgramData\ </summary>
@@ -194,11 +192,6 @@ namespace UtilityPack.Setting
                 case SettLocation.CUSTOM:
                 {
                     path = customDir;
-                    break;
-                }
-                case SettLocation.EXEPOS:
-                {
-                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
                     break;
                 }
                 case SettLocation.EXEDIR:

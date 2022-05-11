@@ -12,8 +12,6 @@ namespace UtilityPack.Logger
         ROOT,
         /// <summary> Custom Path </summary>
         CUSTOM,
-        /// <summary> ..\exe_directory\ </summary>
-        EXEPOS,
         /// <summary> ..\exe_directory\custom_dir </summary>
         EXEDIR,
         /// <summary> C:\ProgramData\ </summary>
@@ -193,11 +191,6 @@ namespace UtilityPack.Logger
                 case LogLocation.CUSTOM:
                 {
                     BasePath = customDir;
-                    break;
-                }
-                case LogLocation.EXEPOS:
-                {
-                    BasePath = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
                     break;
                 }
                 case LogLocation.EXEDIR:

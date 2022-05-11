@@ -9,10 +9,8 @@ Every program can create a definition class and then create an instance of Setti
  *C:/*
 - **CUSTOM**\
 *Custom Path*
-- **EXEPOS**\
-*../exe_directory/*
 - **EXEDIR**\
-*../exe_directory/custom_dir* 
+*../exe_directory/* 
 - **PROGDATA**\
 *C:/ProgramData/*
 - **APPDATAROAM**\

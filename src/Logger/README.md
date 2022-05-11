@@ -7,10 +7,8 @@ Logger provides a single static class, with several static methods that take car
  *C:/*
 - **CUSTOM**\
 *Custom Path*
-- **EXEPOS**\
-*../exe_directory/*
 - **EXEDIR**\
-*../exe_directory/custom_dir* 
+*../exe_directory/* 
 - **PROGDATA**\
 *C:/ProgramData/*
 - **APPDATAROAM**\
