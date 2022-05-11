@@ -3,17 +3,17 @@ Print provides a single static class, with  several static methods that abstract
 
 ## *Class* Print
 ### Property
-- **IsVerbose** : static public bool\
+- **IsVerbose** : *static public bool*\
 Only if set to 'true' all Print methods calls will actually write to console.
 
-- **IsDebug** : static public bool\
+- **IsDebug** : *static public bool*\
 Only if set to 'true' the "Print.Debug()" calls will actually write to the console.
 
-- **IsGUI** : static public bool\
+- **IsGUI** : *static public bool*\
 If it is necessary to develop an application with a graphical interface, it is possible to send all the Print methods to some graphical component instead of the console.
 To do this, it is necessary to set this property to 'true' and then to define the 'GuiWriteFunction' property of Print.
 
-- **GuiWriteFunction** : static public Action<Color, string, bool>\
+- **GuiWriteFunction** : *static public Action<Color, string, bool>*\
 Define some method to which Print calls are re-routed, the set method must take 3 values as input:
 - Color, the color of the message that is coming
 - string, the text of the message that is coming
