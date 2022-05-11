@@ -41,7 +41,7 @@ Additional sub directories where save the logs, added at the end of BasePath.
 - **SetLocation(*LogLocation* location, *string* customDir)**\
 Set the log save location
 
-- **SetSubLocation(string* subLocation)**\
+- **SetSubLocation(*string* subLocation)**\
 Set the log folder sub location 
 
 
