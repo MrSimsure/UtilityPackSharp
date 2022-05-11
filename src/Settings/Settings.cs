@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace UtilityPack.Setting
 {
-    /// <summary> Log location types </summary>
+    /// <summary> Setting location types </summary>
     public enum SettLocation
     {
         /// <summary> C:\ </summary>
@@ -30,7 +30,7 @@ namespace UtilityPack.Setting
     public class Settings<T>
     {
         /// <summary>
-        /// Property holding all the data, Loaded after calling <see cref="Load"/> and saved on disk after have called <see cref="Save"/>
+        /// Property holding all the data, Loaded after calling <see cref="Load"/> and saved on disk after calling <see cref="Save"/>
         /// </summary>
         public T data;
 
@@ -53,13 +53,14 @@ namespace UtilityPack.Setting
         public bool   crypt = false;
 
         /// <summary>
-        /// If true pretty print the json file
+        /// If true pretty print the json file.
         /// </summary>
         public bool prettyPrint = true;
 
         
         /// <summary>
-        /// Load the settings from file making
+        /// Load the settings from the file and parse them to the "data" property.<br/>
+        /// If the file is not present it will be created with the default parameters.
         /// </summary>
         public void Load()
         {
@@ -92,7 +93,7 @@ namespace UtilityPack.Setting
         }
 
         /// <summary>
-        /// Save the settings to file
+        /// Save the settings data to file.
         /// </summary>
         public void Save()
         {
@@ -110,8 +111,9 @@ namespace UtilityPack.Setting
 
 
         /// <summary>
-        /// Load the settings from file making it unreadable to human <br/>
-        /// Automaticlay done when calling <see cref="Load"/> if <see cref="crypt"/> is set to true
+        /// Load the settings from the file, decrypt and parse them to the "data" property.<br/>
+        /// If the file is not present it will be created with the default parameters. <br/>
+        /// Automaticlay done when calling <see cref="Load"/> if <see cref="crypt"/> is set to true.
         /// </summary>
         public void LoadCrypt()
         {
@@ -147,8 +149,8 @@ namespace UtilityPack.Setting
         }
 
         /// <summary>
-        /// Save the settings to file making it unreadable to human <br/>
-        /// Automaticlay done when calling <see cref="Save"/> if <see cref="crypt"/> is set to true
+        /// Save the settings data to file, but crypting them, making it unreadable to human. <br/>
+        /// Automaticlay done when calling <see cref="Save"/> if <see cref="crypt"/> is set to true.
         /// </summary>
         public void SaveCrypt()
         {
@@ -176,7 +178,9 @@ namespace UtilityPack.Setting
         
 
         /// <summary> 
-        /// Set the settings file save location
+        /// Set the settings file save location.<br/>
+        /// When location == SettLocation.CUSTOM, the "customDir" parameter work as a full path.<br/>
+        /// In every other cases "customDir" works as an additional final string to the base path.
         /// </summary>
         public void SetLocation(SettLocation location, string customDir = "")
         {
