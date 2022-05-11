@@ -13,7 +13,7 @@ namespace UtilityPack.FileManager.Csv
     /// </summary>
     public static class CsvManager
     {
-        /// <summary> Delimiter used in the csv files. (Deafault ;)</summary>
+        /// <summary> Delimiter used to separate columns in the csv files. (Deafault ;)</summary>
         public static string delimiter = ";";
         /// <summary> Culture to write csv files </summary>
         public static CultureInfo culture = CultureInfo.InvariantCulture;

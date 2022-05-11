@@ -38,19 +38,19 @@ If true, automatically use "SaveCrypt()" when calling "Save()" and "LoadCrypt()"
 Set the settings file save location.
 When location == SettLocation.CUSTOM, the "customDir" parameter work as a full path. In every other cases "customDir" works as an additional final string to the base path.
 
-- **Load()**
+- **Load()**\
 Load the settings from the file and parse them to the "data" property.
 If the file is not present it will be created with the default parameters
 
-- **Save()**
+- **Save()**\
 Save the settings data to file
 
-- **LoadCrypt()**
+- **LoadCrypt()**\
 Load the settings from the file, decrypt and parse them to the "data" property.
 If the file is not present it will be created with the default parameters.
 Automaticlay done when calling "Load()" if "crypt" is set to true
 
-- **SaveCrypt()**
+- **SaveCrypt()**\
 Save the settings data to file, but crypting them, making it unreadable to human.
 Automaticlay done when calling "Save()" if "crypt" is set to true
 

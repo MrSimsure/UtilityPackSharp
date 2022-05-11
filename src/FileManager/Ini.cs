@@ -10,7 +10,7 @@ namespace UtilityPack.FileManager.Ini
     /// </summary>
     public static class IniManager
     {
-        /// <summary>If true print errors, when a file is not found or a section or key are missing </summary>
+        /// <summary> If true print errors, when a file is not found or a section or key are missing </summary>
         public static bool printErrors = false;
         /// <summary> If true create section and key when they are not found during writing </summary>
         public static bool forceWrite = true;
@@ -56,7 +56,6 @@ namespace UtilityPack.FileManager.Ini
 
             return true;
         }
-
 
         /// <summary>
         /// Read a value from a file ini, if some error occours return the default value passed instead
