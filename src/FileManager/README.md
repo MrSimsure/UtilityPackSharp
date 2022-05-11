@@ -36,7 +36,7 @@ Write a list of instance to a csv file
 		public int Age;
 	} 
 	
-    Lsit<Item> list = new();
+	List<Item> list = new();
 
 	// Read the csv content from file and create a list
 	list = CsvManager.Read<Item>("C:\example.csv");
