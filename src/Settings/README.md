@@ -89,5 +89,5 @@ Automaticlay done when calling "Save()" if "crypt" is set to true
             // Read a value from the setting data
             string name = setting.data.Name;
         }
-	}
+    }
 ```
