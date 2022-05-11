@@ -1,5 +1,4 @@
 # Settings
----------------
 Settings expose a class to easly manage persistent data of a programa, but with  additional options, like crypting the final file, or choosing exactly where place it on disk relative to the program executible.
 
 Every program can create a definition class and then create an instance of Setting passing the definition class as a generic parameter, this allow to work with specific types when reading or writing data using the instance.
