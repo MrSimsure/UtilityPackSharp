@@ -29,6 +29,9 @@ Write a list of instance to a csv file
 ### Example
 
 ```C#
+	// Change settings
+	CsvManager.delimiter = ",";
+	
 	// Define and create an instance to rappresent a csv row
 	class Item
 	{
@@ -67,8 +70,16 @@ Read a value from a file ini, if some error occours return the default value pas
 ### Example
 
 ```C#
+	// Change settings
+	IniManager.forceWrite = true;
 
+	// Read a value from a specific ini section and key
+	int value = IniManager.Read<int>("C:\example.ini", "admin", "login", 0);
+
+	// Modify the value and save it back as ini
+	value += 1
 	
+	IniManager.Write("C:\example.ini", "admin", "login", value);
 ```
 
 ## *Class* RegistryManager
@@ -80,6 +91,6 @@ Read a value from a specific section of the registry
 ### Example
 
 ```C#
-
-	
+	// Read a value from a key of the registry
+	string value = RegistryManager.Read(RegistryHive.LocalMachine, "admin", "login");	
 ```

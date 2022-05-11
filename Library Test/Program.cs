@@ -13,6 +13,7 @@ using UtilityPack.FileManager.Ini;
 using System.Data;
 using UtilityPack.SqlBuilder;
 using UtilityPack.Logger;
+using UtilityPack.FileManager.Register;
 
 namespace Library_Test
 {
@@ -38,6 +39,7 @@ namespace Library_Test
 
         static void Main()
         {
+           
             // Set the main log folder location
             Logger.SetLocation(LogLocation.APPDATALOCA, "ProgramLogs");
 
