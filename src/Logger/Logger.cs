@@ -49,32 +49,56 @@ namespace UtilityPack.Logger
         /// </summary>
         public static bool IsCatchErrorActive = false;
 
-
-
-        /// <summary> 
-        /// Save some text to file in the log directory as a file .txt 
+        /// <summary>
+        /// Max size of a log file, if the file exceed this value and <see cref="IsSizeLimitActive"/> is set to true, the file will be cleared.<br/>
+        /// (Default value = 5 MB = 1048576 Byte)
         /// </summary>
-        public static bool SaveText(string text, string name = "", bool append = false)
-        {
-            if (!IsLogActive)
-                return true;
+        public static long MaxFileSize = 1048576;
+
+        /// <summary>
+        /// If set to true, when a file exceed the <see cref="MaxFileSize"/> it will be cleared at the next log saving
+        /// </summary>
+        public static bool IsSizeLimitActive = false;
+
+        /// <summary>
+        /// Number of new line beetween a content append and the next one. <br/>
+        /// (Default 3)
+        /// </summary>
+        public static int LogAppendSpace = 3;
+
+
+        private static bool SaveString(string text, string name, bool append, string ext)
+        { 
+            if(!IsLogActive)
+                    return true;
 
             try
             {
                 string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
-                string fileName = $"Log__{fileDate}.txt";
+                string fileName = $"Log__{fileDate}."+ext;
                 string fullPath = BasePath+SubPath;
 
                 if(!fullPath.EndsWith("/"))
                     fullPath += "/";
 
                 if(name != "")
-                    fileName = name;
+                    fileName = name+"."+ext;
 
                 Directory.CreateDirectory(fullPath);
 
+                if(File.Exists(fullPath + fileName))
+                {
+                    long size = new FileInfo(fullPath + fileName).Length;
+                    if(size > MaxFileSize)
+                        File.WriteAllText(fullPath + fileName, "");
+                }
+
+                string space = "";
+                for(int i=0; i<LogAppendSpace; i++)
+                    space += "\n";
+
                 if(append)
-                    File.AppendAllText(fullPath + fileName, "\n\n"+text);
+                    File.AppendAllText(fullPath + fileName, space+text);
                 else
                     File.WriteAllText(fullPath + fileName, text);
 
@@ -86,7 +110,16 @@ namespace UtilityPack.Logger
                     throw(e);
                 else
                     return false;
-            }
+            }    
+        }
+
+
+        /// <summary> 
+        /// Save some text to file in the log directory as a file .txt 
+        /// </summary>
+        public static bool SaveText(string text, string name = "", bool append = false)
+        {
+            return SaveString(text, name, append, "txt");
         }
 
         /// <summary> 
@@ -94,37 +127,7 @@ namespace UtilityPack.Logger
         /// </summary>
         public static bool SaveJson(string text, string name = "", bool append = false)
         {
-            if (!IsLogActive)
-                return true;
-
-            try
-            {
-                string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
-                string fileName = $"Log__{fileDate}.json";
-                string fullPath = BasePath+SubPath;
-
-                if(!fullPath.EndsWith("/"))
-                    fullPath += "/";
-
-                if(name != "")
-                    fileName = name;
-
-                Directory.CreateDirectory(fullPath);
-
-                if(append)
-                   File.AppendAllText(fullPath + fileName, "\n\n"+text);
-                else
-                   File.WriteAllText(fullPath + fileName, text);
-
-                return true;
-            }
-            catch(Exception e)
-            {
-                if(IsCatchErrorActive)
-                    throw(e);
-                else
-                    return false;
-            }
+            return SaveString(text, name, append, "json");
         }
 
         /// <summary> 
@@ -224,5 +227,13 @@ namespace UtilityPack.Logger
             SubPath = subLocation;
         }
     
+        /// <summary>
+        /// Activate the size limit control and set the <see cref="MaxFileSize"/> value to as pecific number
+        /// </summary>
+        public static void SetMaxFileSize(long maxByteSize)
+        {
+            MaxFileSize = maxByteSize;
+            IsSizeLimitActive = true;
+        }
     }
 }

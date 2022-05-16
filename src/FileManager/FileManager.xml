@@ -10,7 +10,7 @@
             </summary>
         </member>
         <member name="F:UtilityPack.FileManager.Csv.CsvManager.delimiter">
-            <summary> Delimiter used in the csv files. (Deafault ;)</summary>
+            <summary> Delimiter used to separate columns in the csv files. (Deafault ;)</summary>
         </member>
         <member name="F:UtilityPack.FileManager.Csv.CsvManager.culture">
             <summary> Culture to write csv files </summary>
@@ -39,7 +39,10 @@
             </summary>
         </member>
         <member name="F:UtilityPack.FileManager.Ini.IniManager.printErrors">
-            <summary>If true print errors, when a file is not found or a section or key are missing </summary>
+            <summary> If true print errors, when a file is not found or a section or key are missing </summary>
+        </member>
+        <member name="F:UtilityPack.FileManager.Ini.IniManager.throwErrors">
+            <summary> If true throw errors, when a file is not found or a section or key are missing </summary>
         </member>
         <member name="F:UtilityPack.FileManager.Ini.IniManager.forceWrite">
             <summary> If true create section and key when they are not found during writing </summary>
@@ -63,6 +66,18 @@
             <summary>
             Read a value from a specific section of the registry
             </summary>
+        </member>
+        <member name="T:FileManager.IniValueNotFoundException">
+            <summary> Exception thrown when a ini file dosen't contain a section or a key </summary>
+        </member>
+        <member name="M:FileManager.IniValueNotFoundException.#ctor">
+            <summary> Exception thrown when a ini file dosen't contain a section or a key </summary>
+        </member>
+        <member name="M:FileManager.IniValueNotFoundException.#ctor(System.String)">
+            <summary> Exception thrown when a ini file dosen't contain a section or a key </summary>
+        </member>
+        <member name="M:FileManager.IniValueNotFoundException.#ctor(System.String,System.Exception)">
+            <summary> Exception thrown when a ini file dosen't contain a section or a key </summary>
         </member>
     </members>
 </doc>

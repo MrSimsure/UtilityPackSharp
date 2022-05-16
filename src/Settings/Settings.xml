@@ -5,16 +5,13 @@
     </assembly>
     <members>
         <member name="T:UtilityPack.Setting.SettLocation">
-            <summary> Log location types </summary>
+            <summary> Setting location types </summary>
         </member>
         <member name="F:UtilityPack.Setting.SettLocation.ROOT">
             <summary> C:\ </summary>
         </member>
         <member name="F:UtilityPack.Setting.SettLocation.CUSTOM">
             <summary> Custom Path </summary>
-        </member>
-        <member name="F:UtilityPack.Setting.SettLocation.EXEPOS">
-            <summary> ..\exe_directory\ </summary>
         </member>
         <member name="F:UtilityPack.Setting.SettLocation.EXEDIR">
             <summary> ..\exe_directory\custom_dir </summary>
@@ -35,7 +32,7 @@
         </member>
         <member name="F:UtilityPack.Setting.Settings`1.data">
             <summary>
-            Property holding all the data, Loaded after calling <see cref="M:UtilityPack.Setting.Settings`1.Load"/> and saved on disk after have called <see cref="M:UtilityPack.Setting.Settings`1.Save"/>
+            Property holding all the data, Loaded after calling <see cref="M:UtilityPack.Setting.Settings`1.Load"/> and saved on disk after calling <see cref="M:UtilityPack.Setting.Settings`1.Save"/>
             </summary>
         </member>
         <member name="F:UtilityPack.Setting.Settings`1.path">
@@ -58,34 +55,38 @@
         </member>
         <member name="F:UtilityPack.Setting.Settings`1.prettyPrint">
             <summary>
-            If true pretty print the json file
+            If true pretty print the json file.
             </summary>
         </member>
         <member name="M:UtilityPack.Setting.Settings`1.Load">
             <summary>
-            Load the settings from file making
+            Load the settings from the file and parse them to the "data" property.<br/>
+            If the file is not present it will be created with the default parameters.
             </summary>
         </member>
         <member name="M:UtilityPack.Setting.Settings`1.Save">
             <summary>
-            Save the settings to file
+            Save the settings data to file.
             </summary>
         </member>
         <member name="M:UtilityPack.Setting.Settings`1.LoadCrypt">
             <summary>
-            Load the settings from file making it unreadable to human <br/>
-            Automaticlay done when calling <see cref="M:UtilityPack.Setting.Settings`1.Load"/> if <see cref="F:UtilityPack.Setting.Settings`1.crypt"/> is set to true
+            Load the settings from the file, decrypt and parse them to the "data" property.<br/>
+            If the file is not present it will be created with the default parameters. <br/>
+            Automaticlay done when calling <see cref="M:UtilityPack.Setting.Settings`1.Load"/> if <see cref="F:UtilityPack.Setting.Settings`1.crypt"/> is set to true.
             </summary>
         </member>
         <member name="M:UtilityPack.Setting.Settings`1.SaveCrypt">
             <summary>
-            Save the settings to file making it unreadable to human <br/>
-            Automaticlay done when calling <see cref="M:UtilityPack.Setting.Settings`1.Save"/> if <see cref="F:UtilityPack.Setting.Settings`1.crypt"/> is set to true
+            Save the settings data to file, but crypting them, making it unreadable to human. <br/>
+            Automaticlay done when calling <see cref="M:UtilityPack.Setting.Settings`1.Save"/> if <see cref="F:UtilityPack.Setting.Settings`1.crypt"/> is set to true.
             </summary>
         </member>
         <member name="M:UtilityPack.Setting.Settings`1.SetLocation(UtilityPack.Setting.SettLocation,System.String)">
             <summary> 
-            Set the settings file save location
+            Set the settings file save location.<br/>
+            When location == SettLocation.CUSTOM, the "customDir" parameter work as a full path.<br/>
+            In every other cases "customDir" works as an additional final string to the base path.
             </summary>
         </member>
     </members>

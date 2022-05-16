@@ -32,9 +32,19 @@ Root directory where to save the logs.
 (Default same directory as the exe) 
 
 - **SubPath** : string\
-Additional sub directories where save the logs, added at the end of BasePath.
+Additional sub directories where save the logs, added at the end of BasePath. 
 (Default "")
 
+- **MaxFileSize** : long\
+Max size of a log file, if the file exceed this value and "IsSizeLimitActive" is set to true, the file will be cleared.
+(Default value = 5 MB = 1048576 Byte)
+
+- **IsSizeLimitActive** : boolean\
+If set to true, when a file exceed the "MaxFileSize" it will be cleared at the next log saving.
+
+- **LogAppendSpace** : int\
+Number of new line beetween a content append and the next one. 
+(Default 3)
 
 
 ### Method
@@ -43,6 +53,9 @@ Set the log save location
 
 - **SetSubLocation(*string* subLocation)**\
 Set the log folder sub location 
+
+- **SetMaxFileSize(*long* maxByteSize)**\
+Activate the size limit control and set the "MaxFileSize" value to as pecific number
 
 
 - **SaveText(*string* text, *string?* name , *bool?* append)**\

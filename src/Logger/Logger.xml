@@ -13,9 +13,6 @@
         <member name="F:UtilityPack.Logger.LogLocation.CUSTOM">
             <summary> Custom Path </summary>
         </member>
-        <member name="F:UtilityPack.Logger.LogLocation.EXEPOS">
-            <summary> ..\exe_directory\ </summary>
-        </member>
         <member name="F:UtilityPack.Logger.LogLocation.EXEDIR">
             <summary> ..\exe_directory\custom_dir </summary>
         </member>
@@ -31,22 +28,45 @@
         <member name="T:UtilityPack.Logger.Logger">
             <summary> Static class for logging data to disk </summary>
         </member>
-        <member name="F:UtilityPack.Logger.Logger.path">
+        <member name="F:UtilityPack.Logger.Logger.BasePath">
             <summary> 
-            Root directory where to save the logs 
-            <br/> (Default same directory as the exe) 
+            Root directory where to save the logs <br/> 
+            (Default same directory as the exe) 
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Logger.Logger.SubPath">
+            <summary> 
+            Additional sub directories where save the logs, added at the end of BasePath <br/> 
+            (Default "") 
             </summary>
         </member>
         <member name="F:UtilityPack.Logger.Logger.IsLogActive">
             <summary> 
-            If false, no logs will ever be saved 
-            <br/>(Default true)
+            If false, logs will not be saved <br/>
+            (Default true)
             </summary>
         </member>
-        <member name="F:UtilityPack.Logger.Logger.IsCatchErrorOn">
+        <member name="F:UtilityPack.Logger.Logger.IsCatchErrorActive">
             <summary> 
-            If true, when an error occur it will be thrown, otherwhise the functions will silently return false 
-            <br/>(Default false)
+            If true, when an error occur it will be thrown, otherwhise the functions will silently return false <br/>
+            (Default false)
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Logger.Logger.MaxFileSize">
+            <summary>
+            Max size of a log file, if the file exceed this value and <see cref="F:UtilityPack.Logger.Logger.IsSizeLimitActive"/> is set to true, the file will be cleared.<br/>
+            (Default value = 5 MB = 1048576 Byte)
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Logger.Logger.IsSizeLimitActive">
+            <summary>
+            If set to true, when a file exceed the <see cref="F:UtilityPack.Logger.Logger.MaxFileSize"/> it will be cleared at the next log saving
+            </summary>
+        </member>
+        <member name="F:UtilityPack.Logger.Logger.LogAppendSpace">
+            <summary>
+            Number of new line beetween a content append and the next one. <br/>
+            (Default 3)
             </summary>
         </member>
         <member name="M:UtilityPack.Logger.Logger.SaveText(System.String,System.String,System.Boolean)">
@@ -71,12 +91,22 @@
         </member>
         <member name="M:UtilityPack.Logger.Logger.ClearLogFolder(System.String)">
             <summary> 
-            Delete every file inside the log folder, if another folder path is specified, clear it instead
+            Delete every file inside the log folder, if another folder BasePath is specified, clear it instead
             </summary>
         </member>
         <member name="M:UtilityPack.Logger.Logger.SetLocation(UtilityPack.Logger.LogLocation,System.String)">
             <summary> 
-            Set the log folder location 
+            Set the log save location 
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Logger.Logger.SetSubLocation(System.String)">
+            <summary> 
+            Set the log folder sub location 
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Logger.Logger.SetMaxFileSize(System.Int64)">
+            <summary>
+            Activate the size limit control and set the <see cref="F:UtilityPack.Logger.Logger.MaxFileSize"/> value to as pecific number
             </summary>
         </member>
     </members>
