@@ -3,10 +3,10 @@
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.1.5</Version>
-		<Description>Utility class for a better Console write management</Description>
+		<Version>1.0.1</Version>
+		<Description>Additional methods for different .NET base classes</Description>
 		<Authors>Simone Benigni</Authors>
-		<PackageTags>Utility; Print; Console; WriteLine; Write; Console.log; </PackageTags>
+		<PackageTags>Utility; Extension;</PackageTags>
 		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 
@@ -22,12 +22,12 @@
 		<PackageIcon>icon.jpg</PackageIcon>
 		<RepositoryUrl>https://github.com/MrSimsure/UtilityPackSharp</RepositoryUrl>
 		<IsTrimmable>true</IsTrimmable>
-		<PackageOutputPath>$(SolutionDir)Dist\Print</PackageOutputPath>
+		<PackageOutputPath>$(SolutionDir)Dist\Extensions</PackageOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Optimize>true</Optimize>
-		<DocumentationFile>.\Print.xml</DocumentationFile>
+		<DocumentationFile>.\Extensions.xml</DocumentationFile>
 		<DebugType>embedded</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
@@ -39,7 +39,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Print.xml" />
+		<None Remove="Extensions.xml" />
 	</ItemGroup>
-	
+
 </Project>
+
+
+

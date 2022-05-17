@@ -7,22 +7,24 @@ namespace UtilityPack.Print
     public static class Print
     {
         /// <summary> If true, the messages will not be written to the console but to gui through the function <see cref="GuiWriteFunction"/> <br/>(Default false)</summary>
-        public static bool IsGUI   = false;
+        public static bool IsGUI     = false;
         /// <summary> If false, no messages will be written when the printing functions are called <br/>(Default true) </summary>
-        public static bool IsVerbose = true;
-        /// <summary> If false, no debugging messages will be written when the function <see cref="Debug(object, bool)"/> is called <br/>(Default false)</summary>
+        public static bool IsActive  = true;
+        /// <summary> If false, no verbose message will be written when the printing functions are called <br/>(Default false) </summary>
+        public static bool IsVerbose = false;
+        /// <summary> If false, no debugging messages will be written when the function <see cref="Debug"/> or  <see cref="DebugVerb"/> is called <br/>(Default false)</summary>
         public static bool IsDebug   = false;
 
         /// <summary> Function called when writing to gui instead of console </summary>
         public static Action<Color, string, bool> GuiWriteFunction;
 
 
-        /// <summary> Write a plain WHITE message, if 'line' is true go to new line  </summary>
+        /// <summary> Write a plain WHITE message. <br/>If 'line' is true go to new line.  </summary>
         public static void Message(object text, bool line = true)
         {
-            if (IsVerbose)
+            if(IsActive)
             {
-                if (IsGUI)
+                if(IsGUI)
                 {
                     GuiWriteFunction(Color.White, PrintParse(text),line);
                 }
@@ -38,12 +40,12 @@ namespace UtilityPack.Print
             }
         }
 
-        /// <summary> Write a plain BLACK message, if 'line' is true go to new line  </summary>
+        /// <summary> Write a plain BLACK message. <br/>If 'line' is true go to new line.  </summary>
         public static void Text(object text, bool line = true)
         {
-            if (IsVerbose)
+            if(IsActive)
             {
-                if (IsGUI)
+                if(IsGUI)
                 {
                     GuiWriteFunction(Color.Black, PrintParse(text),line);
                 }
@@ -59,12 +61,12 @@ namespace UtilityPack.Print
             }
         }
 
-        /// <summary> Write a RED error message, if 'line' is true go to new line </summary>
+        /// <summary> Write a RED error message. <br/>If 'line' is true go to new line. </summary>
         public static void Error(object text, bool line = true)
         {
-            if (IsVerbose)
+            if(IsActive)
             {
-                if (IsGUI)
+                if(IsGUI)
                 {
                     GuiWriteFunction(Color.Red, PrintParse(text), line);
                 }
@@ -81,12 +83,12 @@ namespace UtilityPack.Print
             }
         }
 
-        /// <summary> Write a YELLOW warning message, if 'line' is true go to new line  </summary>
+        /// <summary> Write a YELLOW warning message. <br/>If 'line' is true go to new line.  </summary>
         public static void Warning(object text, bool line = true)
         {
-            if (IsVerbose)
+            if(IsActive)
             {
-                if (IsGUI)
+                if(IsGUI)
                 {
                     GuiWriteFunction(Color.Yellow, PrintParse(text),line);
                 }
@@ -102,12 +104,12 @@ namespace UtilityPack.Print
             }
         }
 
-        /// <summary> Write a GREEN success message, if 'line' is true go to new line  </summary>
+        /// <summary> Write a GREEN success message. <br/>If 'line' is true go to new line.  </summary>
         public static void Success(object text, bool line = true)
         {
-            if (IsVerbose)
+            if(IsActive)
             {
-                if (IsGUI)
+                if(IsGUI)
                 {
                     GuiWriteFunction(Color.Green, PrintParse(text),line);
                 }
@@ -123,12 +125,12 @@ namespace UtilityPack.Print
             }
         }
 
-        /// <summary> Write a GRAY note message, if 'line' is true go to new line  </summary>
+        /// <summary> Write a GRAY note message. <br/>If 'line' is true go to new line.  </summary>
         public static void Note(object text, bool line = true)
         {
-            if (IsVerbose)
+            if(IsActive)
             {
-                if (IsGUI)
+                if(IsGUI)
                 {
                     GuiWriteFunction(Color.Gray, PrintParse(text),line);
                 }
@@ -144,12 +146,12 @@ namespace UtilityPack.Print
             }
         }
   
-        /// <summary> Write a CYAN debug message, if 'line' is true go to new line  </summary>
+        /// <summary> Write a CYAN debug message only when <see cref="IsDebug"/> is true. <br/>If 'line' is true go to new line. </summary>
         public static void Debug(object text, bool line = true)
         {
-            if (IsDebug)
+            if(IsActive && IsDebug)
             {
-                if (IsGUI)
+                if(IsGUI)
                 {
                     GuiWriteFunction(Color.Cyan, PrintParse(text),line);
                 }
@@ -164,19 +166,19 @@ namespace UtilityPack.Print
                 }
             }
         }
-
+        
 
         /// <summary> Write a separation line made by a number of segments "----" </summary>
         public static void Separator(int segments)
         {
-            if (IsVerbose)
+            if(IsActive)
             {
                 string lineText = "";
 
                 for(int i=0; i<segments; i++)
                     lineText += "-";
 
-                if (IsGUI)
+                if(IsGUI)
                 {
                     GuiWriteFunction(Color.White, lineText, true);
                 }
@@ -189,6 +191,65 @@ namespace UtilityPack.Print
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+        }
+
+
+
+        /// <summary> Write a plain WHITE message, only when <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line.  </summary>
+        public static void MessageVerb(object text, bool line = true)
+        {
+            if(IsVerbose)
+                Message(text, line);
+        }
+
+        /// <summary> Write a plain BLACK message, only when <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line.  </summary>
+        public static void TextVerb(object text, bool line = true)
+        {
+            if(IsVerbose)
+                Text(text, line);
+        }
+
+        /// <summary> Write a RED error message, only when <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line. </summary>
+        public static void ErrorVerb(object text, bool line = true)
+        {
+            if(IsVerbose)
+                Error(text, line);
+        }
+
+        /// <summary> Write a YELLOW warning message, only when <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line.  </summary>
+        public static void WarningVerb(object text, bool line = true)
+        {
+            if(IsVerbose)
+                Warning(text, line);
+        }
+
+        /// <summary> Write a GREEN success message, only when <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line.  </summary>
+        public static void SuccessVerb(object text, bool line = true)
+        {
+            if(IsVerbose)
+                Success(text, line);
+        }
+
+        /// <summary> Write a GRAY note message, only when <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line.  </summary>
+        public static void NoteVerb(object text, bool line = true)
+        {
+            if(IsVerbose)
+                Note(text, line);
+        }
+
+        /// <summary> Write a CYAN debug message, only when <see cref="IsDebug"/> is true and <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line. </summary>
+        public static void DebugVerb(object text, bool line = true)
+        {
+            if(IsActive && IsDebug)
+                Debug(text, line);
+        }
+
+
+        /// <summary> Write a separation line made by a number of segments "----", only when <see cref="IsVerbose"/> is true </summary>
+        public static void SeparatorVerb(int segments)
+        {
+            if(IsVerbose)
+                Separator(segments);
         }
 
 

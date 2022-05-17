@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Extensions</name>
+    </assembly>
+    <members>
+        <member name="T:UtilityPack.Extensions.StringEXtension">
+            <summary>
+            Add some extension methods to the string class
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Extensions.StringEXtension.Cut(System.String,System.Int32)">
+            <summary>
+            Cut a specific ammount of text
+            </summary>
+        </member>
+        <member name="M:UtilityPack.Extensions.StringEXtension.Cut(System.String,System.Int32,System.Int32)">
+            <summary>
+            Cut a specific ammount of text in a range
+            </summary>
+        </member>
+    </members>
+</doc>

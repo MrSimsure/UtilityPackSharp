@@ -3,8 +3,11 @@ Print provides a single static class, with  several static methods that abstract
 
 ## *Class* Print
 ### Property
-- **IsVerbose** : *static public bool*\
+- **IsActive** : *static public bool*\
 Only if set to 'true' all Print methods calls will actually write to console.
+
+- **IsVerbose** : *static public bool*\
+Only if set to 'true' all the Verbose methods will actually write to the console.
 
 - **IsDebug** : *static public bool*\
 Only if set to 'true' the "Print.Debug()" calls will actually write to the console.
@@ -22,26 +25,49 @@ Define some method to which Print calls are re-routed, the set method must take 
 
 ### Methods
 
-- **Error**\
+- **Error(*Object* text, *bool* line)**\
 Write a red error message
 
-- **Warning**\
+- **Warning(*Object* text, *bool* line)**\
 Write a yellow warning message
 
-- **Succes**\
+- **Succes(*Object* text, *bool* line)**\
 Write a green succes message
 
-- **Note**\
+- **Note(*Object* text, *bool* line)**\
 Write a gray note message
 
-- **Message**\
+- **Message(*Object* text, *bool* line)**\
 Write a white message
 
-- **Debug**\
+- **Debug(*Object* text, *bool* line)**\
 Write a cyan debug message
 
-- **Separator**\
+- **Separator(*int* linsegmentse)**\
 Writes a separator line consisting of a defined number of dashes "-----"
+
+.
+
+- **ErrorVerb(*Object* text, *bool* line)**\
+Write a red error message, only when "IsVerbose" is true
+
+- **WarningVerb(*Object* text, *bool* line)**\
+Write a yellow warning message, only when "IsVerbose" is true
+
+- **SuccesVerb(*Object* text, *bool* line)**\
+Write a green succes message, only when "IsVerbose" is true
+
+- **NoteVerb(*Object* text, *bool* line)**\
+Write a gray note message, only when "IsVerbose" is true
+
+- **MessageVerb(*Object* text, *bool* line)**\
+Write a white message, only when "IsVerbose" is true
+
+- **DebugVerb(*Object* text, *bool* line)**\
+Write a cyan debug message, only when "IsVerbose" is true
+
+- **SeparatorVerb(*int* linsegmentse)**\
+Writes a separator line consisting of a defined number of dashes "-----", only when "IsVerbose" is true
 
 
 ## Example 
@@ -56,9 +82,10 @@ Writes a separator line consisting of a defined number of dashes "-----"
 		Print.Succes("Execution terminated");
 		Print.Debug("Ending time: "+DateTime.Now());
 	}
-	catch()
+	catch(Exception ex)
 	{
 		Print.Error("Something has gone wrong");
+		Print.ErrorVerb(ex.ToString());
 	}
     
 ```
