@@ -40,20 +40,7 @@ namespace Library_Test
         static void Main()
         {
            
-            // Set the main log folder location
-            Logger.SetLocation(LogLocation.APPDATALOCA, "ProgramLogs");
-
-            // Save a simple text message on a report.txt file located in the log folder
-            Logger.SaveText("Report message", "report");
-
-            // Create and append a json like object to a report_data.json file located in the log folder
-            jsonObj json = new()
-            {
-                Name = "Burt",
-                Age  = 20
-            };
-
-            Logger.SaveJson(json, "report_data", true);
+            test_ftp();
         }
 
 
@@ -84,7 +71,7 @@ namespace Library_Test
             return resultFileName;
         }
 
-        public static void test_ftp()
+        public static void test_sftp()
         {
             FtpConnection.printDebug = true;
             string localFolder = AppDomain.CurrentDomain.BaseDirectory+"ftp";
@@ -96,6 +83,18 @@ namespace Library_Test
                //connection.ClearFolder("./Exported_Orders/");
             }       
         }
+        public static void test_ftp()
+        {
+            FtpConnection.printDebug = true;
+            string localFolder = AppDomain.CurrentDomain.BaseDirectory+"ftp";
+
+            using(FtpConnection connection = new(FtpProtocolType.FTP, "89.42.5.199", "articoli", "ama_Items_ITA", "21"))
+            {
+               connection.Download("./Dispo.xls", localFolder);
+            }       
+        }
+
+
 
         public static void test_settings()
         {
@@ -202,5 +201,22 @@ namespace Library_Test
             }     
         }
     
+        public static void test_logger()
+        {
+            // Set the main log folder location
+            Logger.SetLocation(LogLocation.APPDATALOCA, "ProgramLogs");
+
+            // Save a simple text message on a report.txt file located in the log folder
+            Logger.SaveText("Report message", "report");
+
+            // Create and append a json like object to a report_data.json file located in the log folder
+            jsonObj json = new()
+            {
+                Name = "Burt",
+                Age  = 20
+            };
+
+            Logger.SaveJson(json, "report_data", true);
+        }
     }
 }

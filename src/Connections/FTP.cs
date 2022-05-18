@@ -5,7 +5,10 @@ using Renci.SshNet.Sftp;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
+using System.Net.Security;
 using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 
 namespace UtilityPack.Connections.Ftp
 {
@@ -68,6 +71,12 @@ namespace UtilityPack.Connections.Ftp
         private FtpClient    ftpClient  = null;
         private SftpClient   sftpClient = null;
 
+        
+        private static void OnValidateCertificate(FtpClient control, FtpSslValidationEventArgs e) 
+        {
+            e.Accept = true;
+        }
+        
         /// <summary>
         /// Create an instance of an FTP connection passing the connection type and acces data
         /// </summary>
@@ -87,6 +96,8 @@ namespace UtilityPack.Connections.Ftp
                 if(connectionProtocol == FtpProtocolType.FTP)
                 {
                     ftpClient = new FtpClient(host, user, pass);
+                    ftpClient.ValidateCertificate += new FtpSslValidation(OnValidateCertificate);
+                    ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                     ftpClient.AutoConnect();
 
                     protocol = FtpProtocolType.FTP;
@@ -117,111 +128,106 @@ namespace UtilityPack.Connections.Ftp
         /// <exception cref="FtpDownloadException"></exception>
         public void Download(string remotePath, string localPath)
         {
-            try
+            if(protocol == FtpProtocolType.FTP)
             {
-                if(protocol == FtpProtocolType.FTP)
-                {
-                    if(ftpClient == null)
-                        throw(new NullReferenceException("FTP client is not connected"));
+                if(ftpClient == null)
+                    throw(new NullReferenceException("FTP client is not connected"));
                     
-                    FtpFileSystemObjectType remoteType = ftpClient.GetObjectInfo(remotePath).Type;
+                FtpFileSystemObjectType remoteType = ftpClient.GetObjectInfo(remotePath).Type;
 
-                    //remote path is a directory
-                    if(remoteType == FtpFileSystemObjectType.Directory)
-                    {
-                        if(!Directory.Exists(localPath))
-                            Directory.CreateDirectory(localPath);
-
-                        foreach (FtpListItem item in ftpClient.GetListing(remotePath))
-                        {
-                            string finalPath = Path.Combine(localPath, item.Name);
-
-	                        if(item.Type == FtpFileSystemObjectType.File)
-                                ftpClient.DownloadFile(finalPath, item.FullName);    
-
-                            if(printDebug)
-                                Console.WriteLine("Saving file in: "+finalPath);
-                        }  
-                    }
-                    //remote path is a file
-                    if(remoteType == FtpFileSystemObjectType.File)
-                    {
-                        string finalPath = localPath;
-
-                        //if the destination is a folder create the folder an set the final path as 'folder + file_name'
-                        if(Path.GetExtension(localPath) == "" )
-                        {
-                            if(!Directory.Exists(localPath))
-                                Directory.CreateDirectory(localPath);
-
-                            finalPath = Path.Combine(localPath, Path.GetFileName(remotePath));
-
-                            if(printDebug)
-                                Console.WriteLine("Saving file in: "+finalPath);
-                        }
-
-                        ftpClient.DownloadFile(finalPath, remotePath);    
-                    }     
-                }
-
-                if(protocol == FtpProtocolType.SFTP)
+                //remote path is a directory
+                if(remoteType == FtpFileSystemObjectType.Directory)
                 {
-                    if(sftpClient == null)
-                        throw(new NullReferenceException("SFTP client is not connected"));
+                    if(!Directory.Exists(localPath))
+                        Directory.CreateDirectory(localPath);
 
-                    bool isDirectory = sftpClient.Get(remotePath).Attributes.IsDirectory;
-
-                    //remote path is a directory
-                    if(isDirectory)
+                    foreach (FtpListItem item in ftpClient.GetListing(remotePath))
                     {
-                        if(!Directory.Exists(localPath))
-                            Directory.CreateDirectory(localPath);
+                        string finalPath = Path.Combine(localPath, item.Name);
 
-                        foreach (SftpFile item in sftpClient.ListDirectory(remotePath))
-                        {
-	                        if(item.IsRegularFile == true)
-                            {
-                                string finalPath = Path.Combine(localPath, item.Name);
-
-                                using(FileStream fs = new FileStream( finalPath, FileMode.Create))
-                                {
-                                    sftpClient.DownloadFile(item.FullName, fs);
-                                }
-
-                                if(printDebug)
-                                    Console.WriteLine("Saving file in: "+finalPath);
-                            }
-                        }  
-                    }
-
-                    //remote path is a file
-                    if(isDirectory == false)
-                    {
-                        string finalPath = localPath;
-
-                        //if the destination is a folder create the folder an set the final path as 'folder + file_name'
-                        if(Path.GetExtension(localPath) == "" )
-                        {
-                            if(!Directory.Exists(localPath))
-                                Directory.CreateDirectory(localPath);
-
-                            finalPath = Path.Combine(localPath, Path.GetFileName(remotePath));
-                        }
+	                    if(item.Type == FtpFileSystemObjectType.File)
+                            ftpClient.DownloadFile(finalPath, item.FullName);    
 
                         if(printDebug)
                             Console.WriteLine("Saving file in: "+finalPath);
-
-                        using(FileStream fs = new FileStream( finalPath, FileMode.Create))
-                        {
-                            sftpClient.DownloadFile(remotePath, fs);
-                        } 
-                    } 
+                    }  
                 }
+
+                //remote path is a file
+                if(remoteType == FtpFileSystemObjectType.File)
+                {
+                    string finalPath = localPath;
+
+                    //if the destination is a folder create the folder an set the final path as 'folder + file_name'
+                    if(Path.GetExtension(localPath) == "" )
+                    {
+                        if(!Directory.Exists(localPath))
+                            Directory.CreateDirectory(localPath);
+
+                        finalPath = Path.Combine(localPath, Path.GetFileName(remotePath));
+
+                        if(printDebug)
+                            Console.WriteLine("Saving file in: "+finalPath);
+                    }
+            
+                    ftpClient.DownloadFile(finalPath, remotePath);    
+                }     
             }
-            catch(Exception ex)
-            { 
-                throw new FtpDownloadException(ex.Message);
+
+            if(protocol == FtpProtocolType.SFTP)
+            {
+                if(sftpClient == null)
+                    throw(new NullReferenceException("SFTP client is not connected"));
+
+                bool isDirectory = sftpClient.Get(remotePath).Attributes.IsDirectory;
+
+                //remote path is a directory
+                if(isDirectory)
+                {
+                    if(!Directory.Exists(localPath))
+                        Directory.CreateDirectory(localPath);
+
+                    foreach (SftpFile item in sftpClient.ListDirectory(remotePath))
+                    {
+	                    if(item.IsRegularFile == true)
+                        {
+                            string finalPath = Path.Combine(localPath, item.Name);
+
+                            using(FileStream fs = new FileStream( finalPath, FileMode.Create))
+                            {
+                                sftpClient.DownloadFile(item.FullName, fs);
+                            }
+
+                            if(printDebug)
+                                Console.WriteLine("Saving file in: "+finalPath);
+                        }
+                    }  
+                }
+
+                //remote path is a file
+                if(isDirectory == false)
+                {
+                    string finalPath = localPath;
+
+                    //if the destination is a folder create the folder an set the final path as 'folder + file_name'
+                    if(Path.GetExtension(localPath) == "" )
+                    {
+                        if(!Directory.Exists(localPath))
+                            Directory.CreateDirectory(localPath);
+
+                        finalPath = Path.Combine(localPath, Path.GetFileName(remotePath));
+                    }
+
+                    if(printDebug)
+                        Console.WriteLine("Saving file in: "+finalPath);
+
+                    using(FileStream fs = new FileStream( finalPath, FileMode.Create))
+                    {
+                        sftpClient.DownloadFile(remotePath, fs);
+                    } 
+                } 
             }
+        
         }
 
         /// <summary>
