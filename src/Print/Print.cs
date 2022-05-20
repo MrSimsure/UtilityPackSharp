@@ -193,6 +193,30 @@ namespace UtilityPack.Print
             }
         }
 
+        /// <summary> Write a number of new line </summary>
+        public static void NewLine(int space = 1)
+        {
+            if(IsActive)
+            {
+                string lineText = "";
+
+                for(int i=0; i<space; i++)
+                    lineText += Environment.NewLine;
+
+                if(IsGUI)
+                {
+                    GuiWriteFunction(Color.White, lineText, true);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+            
+                    Console.WriteLine(lineText);
+        
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+        }
 
 
         /// <summary> Write a plain WHITE message, only when <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line.  </summary>
@@ -240,7 +264,7 @@ namespace UtilityPack.Print
         /// <summary> Write a CYAN debug message, only when <see cref="IsDebug"/> is true and <see cref="IsVerbose"/> is true. <br/>If 'line' is true go to new line. </summary>
         public static void DebugVerb(object text, bool line = true)
         {
-            if(IsActive && IsDebug)
+            if(IsVerbose)
                 Debug(text, line);
         }
 
@@ -252,6 +276,12 @@ namespace UtilityPack.Print
                 Separator(segments);
         }
 
+        /// <summary> Write a number of new line, only when <see cref="IsVerbose"/> is true </summary>
+        public static void NewLineVerb(int space = 1)
+        {
+            if(IsVerbose)
+                NewLine(space);
+        }
 
         /// <summary> Convert the incoming values to be compatible with the terminal </summary>
         private static string PrintParse(object text)

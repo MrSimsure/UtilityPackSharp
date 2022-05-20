@@ -46,6 +46,9 @@
         <member name="M:UtilityPack.Print.Print.Separator(System.Int32)">
             <summary> Write a separation line made by a number of segments "----" </summary>
         </member>
+        <member name="M:UtilityPack.Print.Print.NewLine(System.Int32)">
+            <summary> Write a number of new line </summary>
+        </member>
         <member name="M:UtilityPack.Print.Print.MessageVerb(System.Object,System.Boolean)">
             <summary> Write a plain WHITE message, only when <see cref="F:UtilityPack.Print.Print.IsVerbose"/> is true. <br/>If 'line' is true go to new line.  </summary>
         </member>
@@ -69,6 +72,9 @@
         </member>
         <member name="M:UtilityPack.Print.Print.SeparatorVerb(System.Int32)">
             <summary> Write a separation line made by a number of segments "----", only when <see cref="F:UtilityPack.Print.Print.IsVerbose"/> is true </summary>
+        </member>
+        <member name="M:UtilityPack.Print.Print.NewLineVerb(System.Int32)">
+            <summary> Write a number of new line, only when <see cref="F:UtilityPack.Print.Print.IsVerbose"/> is true </summary>
         </member>
         <member name="M:UtilityPack.Print.Print.PrintParse(System.Object)">
             <summary> Convert the incoming values to be compatible with the terminal </summary>

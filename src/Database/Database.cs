@@ -103,6 +103,8 @@ namespace UtilityPack.Database
             }
             catch(Exception e)
             {
+                connection.Close();
+
                 if(print)
                 { 
                     Console.WriteLine("Connection Failed\n");
@@ -122,45 +124,53 @@ namespace UtilityPack.Database
         /// <exception cref="ObjectDisposedException"></exception>
         public DataTable ExecuteSqlQuery(string sql)
         {
-            connection.Open();
-
-            if(system == DbSystem.SQL_SERVER)
+            try
             { 
-                using(SqlCommand command = new SqlCommand(sql, (SqlConnection)connection))
-                {
-                    command.CommandTimeout = CommandTimeout;
-                    using(SqlDataReader reader = command.ExecuteReader())
+                connection.Open();
+
+                if(system == DbSystem.SQL_SERVER)
+                { 
+                    using(SqlCommand command = new SqlCommand(sql, (SqlConnection)connection))
                     {
-                        DataTable data = new DataTable();
+                        command.CommandTimeout = CommandTimeout;
+                        using(SqlDataReader reader = command.ExecuteReader())
+                        {
+                            DataTable data = new DataTable();
 
-                        data.Load(reader);
+                            data.Load(reader);
 
-                        connection.Close();
+                            connection.Close();
 
-                        return data;
-                    }
-                };
-            }
-            else if(system == DbSystem.FIREBIRD)
-            { 
-                using(FbCommand command = new FbCommand(sql, (FbConnection)connection))
-                {
-                    command.CommandTimeout = CommandTimeout;
-                    using(FbDataReader reader = command.ExecuteReader())
+                            return data;
+                        }
+                    };
+                }
+                else if(system == DbSystem.FIREBIRD)
+                { 
+                    using(FbCommand command = new FbCommand(sql, (FbConnection)connection))
                     {
-                        DataTable data = new DataTable();
+                        command.CommandTimeout = CommandTimeout;
+                        using(FbDataReader reader = command.ExecuteReader())
+                        {
+                            DataTable data = new DataTable();
 
-                        data.Load(reader);
+                            data.Load(reader);
 
-                        connection.Close();
+                            connection.Close();
 
-                        return data;
-                    }
-                };
+                            return data;
+                        }
+                    };
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return null;
+                connection.Close();
+                throw ex;
             }
         }
 
@@ -173,41 +183,49 @@ namespace UtilityPack.Database
         /// <exception cref="ObjectDisposedException"></exception>
         public int ExecuteSqlCommand(string sql)
         {
-            connection.Open();
-
-            if(system == DbSystem.SQL_SERVER)
+            try
             { 
-                using(SqlCommand command = new SqlCommand(sql, (SqlConnection)connection))
-                {
-                    using(SqlDataAdapter adapter = new SqlDataAdapter())
+                connection.Open();
+
+                if(system == DbSystem.SQL_SERVER)
+                { 
+                    using(SqlCommand command = new SqlCommand(sql, (SqlConnection)connection))
                     {
-                        adapter.InsertCommand = command;
-                        int changed = adapter.InsertCommand.ExecuteNonQuery();
+                        using(SqlDataAdapter adapter = new SqlDataAdapter())
+                        {
+                            adapter.InsertCommand = command;
+                            int changed = adapter.InsertCommand.ExecuteNonQuery();
 
-                        connection.Close();
+                            connection.Close();
 
-                        return changed;
-                    }
-                }   
-            }
-            else if(system == DbSystem.FIREBIRD)
-            { 
-                using(FbCommand command = new FbCommand(sql, (FbConnection)connection))
-                {
-                    using(FbDataAdapter adapter = new FbDataAdapter())
+                            return changed;
+                        }
+                    }   
+                }
+                else if(system == DbSystem.FIREBIRD)
+                { 
+                    using(FbCommand command = new FbCommand(sql, (FbConnection)connection))
                     {
-                        adapter.InsertCommand = command;
-                        int changed = adapter.InsertCommand.ExecuteNonQuery();
+                        using(FbDataAdapter adapter = new FbDataAdapter())
+                        {
+                            adapter.InsertCommand = command;
+                            int changed = adapter.InsertCommand.ExecuteNonQuery();
 
-                        connection.Close();
+                            connection.Close();
 
-                        return changed;
-                    }
-                }   
+                            return changed;
+                        }
+                    }   
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return 0;
+                connection.Close();
+                throw ex;
             }
         }
         

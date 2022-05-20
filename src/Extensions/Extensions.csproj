@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.0.1</Version>
+		<Version>1.0.3</Version>
 		<Description>Additional methods for different .NET base classes</Description>
 		<Authors>Simone Benigni</Authors>
 		<PackageTags>Utility; Extension;</PackageTags>
