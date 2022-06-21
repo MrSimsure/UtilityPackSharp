@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.1.6</Version>
+		<Version>1.1.7</Version>
 		<Description>Utility class for saving file to disk</Description>
 		<Authors>Simone Benigni</Authors>
 		<PackageTags>Utility; Loggin; File;</PackageTags>

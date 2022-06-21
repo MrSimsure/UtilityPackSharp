@@ -10,6 +10,9 @@
         <member name="F:UtilityPack.ArgsParser.ArgsCommand.Name">
             <summary> Command Name </summary>
         </member>
+        <member name="F:UtilityPack.ArgsParser.ArgsCommand.Description">
+            <summary> Command description, shown when the -help option is used </summary>
+        </member>
         <member name="F:UtilityPack.ArgsParser.ArgsCommand.ValidOptions">
             <summary> List of valid options for this command </summary>
         </member>
@@ -25,11 +28,17 @@
         <member name="F:UtilityPack.ArgsParser.ArgsOption.Name">
             <summary> Option Name </summary>
         </member>
+        <member name="F:UtilityPack.ArgsParser.ArgsOption.Description">
+            <summary> Option description, shown when the -help option is used </summary>
+        </member>
         <member name="F:UtilityPack.ArgsParser.ArgsOption.IsFlag">
             <summary> If true no additional data after the option is required </summary>
         </member>
         <member name="F:UtilityPack.ArgsParser.ArgsOption.Alias">
             <summary> Another name to use instead of <see cref="F:UtilityPack.ArgsParser.ArgsOption.Name"/> </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsParser.ArgsOption.type">
+            <summary> Type of this option, if blank and <see cref="F:UtilityPack.ArgsParser.ArgsOption.IsFlag"/> is true, it will be of type 'flag' </summary>
         </member>
         <member name="F:UtilityPack.ArgsParser.ArgsOption.DefaultValue">
             <summary> If no value is passed this value is used instead </summary>
@@ -43,6 +52,12 @@
         <member name="F:UtilityPack.ArgsParser.ArgsParameter.Name">
             <summary> Name of the parameter, to retrive it after command parsing </summary>
         </member>
+        <member name="F:UtilityPack.ArgsParser.ArgsParameter.Description">
+            <summary> Parameter description, shown when the -help option is used </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsParser.ArgsParameter.type">
+            <summary> Type of this argument </summary>
+        </member>
         <member name="M:UtilityPack.ArgsParser.ArgsParameter.#ctor(System.String)">
             <summary> Argument Parameter definition </summary>
         </member>
@@ -55,8 +70,11 @@
         <member name="F:UtilityPack.ArgsParser.ArgsParser.allowNoParameter">
             <summary> If set to true will not print an error if no pareter is passed </summary>
         </member>
-        <member name="F:UtilityPack.ArgsParser.ArgsParser.optionPrefix">
-            <summary> Carattere o string che riconosce l'inizio della dichiarazione di un'opzione. (Default "-") </summary>
+        <member name="F:UtilityPack.ArgsParser.ArgsParser.optionPrefixs">
+            <summary> List of strings that recognizes the start of an option declaration. (Default {"-", "--"} ) </summary>
+        </member>
+        <member name="F:UtilityPack.ArgsParser.ArgsParser.helpFlags">
+            <summary> List of strings indicating the presence of the "help" option to write the help message. (Default {"-help", "--help", "-h"}) </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.ArgsParser.AddCommand(UtilityPack.ArgsParser.ArgsCommand)">
             <summary> Add a new command definition </summary>
@@ -123,6 +141,11 @@
         </member>
         <member name="M:UtilityPack.ArgsParser.ArgsParser.PrintError(System.String,System.String)">
             <summary> Function of parsing error printing </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.ArgsParser.PrintHelp(UtilityPack.ArgsParser.ArgsCommand)">
+            <summary>
+            Write the help message of the last command inserted, if no command is found, print the command list
+            </summary>
         </member>
         <member name="T:UtilityPack.ArgsParser.ArgsParseErrorException">
             <summary> Eccezzione lanciata quando avviene un errore nel parsing degli argomenti </summary>

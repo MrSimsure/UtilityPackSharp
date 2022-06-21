@@ -43,7 +43,7 @@
         <member name="P:UtilityPack.Database.Database.system">
             <summary> Type of this database </summary>
         </member>
-        <member name="M:UtilityPack.Database.Database.#ctor(System.String,System.String,System.String,System.String,System.Nullable{UtilityPack.Database.DbSystem})">
+        <member name="M:UtilityPack.Database.Database.#ctor(System.String,System.String,System.String,System.String,System.Nullable{UtilityPack.Database.DbSystem},System.Boolean)">
             <summary> 
             Abstraction class for easily connecting to an SQL database 
             </summary>

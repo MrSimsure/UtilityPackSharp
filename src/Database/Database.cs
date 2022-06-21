@@ -54,13 +54,19 @@ namespace UtilityPack.Database
         /// <summary> 
         /// Abstraction class for easily connecting to an SQL database 
         /// </summary>
-        public Database(string database, string dataSource, string user, string password, DbSystem? _type = null)
+        public Database(string database, string dataSource, string user, string password, DbSystem? _type = null, bool useIntegratedAuth = false)
         {
             bool isFdb = database.Contains(".FDB") || database.Contains(".fdb") || user.Contains("SYSDBA");
  
             if(_type == DbSystem.SQL_SERVER || (_type == null && isFdb == false))
             { 
-                string connetionString = $@"Data Source={dataSource};User ID={user};Password={password};Database={database};";
+                string connetionString;
+                
+                if(useIntegratedAuth)
+                    connetionString = $@"Data Source={dataSource};Integrated Security=SSPI;Database={database};";
+                else
+                    connetionString = $@"Data Source={dataSource};User ID={user};Password={password};Database={database};";
+
                 connection = new SqlConnection(connetionString);
                 system = DbSystem.SQL_SERVER;
             }

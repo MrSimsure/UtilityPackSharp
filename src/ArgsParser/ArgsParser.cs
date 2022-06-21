@@ -15,25 +15,27 @@ namespace UtilityPack.ArgsParser
         private Dictionary<string, string> Commands  = new Dictionary<string, string>();
         private Dictionary<string, string> Options   = new Dictionary<string, string>();
         private Dictionary<string, string> Parameter = new Dictionary<string, string>();
+        private bool IsHelp = false;
 
         /// <summary> If set to true will not print an error if no command is used </summary>
         public bool allowNoCommand = false;
         /// <summary> If set to true will not print an error if no pareter is passed </summary>
         public bool allowNoParameter = false;
-        /// <summary> Carattere o string che riconosce l'inizio della dichiarazione di un'opzione. (Default "-") </summary>
-        public string optionPrefix = "-";
-
+        /// <summary> List of strings that recognizes the start of an option declaration. (Default {"-", "--"} ) </summary>
+        public string[] optionPrefixs = { "-", "--"};
+        /// <summary> List of strings indicating the presence of the "help" option to write the help message. (Default {"-help", "--help", "-h"}) </summary>
+        public string[] helpFlags = { "-help", "--help", "-h"};
 
         /// <summary> Add a new command definition </summary>
-        public void AddCommand(ArgsCommand command)
+     public void AddCommand(ArgsCommand command)
         {
             CommandsDefinition.Add(command);
         }
-        /// <summary> Add a new array of commands definition </summary>
-        public void AddCommand(ArgsCommand[] command)
+     /*     /// <summary> Add a new array of commands definition </summary>
+        public void AddCommand(List<ArgsCommand> command)
         {
             CommandsDefinition.AddRange(command);
-        }
+        }*/
 
         /// <summary> Add a new option definition </summary>
         public void AddOption(ArgsOption option)
@@ -172,10 +174,63 @@ namespace UtilityPack.ArgsParser
                     str += param.Name+", ";
                  }
                  str = str.TrimEnd(' ').TrimEnd(',');
-                 str += "\n\n";
             }
 
             return str;
+        }
+
+
+        private void ElaborateOption(ArgData Arg, ref int indexArg)
+        {
+            bool optionFound = false;
+
+            for(int j=0; j<OptionsDefinition.Count; j++)
+            {         
+                ArgsOption definition = OptionsDefinition[j];
+                if(Arg.currName == definition.Name || Arg.currName == definition.Alias)
+                {
+                    optionFound = true;
+
+                    if(definition.IsFlag == false)
+                    {
+                        if(Arg.next != null && Arg.nextIsOpt == false)
+                        {
+                            Options[definition.Name] = Arg.next;
+                            indexArg++;
+                        }
+                        else
+                        {
+                            PrintError($"value for option '{definition.Name}' not valid");
+                        }
+                    }
+                    else
+                    {
+                        string value = definition.DefaultValue != null ? definition.DefaultValue : "";
+                        Options[definition.Name] = value;
+                    }
+
+                }
+            }
+
+            if(optionFound == false)
+                PrintError($"unknown option '{Arg.curr}'");
+        }
+
+        private void ElaborateCommand(ArgData Arg, ref List<string> tempParameter)
+        {
+            bool commandFound = false;
+            for(int j=0; j<CommandsDefinition.Count; j++)
+            {
+                ArgsCommand definition = CommandsDefinition[j];
+                if(Arg.currName == definition.Name)
+                {
+                    commandFound = true;
+                    Commands[definition.Name] = "";
+                }
+            }
+
+            if(commandFound == false)
+                tempParameter.Add(Arg.curr);
         }
 
 
@@ -184,104 +239,77 @@ namespace UtilityPack.ArgsParser
         {
             List<string> tempParameter = new List<string>();
 
-            //loop all the arguments
+            // loop all the arguments
             int size = args.Length;
-            for (int i=0; i<size; i++)
+            for(int indexArg=0; indexArg<size; indexArg++)
             {
-                //detect argument type
-                string curr = args[i];
-                string currName = curr.Replace("-", "");
-                bool currIsOpt = false;
-
-                if(curr.Length > 0)
-                        currIsOpt = curr[0] == '-';
-
-                string next = null;
-                bool nextIsOpt = false;
-
-                if (i+1 < size)
+                ArgData Arg = new ArgData()
                 {
-                    next = args[i + 1];
+                    curr = args[indexArg],
+                    currName = args[indexArg],
+                    next = null,
+                    currIsOpt  = false,
+                    nextIsOpt  = false
+                };
 
-                    if(next.Length > 0)
-                        nextIsOpt = next[0].ToString() == optionPrefix;
-                }
-
-                //if is an option
-                if (currIsOpt)
-                {       
-                    bool optionFound = false;
-                    for (int j = 0; j < OptionsDefinition.Count; j++)
-                    {         
-                        ArgsOption definition = OptionsDefinition[j];
-                        if (currName == definition.Name || currName == definition.Alias)
-                        {
-                            optionFound = true;
-
-                            if (definition.IsFlag == false)
-                            {
-                                if (next != null && nextIsOpt == false)
-                                {
-                                    Options[definition.Name] = next;
-
-                                    i++;
-                                }
-                                else
-                                {
-                                    PrintError($"value for option '{definition.Name}' not valid");
-                                }
-                            }
-                            else
-                            {
-                                string value = "";
-
-                                if (definition.DefaultValue != null)
-                                    value = definition.DefaultValue;
-
-                                Options[definition.Name] = value;
-                            }
-
-                        }
+                // check if current is option
+                if(Arg.curr.Length > 0)
+                {
+                    if(IsHelp == false)
+                    { 
+                        IsHelp = helpFlags.Contains(Arg.curr);
+                        if(IsHelp)
+                            continue;
                     }
-
-                    if (optionFound == false)
-                        PrintError($"unknown option '{curr}'");
-                }
-                else  //if is a command or a parameter
-                {    
-                    bool commandFound = false;
-                    for (int j = 0; j < CommandsDefinition.Count; j++)
+             
+                    for(int n=0; n<optionPrefixs.Length; n++)
                     {
-                        ArgsCommand definition = CommandsDefinition[j];
-                        if (currName == definition.Name)
-                        {
-                            commandFound = true;
-                            Commands[definition.Name] = "";
-                        }
-                    }
+                        if(!Arg.currIsOpt)
+                            Arg.currIsOpt = Arg.curr.StartsWith(optionPrefixs[n]); 
 
-                    if (commandFound == false)
-                    {
-                        tempParameter.Add(curr);
+                        if(Arg.currIsOpt)
+                            Arg.currName = Arg.currName.TrimStart(optionPrefixs[n].ToCharArray());
                     }
                 }
+
+                // check if next exist and if is option
+                if(indexArg+1 < size)
+                {
+                    Arg.next = args[indexArg+1];
+
+                    if(Arg.next.Length > 0)
+                    {
+                        for(int n=0; n<optionPrefixs.Length; n++)
+                            Arg.nextIsOpt = Arg.next.StartsWith(optionPrefixs[n]);
+                    }
+                }
+
+                if(Arg.currIsOpt)     
+                    ElaborateOption(Arg, ref indexArg);
+                else 
+                    ElaborateCommand(Arg, ref tempParameter);
             }
    
-            //loop all passed option and parameter and check if they are valid for the last command
+            
+
+            // loop all passed option and parameter and check if they are valid for the last command
             if(Commands.Count > 0)
             {
-                //option check
+                // option check
                 string lastCommand = Commands.Keys.ToArray()[Commands.Count - 1];
                 ArgsCommand lastCommandDef = null;
 
-                for (int j = 0; j < CommandsDefinition.Count; j++)
+                for(int j=0; j<CommandsDefinition.Count; j++)
                 {
                     ArgsCommand definition = CommandsDefinition[j];
                     if (lastCommand == definition.Name)
                         lastCommandDef = definition;
                 }
 
-                for (int i = 0; i < Options.Count; i++)
+                if(IsHelp)
+                    PrintHelp(lastCommandDef);
+
+                for(int i=0; i<Options.Count; i++)
                 {
                     string currOpt = Options.Keys.ToArray()[i];
 
@@ -289,7 +317,7 @@ namespace UtilityPack.ArgsParser
                         PrintError($"Option '{currOpt}' not valid for command '{lastCommand}'");
                 }    
 
-                //parameter check
+                // parameter check
                 bool paramExist = false;
                 int paramCorrect = 0;
                 List<ArgsParameter> correctList = new List<ArgsParameter>();
@@ -323,6 +351,7 @@ namespace UtilityPack.ArgsParser
                     }
                 }
      
+                // print errors if parameters aren't valid
                 if(lastCommandDef.ValidParameters.Count > 0 )
                 { 
                     if(paramExist == false)
@@ -353,9 +382,14 @@ namespace UtilityPack.ArgsParser
                         Parameter[param.Name] = tempParameter[i];
                     }       
                 }
+
+                
             }
             else
             {
+                if(IsHelp)
+                    PrintHelp();
+
                 if(CommandsDefinition.Count > 0 && allowNoCommand == false)
                     PrintError("No valid command specified");
             }
@@ -390,5 +424,120 @@ namespace UtilityPack.ArgsParser
             Console.WriteLine(message + "\n");
             throw new ArgsParseErrorException();
         }
+
+
+
+        private void WriteDefinition(string name, string desc, int paddingSize, int consoleSize)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            string cmdName = "    "+name.PadRight(paddingSize+4);
+            Console.Write(cmdName);
+            Console.ResetColor();
+
+            string cmdDesc = desc;
+            List<string> cmdDescPart = new List<string>();
+            while(cmdDesc.Length+cmdName.Length > consoleSize)
+            {
+                if(cmdDesc.Contains("\n") && cmdDesc.IndexOf("\n") <= consoleSize)
+                {
+                    cmdDescPart.Add(cmdDesc.Substring(0, cmdDesc.IndexOf("\n") ));
+                    cmdDesc = cmdDesc.Substring(cmdDesc.IndexOf("\n")+1);
+                }
+                else
+                {
+                    cmdDescPart.Add(cmdDesc.Substring(0, consoleSize-cmdName.Length));
+                    cmdDesc = cmdDesc.Substring(consoleSize-cmdName.Length);
+                }          
+            }
+            cmdDescPart.Add(cmdDesc);
+
+            for(int o=0; o<cmdDescPart.Count; o++)
+                Console.WriteLine( o==0 ? cmdDescPart[o] : new string(' ',cmdName.Length)+cmdDescPart[o].Trim());
+        }
+
+        /// <summary>
+        /// Write the help message of the last command inserted, if no command is found, print the command list
+        /// </summary>
+        public void PrintHelp(ArgsCommand lastCommandDef = null)
+        {        
+            int cmdLongest  = CommandsDefinition.OrderByDescending( s => s.Name.Length ).First().Name.Length;
+            int optLongest  = OptionsDefinition.OrderByDescending(  s => s.Name.Length ).First().Name.Length;
+            int paddingSize = Math.Max(cmdLongest, optLongest);
+            int consoleSize = Console.WindowWidth;
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Commands:");
+            Console.ResetColor();
+
+            for(int n=0; n<CommandsDefinition.Count; n++)
+            {
+                ArgsCommand cmdDef = CommandsDefinition[n];
+
+                if(lastCommandDef != null && lastCommandDef.Name != cmdDef.Name)
+                    continue;
+               
+                WriteDefinition(cmdDef.Name, cmdDef.Description, paddingSize, consoleSize);
+
+                if(lastCommandDef != null && cmdDef.ValidOptions.Count > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\nOptions:");
+                    Console.ResetColor();
+
+                    for(int i=0; i<cmdDef.ValidOptions.Count; i++)
+                    {
+                        string optName = cmdDef.ValidOptions[i];
+                        ArgsOption optDef = OptionsDefinition.Find((e) => e.Name == optName);
+                        optName = optDef.Name;
+                        /*
+                        if(optDef.type == "" && optDef.IsFlag)
+                            optName += ": flag"; 
+                        
+                        if(optDef.type != "")
+                            optName += ": "+optDef.type; 
+                        */
+                        if(optDef != null)
+                            WriteDefinition("--"+optName, optDef.Description, paddingSize, consoleSize);       
+                    }
+                }
+
+
+                if(lastCommandDef != null && cmdDef.ValidParameters.Count > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\nParameters:");
+                    Console.ResetColor();
+
+                    for(int i=0; i<cmdDef.ValidParameters.Count; i++)
+                    {
+                        string parName = cmdDef.ValidParameters[i];
+                        List<ArgsParameter> parDef = ParameterDefinition[parName];
+
+                        if(parDef != null)
+                        {
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("    ");Console.WriteLine(""+parName);
+                            Console.ResetColor();
+                            Console.Write(new String(' ',paddingSize+8));Console.WriteLine(GetTextParameter(new string[] {parName})+"\n");
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("");
+            Environment.Exit(0);  
+        }
+    }
+
+    struct ArgData
+    {
+        public string curr;
+        public string currName;
+        public string next;
+        public bool currIsHelp;
+        public bool currIsOpt;
+        public bool nextIsOpt;
     }
 }
+
+

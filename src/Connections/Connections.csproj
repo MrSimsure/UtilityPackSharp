@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.1.0</Version>
+		<Version>1.1.1</Version>
 		<Description>Utility class for connecting to various protocols</Description>
 		<Authors>Simone Benigni</Authors>
 		<PackageTags>Utility; Connection;</PackageTags>

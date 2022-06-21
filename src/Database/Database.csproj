@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<Title>$(AssemblyName)</Title>
 		<PackageId>$(SolutionName).$(AssemblyName)</PackageId>
-		<Version>1.1.9</Version>
+		<Version>1.1.10</Version>
 		<Description>Utility class for easily manage databases</Description>
 		<Authors>Simone Benigni</Authors>
 		<PackageTags>Utility; Database; SQL;</PackageTags>

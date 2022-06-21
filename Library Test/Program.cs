@@ -29,7 +29,7 @@ namespace Library_Test
     {
         // Create the Setting instance, passing the definition class as generic parameter
         public static Settings<ProgramData> setting = new();
-
+        public static ArgsParser parser = new();
 
         class jsonObj
         {
@@ -39,8 +39,8 @@ namespace Library_Test
 
         static void Main()
         {
-           
-            test_ftp();
+            
+            test_parser(new string[] {"replace", "-help"});
         }
 
 
@@ -52,9 +52,9 @@ namespace Library_Test
 
             IEnumerable<string> foundFiles = Directory.EnumerateFiles(directory, pattern);
 
-            if (foundFiles.Any())
+            if(foundFiles.Any())
             {
-                if (foundFiles.Count() > 1)
+                if(foundFiles.Count() > 1)
                 {
                     throw new Exception("Ambiguous File reference for " + path);
                 }
@@ -69,7 +69,7 @@ namespace Library_Test
             }
 
             return resultFileName;
-        }
+        } 
 
         public static void test_sftp()
         {
@@ -154,11 +154,82 @@ namespace Library_Test
         {
             ArgsParser parser = new();
 
+            parser.AddCommand(new()
+            {
+                 Name = "replace",
+                 ValidOptions = {"all", "null", "opziona"},
+                 ValidParameters = {"replaceParam", "additionalParam"},
+                 Description = "Rimpiazza uno o piu caratteri di un file con determinati altri caratteri, il resto di questa descrizione è soltanto una prova,"+ 
+                               "per avere un testo piu lungo per dimostrare che il padding del testo viene bene.\n"+
+                               "Rimpiazza uno o piu caratteri di un file con determinati altri caratteri, il resto di questa descrizione è soltanto una prova,"+
+                               "per avere un testo piu lungo per dimostrare che il padding del testo viene bene."
+            });
+                
+            parser.AddParameterGroup("replaceParam", new[]
+            {
+                new ArgsParameter("base_string"),
+                new ArgsParameter("to_replace"),
+                new ArgsParameter("new_string"),
+            });
+
+            parser.AddParameterGroup("additionalParam", new[]
+            {
+                new ArgsParameter("base_string"),
+                new ArgsParameter("to_replace"),
+                new ArgsParameter("new_string"),
+                new ArgsParameter("base_string2"),
+                new ArgsParameter("to_replace2"),
+                new ArgsParameter("new_string2"),
+            });
+
+            parser.AddOption(new[]
+            {
+                new ArgsOption("opziona") { Alias = "n",  IsFlag = true,                   Description = "Se attivo nessun carattere sarà rimpiazzato "},
+                new ArgsOption("all")     { Alias = "a",  IsFlag = false,  type="string",  Description = "Se attivo rimpiazza tutte le sotto stringhe trovate.\nSe attivo nessun carattere sarà rimpiazzato. Se attivo nessun carattere sarà rimpiazzato.\nSe attivo nessun carattere sarà rimpiazzato"},
+                new ArgsOption("null")    { Alias = "n",  IsFlag = false,  type="number",  Description = "Se attivo nessun carattere sarà rimpiazzato"}
+            });
+
+            try
+            { 
+                parser.Parse(args); 
+
+                if(parser.GetCommand(0) == "append")
+                {
+                    Console.WriteLine(parser.OptionExist("all"));
+                }  
+            }
+            catch (ArgsParseErrorException e) 
+            { 
+                Console.WriteLine(e.StackTrace); 
+            }
+        }
+    
+
+        /*
+         * public static void test_parser(string[] args)
+        {
+            ArgsParser parser = new();
+
             parser.AddCommand(new[]
             {
                 new ArgsCommand("replace")
                 {
-                    ValidOptions    = {"help", "all"}
+                    ValidOptions = {"all", "null", "opziona"},
+                    ValidParameters = {"replaceParam", "additionalParam"},
+                    Description = "Rimpiazza uno o piu caratteri di un file con determinati altri caratteri, il resto di questa descrizione è soltanto una prova,"+ 
+                                  "per avere un testo piu lungo per dimostrare che il padding del testo viene bene.\n"+
+                                  "Rimpiazza uno o piu caratteri di un file con determinati altri caratteri, il resto di questa descrizione è soltanto una prova,"+
+                                  "per avere un testo piu lungo per dimostrare che il padding del testo viene bene."
+                },
+                new ArgsCommand("append")
+                {
+                    ValidOptions = {"all", "null"},
+                    Description = "Aggiunge del nuovo testo alla fine di un file \nAggiunge del nuovo testo alla fine di un file \nAggiunge del nuovo testo alla fine di un file \nAggiunge del nuovo testo alla fine di un file Aggiunge del nuovo testo alla fine di un file"
+                },
+                new ArgsCommand("write")
+                {
+                    ValidOptions = {"all"},
+                    Description = "Sovrascrive un file con il contenuto di un nuovo file"
                 }
             });
                 
@@ -169,38 +240,38 @@ namespace Library_Test
                 new ArgsParameter("new_string"),
             });
 
+            parser.AddParameterGroup("additionalParam", new[]
+            {
+                new ArgsParameter("base_string"),
+                new ArgsParameter("to_replace"),
+                new ArgsParameter("new_string"),
+                new ArgsParameter("base_string2"),
+                new ArgsParameter("to_replace2"),
+                new ArgsParameter("new_string2"),
+            });
+
             parser.AddOption(new[]
             {
-                new ArgsOption("help") { Alias = "h",  IsFlag = true},
-                new ArgsOption("all")  { Alias = "a",  IsFlag = false}
+                new ArgsOption("opziona") { Alias = "n",  IsFlag = true, Description = "Se attivo nessun carattere sarà rimpiazzato "},
+                new ArgsOption("all")     { Alias = "a",  IsFlag = false, type="string", Description = "Se attivo rimpiazza tutte le sotto stringhe trovate.\nSe attivo nessun carattere sarà rimpiazzato. Se attivo nessun carattere sarà rimpiazzato.\nSe attivo nessun carattere sarà rimpiazzato"},
+                new ArgsOption("null")    { Alias = "n",  IsFlag = false, type="number",  Description = "Se attivo nessun carattere sarà rimpiazzato"}
             });
 
             try
             { 
                 parser.Parse(args); 
+
+                if(parser.GetCommand(0) == "append")
+                {
+                    Console.WriteLine(parser.OptionExist("all"));
+                }  
             }
             catch (ArgsParseErrorException e) 
             { 
                 Console.WriteLine(e.StackTrace); 
             }
-
-
-            if(parser.GetCommand(0) == "replace")
-            {
-                /*
-                string baseString = parser.GetParameter("base_string");
-                string toReplace  = parser.GetParameter("to_replace");
-                string newString  = parser.GetParameter("new_string");
-                */
-
-                double opt = parser.LoadOption("all", 23.0);
-                Console.WriteLine(opt);
-               // string result = baseString.Replace(toReplace, newString);
-
-                //Console.WriteLine(result);
-            }     
         }
-    
+        */
         public static void test_logger()
         {
             // Set the main log folder location

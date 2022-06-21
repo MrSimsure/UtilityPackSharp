@@ -179,6 +179,30 @@ namespace UtilityPack.Logger
             }
         }
 
+        private static string JoinPath(string path1, string path2 = null)
+        {
+            string final;
+
+            if(path2 != null)
+            { 
+                if(Path.IsPathRooted(path2))
+		        {
+			        path2 = path2.TrimStart(Path.DirectorySeparatorChar);
+			        path2 = path2.TrimStart(Path.AltDirectorySeparatorChar);
+		        }
+
+                final = Path.Combine(path1, path2);
+                final += final.EndsWith("/") || path1.EndsWith(@"\") ? "" : "/";
+            }
+            else
+            {
+                final = path1.EndsWith("/") || path1.EndsWith(@"\") ? path1 : path1+"/";
+            }
+
+		    return final;
+        }
+
+
         /// <summary> 
         /// Set the log save location 
         /// </summary>
@@ -188,32 +212,32 @@ namespace UtilityPack.Logger
             {
                 case LogLocation.ROOT:
                 {
-                    BasePath = Path.GetPathRoot(Environment.SystemDirectory)+@"\"+customDir;
+                    BasePath = JoinPath(Path.GetPathRoot(Environment.SystemDirectory), customDir);
                     break;
                 }
-                case LogLocation.CUSTOM:
+                case LogLocation.CUSTOM: 
                 {
-                    BasePath = customDir;
+                    BasePath = JoinPath(customDir);
                     break;
                 }
                 case LogLocation.EXEDIR:
                 {
-                    BasePath = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
+                    BasePath = JoinPath(AppDomain.CurrentDomain.BaseDirectory, customDir);
                     break;
                 }
                 case LogLocation.PROGDATA:
                 {
-                    BasePath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)+@"\"+customDir;
+                    BasePath = JoinPath(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), customDir);
                     break;
                 }
                 case LogLocation.APPDATAROAM:
                 {
-                    BasePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\"+customDir;
+                    BasePath = JoinPath(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), customDir);
                     break;
                 }
                 case LogLocation.APPDATALOCA:
                 {
-                    BasePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+@"\"+customDir;
+                    BasePath = JoinPath(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), customDir);
                     break;
                 }
             }

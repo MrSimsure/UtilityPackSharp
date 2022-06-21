@@ -81,7 +81,7 @@ namespace UtilityPack.Setting
             catch (Exception)
             {
                 data = (T)Activator.CreateInstance(typeof(T));
-                string settingsJson = JsonSerializer.Serialize(data);
+                string settingsJson = JsonSerializer.Serialize(data, new JsonSerializerOptions(){WriteIndented = prettyPrint });
 
                 if(File.Exists(filePath))
                     File.Move(filePath, path + name + "_reading_error.json");
@@ -175,6 +175,29 @@ namespace UtilityPack.Setting
         }
         
 
+        private static string JoinPath(string path1, string path2 = null)
+        {
+            string final;
+
+            if(path2 != null)
+            { 
+                if(Path.IsPathRooted(path2))
+		        {
+			        path2 = path2.TrimStart(Path.DirectorySeparatorChar);
+			        path2 = path2.TrimStart(Path.AltDirectorySeparatorChar);
+		        }
+
+                final = Path.Combine(path1, path2);
+                final += final.EndsWith("/") || path1.EndsWith(@"\") ? "" : "/";
+            }
+            else
+            {
+                final = path1.EndsWith("/") || path1.EndsWith(@"\") ? path1 : path1+"/";
+            }
+
+		    return final;
+        }
+
         /// <summary> 
         /// Set the settings file save location.<br/>
         /// When location == SettLocation.CUSTOM, the "customDir" parameter work as a full path.<br/>
@@ -186,32 +209,32 @@ namespace UtilityPack.Setting
             {
                 case SettLocation.ROOT:
                 {
-                    path = Path.GetPathRoot(Environment.SystemDirectory)+@"\"+customDir;
+                    path = JoinPath(Path.GetPathRoot(Environment.SystemDirectory), customDir);
                     break;
                 }
                 case SettLocation.CUSTOM:
                 {
-                    path = customDir;
+                    path = JoinPath(customDir);
                     break;
                 }
                 case SettLocation.EXEDIR:
                 {
-                    path = AppDomain.CurrentDomain.BaseDirectory+@"\"+customDir;
+                    path = JoinPath(AppDomain.CurrentDomain.BaseDirectory, customDir);
                     break;
                 }
                 case SettLocation.PROGDATA:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)+@"\"+customDir;
+                    path = JoinPath(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), customDir);
                     break;
                 }
                 case SettLocation.APPDATAROAM:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+@"\"+customDir;
+                    path = JoinPath(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), customDir);
                     break;
                 }
                 case SettLocation.APPDATALOCA:
                 {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+@"\"+customDir;
+                    path = JoinPath(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), customDir);
                     break;
                 }
             }
