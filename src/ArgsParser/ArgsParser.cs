@@ -213,7 +213,7 @@ namespace UtilityPack.ArgsParser
             }
 
             if(optionFound == false)
-                PrintError($"unknown option '{Arg.curr}'");
+                PrintWarning($"unknown option '{Arg.curr}'");
         }
 
         private void ElaborateCommand(ArgData Arg, ref List<string> tempParameter)
@@ -302,7 +302,7 @@ namespace UtilityPack.ArgsParser
                 for(int j=0; j<CommandsDefinition.Count; j++)
                 {
                     ArgsCommand definition = CommandsDefinition[j];
-                    if (lastCommand == definition.Name)
+                    if(lastCommand == definition.Name)
                         lastCommandDef = definition;
                 }
 
@@ -314,7 +314,7 @@ namespace UtilityPack.ArgsParser
                     string currOpt = Options.Keys.ToArray()[i];
 
                     if (!lastCommandDef.ValidOptions.Contains(currOpt))
-                        PrintError($"Option '{currOpt}' not valid for command '{lastCommand}'");
+                        PrintWarning($"Option '{currOpt}' not valid for command '{lastCommand}'");
                 }    
 
                 // parameter check
@@ -372,7 +372,8 @@ namespace UtilityPack.ArgsParser
                         }
                     }
                 }
-                    
+
+               
 
                 for(int i=0; i<correctList.Count; i++)
                 {
@@ -382,8 +383,6 @@ namespace UtilityPack.ArgsParser
                         Parameter[param.Name] = tempParameter[i];
                     }       
                 }
-
-                
             }
             else
             {
@@ -425,6 +424,14 @@ namespace UtilityPack.ArgsParser
             throw new ArgsParseErrorException();
         }
 
+        /// <summary> Function of parsing error printing </summary>
+        private void PrintWarning(string error, string message = "")
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("ARGUMENTS WARNING: " + error + "\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(message + "\n");
+        }
 
 
         private void WriteDefinition(string name, string desc, int paddingSize, int consoleSize)

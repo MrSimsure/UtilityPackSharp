@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UtilityPack.ArgsParser
 {
-    /*
+    
     /// <summary> Argument Command definition </summary>
     public class ArgsCommand
     {
@@ -17,23 +17,13 @@ namespace UtilityPack.ArgsParser
         public List<string> ValidParameters = new List<string>();
 
         /// <summary> Argument Command definition </summary>
-        public ArgsCommand()//string name)
+        public ArgsCommand(string name = null)
         {
-            //Name = name;
+            if(name != null)
+                Name = name;
         }
     }
-    */
-    public struct ArgsCommand
-    {
-        /// <summary> Command Name </summary>
-        public string Name;
-        /// <summary> Command description, shown when the -help option is used </summary>
-        public string Description;
-        /// <summary> List of valid options for this command </summary>
-        public List<string> ValidOptions;
-        /// <summary> List of valid parameters group for this command </summary>
-        public List<string> ValidParameters;
-    }
+   
 
 
     /// <summary> Argument Option definition </summary>
@@ -53,9 +43,10 @@ namespace UtilityPack.ArgsParser
         public string DefaultValue = "";
 
         /// <summary> Argument Option definition </summary>
-        public ArgsOption(string name)
+        public ArgsOption(string name = null)
         {
-            Name = name;
+            if(name != null)
+                Name = name;
         }
     }
 
@@ -69,9 +60,10 @@ namespace UtilityPack.ArgsParser
         /// <summary> Type of this argument </summary>
         public string type = "";
         /// <summary> Argument Parameter definition </summary>
-        public ArgsParameter(string name)
+        public ArgsParameter(string name = null)
         {
-            Name = name;
+            if(name != null)
+                Name = name;
         }
     }
 }

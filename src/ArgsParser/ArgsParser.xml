@@ -79,9 +79,6 @@
         <member name="M:UtilityPack.ArgsParser.ArgsParser.AddCommand(UtilityPack.ArgsParser.ArgsCommand)">
             <summary> Add a new command definition </summary>
         </member>
-        <member name="M:UtilityPack.ArgsParser.ArgsParser.AddCommand(UtilityPack.ArgsParser.ArgsCommand[])">
-            <summary> Add a new array of commands definition </summary>
-        </member>
         <member name="M:UtilityPack.ArgsParser.ArgsParser.AddOption(UtilityPack.ArgsParser.ArgsOption)">
             <summary> Add a new option definition </summary>
         </member>
@@ -140,6 +137,9 @@
             <summary> Print all the parameters parsed and their values </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.ArgsParser.PrintError(System.String,System.String)">
+            <summary> Function of parsing error printing </summary>
+        </member>
+        <member name="M:UtilityPack.ArgsParser.ArgsParser.PrintWarning(System.String,System.String)">
             <summary> Function of parsing error printing </summary>
         </member>
         <member name="M:UtilityPack.ArgsParser.ArgsParser.PrintHelp(UtilityPack.ArgsParser.ArgsCommand)">

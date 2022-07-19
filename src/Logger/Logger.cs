@@ -29,7 +29,7 @@ namespace UtilityPack.Logger
         /// Root directory where to save the logs <br/> 
         /// (Default same directory as the exe) 
         /// </summary>
-        public static string BasePath = AppDomain.CurrentDomain.BaseDirectory+@"\";
+        public static string BasePath = AppDomain.CurrentDomain.BaseDirectory+@"\Logs";
 
         /// <summary> 
         /// Additional sub directories where save the logs, added at the end of BasePath <br/> 
@@ -76,7 +76,7 @@ namespace UtilityPack.Logger
             {
                 string fileDate = DateTime.Now.ToString("dd-MM-yyyy__HH-mm-ss");
                 string fileName = $"Log__{fileDate}."+ext;
-                string fullPath = BasePath+SubPath;
+                string fullPath = JoinPath(BasePath, SubPath);
 
                 if(!fullPath.EndsWith("/"))
                     fullPath += "/";
@@ -163,7 +163,7 @@ namespace UtilityPack.Logger
         public static void ClearLogFolder(string chosenPath = null)
         {
             if(chosenPath == null)
-                chosenPath = BasePath;
+                chosenPath = JoinPath(BasePath, SubPath);;
 
             DirectoryInfo dir = new DirectoryInfo(chosenPath);
 
